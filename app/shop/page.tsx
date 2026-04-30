@@ -106,7 +106,7 @@ export default function ShopPage() {
       <section data-section style={{ background: black, padding: '80px 48px' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
           <div data-reveal style={{ position: 'relative', borderRadius: '3px', overflow: 'hidden' }}>
-            <img src={IMAGES.PRODUCT_REWILD} alt="REWILD Tee" style={{ width: '100%', display: 'block' }} />
+            <img src={IMAGES.PRODUCT_REWILD_SHOWCASE} alt="REWILD Tee" style={{ width: '100%', display: 'block' }} />
             <div style={{ position: 'absolute', top: '16px', left: '16px', fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '3px', color: 'white', background: coralD, padding: '5px 12px', borderRadius: '2px' }}>ICON PIECE</div>
           </div>
           <div>

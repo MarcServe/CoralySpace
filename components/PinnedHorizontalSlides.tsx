@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 import { useLayoutEffect, useMemo, useRef } from 'react';
-import { animate, scroll } from 'motion';
+import { scroll } from 'motion';
 
 type Slide = {
   key: string;
@@ -48,21 +48,15 @@ export default function PinnedHorizontalSlides({
       return;
     }
 
-    const stops: Array<() => void> = [];
-
-    const stopMove = scroll(
-      animate(track, {
-        transform: ['none', `translateX(-${moveCount}00vw)`],
-      }),
-      {
-        target: container,
-      },
-    );
-    if (typeof stopMove === 'function') stops.push(stopMove);
-
-    // Pronounced fade-in/out as each slide passes the "center" of the viewport.
-    const stopFade = scroll(
+    // Keep transform, fade, and progress in one scroll observer to avoid jitter
+    // during sticky horizontal movement.
+    const stop = scroll(
       (p: number) => {
+        track.style.transform = `translate3d(${-p * moveCount * 100}vw, 0, 0)`;
+        if (progress && progressRef.current) {
+          progressRef.current.style.transform = `scaleX(${p})`;
+        }
+
         const step = moveCount === 0 ? 1 : 1 / moveCount;
         // Controls fade overlap. Too small can create scroll ranges where *all*
         // slides evaluate to near-zero opacity (=> "blank" pillars).
@@ -91,21 +85,9 @@ export default function PinnedHorizontalSlides({
         target: container,
       },
     );
-    if (typeof stopFade === 'function') stops.push(stopFade);
-
-    if (progress && progressRef.current) {
-      const progressEl = progressRef.current;
-      const stopProgress = scroll(
-        animate(progressEl, { scaleX: [0, 1] }),
-        {
-          target: container,
-        },
-      );
-      if (typeof stopProgress === 'function') stops.push(stopProgress);
-    }
 
     return () => {
-      stops.forEach((fn) => fn());
+      if (typeof stop === 'function') stop();
     };
   }, [shouldAnimate, moveCount, progress]);
 
@@ -133,6 +115,7 @@ export default function PinnedHorizontalSlides({
               padding: 0,
               listStyle: 'none',
               transform: 'none',
+              willChange: 'transform',
             }}
           >
             {slides.map((s, i) => (
@@ -168,9 +151,7 @@ export default function PinnedHorizontalSlides({
             zIndex: 200,
             height: '3px',
             transformOrigin: 'left center',
-            // Matches the Motion `scaleX` animation pattern used elsewhere in the codebase
-            // (initial value via the CSS `scale` property).
-            scale: 0,
+            transform: 'scaleX(0)',
             background: progressColor,
             borderRadius: 999,
           }}
