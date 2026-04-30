@@ -35,9 +35,9 @@ function Hero() {
         alignItems: 'stretch',
       }}
     >
-      {/* Full-bleed motion hero background */}
+      {/* Desktop uses a blurred fill layer plus a full-frame layer to avoid cropping the portrait video. */}
       <video
-        className="home-hero__media"
+        className="home-hero__media home-hero__media--fill"
         aria-hidden
         autoPlay
         muted
@@ -50,6 +50,25 @@ function Hero() {
           width: '100%',
           height: '100%',
           objectFit: 'cover',
+          objectPosition: 'center center',
+        }}
+      >
+        <source src={IMAGES.HERO_MOTION} type="video/mp4" />
+      </video>
+      <video
+        className="home-hero__media home-hero__media--full"
+        aria-hidden
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'contain',
           objectPosition: 'center center',
         }}
       >
@@ -148,6 +167,7 @@ function ModelsSection() {
   const [hov, setHov] = useState<number | null>(null);
   const shots = [
     { img: IMAGES.MODEL_COAST, caption: 'Butterfly & Moon Tee', sub: 'At the coast · @coraly.space', accent: '#3A5A8A' },
+    { img: IMAGES.MODEL_LISBON_SCULPTURE, caption: 'Coraly Space Hoodie', sub: 'Lisbon explorer · Coraly UK', accent: gold },
     { img: IMAGES.CAROLINE_FIELD, caption: 'Coraly Space Tank', sub: 'Out in nature · Summer collection', accent: coral },
     { img: IMAGES.CAROLINE_SNOW, caption: 'Model with Impact', sub: 'Every season. Every explorer.', accent: '#8B2020' },
   ];
@@ -166,7 +186,7 @@ function ModelsSection() {
           </div>
           <Link href="/shop" className="gbtn" data-reveal>View All Community →</Link>
         </div>
-        <div className="responsive-grid responsive-grid--3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px' }}>
+        <div className="responsive-grid responsive-grid--3" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '16px' }}>
           {shots.map((s, i) => (
             <div key={i} data-reveal
               onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}
@@ -368,9 +388,10 @@ interface CardProps {
   onHover: () => void;
   onLeave: () => void;
   minimal?: boolean;
+  blendedImage?: boolean;
 }
 
-function TechyCard({ num, label, titleTop, titleBot, desc, cta, href, accent, tag, img, hov, onHover, onLeave, minimal = false }: CardProps) {
+function TechyCard({ num, label, titleTop, titleBot, desc, cta, href, accent, tag, img, hov, onHover, onLeave, minimal = false, blendedImage = false }: CardProps) {
   const nodes: [number, number][] = [[60,80],[200,55],[350,110],[295,205],[150,235],[78,325],[335,315]];
   const lines: [number, number][] = [[0,1],[1,2],[1,3],[0,4],[4,3],[3,6],[4,5],[5,6],[2,6]];
 
@@ -387,24 +408,31 @@ function TechyCard({ num, label, titleTop, titleBot, desc, cta, href, accent, ta
         height: '100%', display: 'flex', flexDirection: 'column',
       }}
     >
-      {/* ── Image zone (top 44%) ───────────────────────────────── */}
-      <div style={{ flex: '0 0 44%', position: 'relative', overflow: 'hidden', background: minimal ? '#101010' : 'transparent' }}>
+      {/* ── Image zone ──────────────────────────────────────────── */}
+      <div style={{ flex: minimal ? '0 0 52%' : '0 0 44%', position: 'relative', overflow: 'hidden', background: minimal ? '#101010' : 'transparent' }}>
         {img ? (
           <>
             {minimal ? (
-              <div
-                className="pillar-card-image-bg"
-                aria-hidden
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  backgroundImage: `url(${img})`,
-                  backgroundSize: 'contain',
-                  backgroundPosition: 'center center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundColor: '#101010',
-                }}
-              />
+              blendedImage ? (
+                <div className="pillar-card-image-bg pillar-card-image-bg--blended" aria-hidden>
+                  <img className="pillar-card-motion-fill" src={img} alt="" aria-hidden />
+                  <img className="pillar-card-motion-main" src={img} alt="" aria-hidden />
+                </div>
+              ) : (
+                <div
+                  className="pillar-card-image-bg"
+                  aria-hidden
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    backgroundImage: `url(${img})`,
+                    backgroundSize: '100% auto',
+                    backgroundPosition: 'center center',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor: '#101010',
+                  }}
+                />
+              )
             ) : (
               <img src={img} alt="" aria-hidden
                 style={{
@@ -497,7 +525,7 @@ function TechyCard({ num, label, titleTop, titleBot, desc, cta, href, accent, ta
   );
 }
 
-function SoftCard({ num, label, titleTop, titleBot, desc, cta, href, accent, tag, img, hov, onHover, onLeave, minimal = false }: CardProps) {
+function SoftCard({ num, label, titleTop, titleBot, desc, cta, href, accent, tag, img, hov, onHover, onLeave, minimal = false, blendedImage = false }: CardProps) {
   return (
     <div
       onMouseEnter={onHover}
@@ -511,24 +539,31 @@ function SoftCard({ num, label, titleTop, titleBot, desc, cta, href, accent, tag
         height: '100%', display: 'flex', flexDirection: 'column',
       }}
     >
-      {/* ── Image zone (top 44%) ───────────────────────────────── */}
-      <div style={{ flex: '0 0 44%', position: 'relative', overflow: 'hidden', background: '#fff' }}>
+      {/* ── Image zone ──────────────────────────────────────────── */}
+      <div style={{ flex: minimal ? '0 0 52%' : '0 0 44%', position: 'relative', overflow: 'hidden', background: '#fff' }}>
         {img ? (
           <>
             {minimal ? (
-              <div
-                className="pillar-card-image-bg"
-                aria-hidden
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  backgroundImage: `url(${img})`,
-                  backgroundSize: 'contain',
-                  backgroundPosition: 'center center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundColor: '#fff',
-                }}
-              />
+              blendedImage ? (
+                <div className="pillar-card-image-bg pillar-card-image-bg--blended" aria-hidden>
+                  <img className="pillar-card-motion-fill" src={img} alt="" aria-hidden />
+                  <img className="pillar-card-motion-main" src={img} alt="" aria-hidden />
+                </div>
+              ) : (
+                <div
+                  className="pillar-card-image-bg"
+                  aria-hidden
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    backgroundImage: `url(${img})`,
+                    backgroundSize: '100% auto',
+                    backgroundPosition: 'center center',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor: '#fff',
+                  }}
+                />
+              )
             ) : (
               <img src={img} alt="" aria-hidden
                 style={{
@@ -597,7 +632,7 @@ function PillarsSection() {
       desc: 'Peer-to-peer sustainable commerce. Buy, sell, and connect with conscious creators worldwide.',
       cta: 'Join the Community', href: '/community',
       accent: coral, tag: 'PEER-TO-PEER · SUSTAINABLE',
-      img: IMAGES.CAROLINE_FIELD,
+      img: IMAGES.BRAND_EXPLORE_CREATE,
       hov: false, onHover: () => {}, onLeave: () => {},
     },
     {
@@ -606,7 +641,8 @@ function PillarsSection() {
       desc: "Organic cotton. On-demand. Zero waste. Caroline's own designs — worn with intention.",
       cta: 'Shop the Collection', href: '/shop',
       accent: gold, tag: 'ORGANIC · ON-DEMAND · ZERO WASTE',
-      img: IMAGES.MODEL_COAST,
+      img: IMAGES.BRAND_CORALY_UK_SHIRT_MOTION,
+      blendedImage: true,
       hov: false, onHover: () => {}, onLeave: () => {},
     },
     {
@@ -625,6 +661,7 @@ function PillarsSection() {
       cta: 'Play & Earn', href: '/community',
       accent: gold, tag: 'CHALLENGES · MISSIONS · BADGES',
       img: IMAGES.BRAND_ADVENTURE,
+      blendedImage: true,
       hov: false, onHover: () => {}, onLeave: () => {},
     },
   ];

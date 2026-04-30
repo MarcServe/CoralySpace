@@ -54,7 +54,10 @@ export const IMAGES = {
   CAROLINE_MODEL: B2_CAROLINE_MODEL,
   // Models
   MODEL_COAST: B3_MODEL_COAST,
+  MODEL_LISBON_SCULPTURE: '/model-lisbon-sculpture.png',
   // Brand assets
+  BRAND_EXPLORE_CREATE: '/explore-create-coraly-space.png',
+  BRAND_CORALY_UK_SHIRT_MOTION: '/coraly-uk-shirt.gif',
   BRAND_GRUFFALO_ART: B2_GRUFFALO_ART,
   BRAND_DANCE_EVENT: B3_DANCE_EVENT,
   BRAND_ADVENTURE: B3_ADVENTURE_GRAPHIC,
