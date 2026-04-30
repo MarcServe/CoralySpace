@@ -318,7 +318,7 @@ function ShopPreview() {
   const items = [
     { img: IMAGES.PRODUCT_BUTTERFLY_MOON, name: 'Butterfly & Moon', price: '£26', tag: 'WHITE · WOMEN\'S', accent: '#3A5A8A', badge: 'AS WORN' },
     { img: IMAGES.PRODUCT_MOON_PHASE, name: 'Moon Phase Tee', price: '£22', tag: 'WHITE · UNISEX', accent: coral, badge: null },
-    { img: IMAGES.PRODUCT_REWILD, name: 'REWILD Tee', price: '£28', tag: 'BLACK · STATEMENT', accent: coralD, badge: 'ICON' },
+    { img: IMAGES.PRODUCT_REWILD_SHOWCASE, name: 'REWILD Tee', price: '£28', tag: 'BLACK · STATEMENT', accent: coralD, badge: 'ICON' },
     { img: IMAGES.PRODUCT_CORAL_ROSE, name: 'Coral Rose Hoodie', price: '£38', tag: 'GREY · HOODIE', accent: coral, badge: 'LOVED' },
   ];
 
