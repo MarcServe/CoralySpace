@@ -632,7 +632,8 @@ function PillarsSection() {
       desc: 'Peer-to-peer sustainable commerce. Buy, sell, and connect with conscious creators worldwide.',
       cta: 'Join the Community', href: '/community',
       accent: coral, tag: 'PEER-TO-PEER · SUSTAINABLE',
-      img: IMAGES.BRAND_EXPLORE_CREATE,
+      img: IMAGES.BRAND_CREATE_CC_MOTION,
+      blendedImage: true,
       hov: false, onHover: () => {}, onLeave: () => {},
     },
     {
@@ -691,6 +692,7 @@ function PillarsSection() {
           <PinnedHorizontalSlides
             topOffsetPx={68}
             progress={true}
+            heightPerSlideVh={72}
             slides={PILLARS.map((p, i) => ({
               key: p.num,
               content: (

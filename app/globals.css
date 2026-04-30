@@ -693,6 +693,22 @@ svg {
     height: auto;
   }
 
+  .pillar-card-image-bg--blended .pillar-card-motion-fill,
+  .pillar-card-image-bg--blended .pillar-card-motion-main {
+    position: absolute !important;
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+
+  .pillar-card-image-bg--blended .pillar-card-motion-main {
+    inset: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    transform: none !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+
   #waitlist-section {
     padding: 72px 20px !important;
   }
@@ -730,6 +746,22 @@ svg {
 
   .site-nav__links {
     width: min(290px, 88vw);
+  }
+
+  .pillar-slide-card-wrap > div > div:first-child {
+    flex-basis: 48% !important;
+  }
+
+  .pillar-card-image-bg--blended {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .pillar-card-image-bg--blended .pillar-card-motion-main {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
   }
 
   .home-hero__content {
