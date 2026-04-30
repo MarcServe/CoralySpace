@@ -652,7 +652,8 @@ function PillarsSection() {
       desc: 'Blog, courses, events, and community wisdom. Learn, share, and grow together.',
       cta: 'Explore the Hub', href: '/learn',
       accent: coral, tag: 'BLOG · COURSES · EVENTS',
-      img: IMAGES.BLOG_WINTER_COSY,
+      img: IMAGES.BRAND_KNOWLEDGE_TEA_MOTION,
+      blendedImage: true,
       hov: false, onHover: () => {}, onLeave: () => {},
     },
     {

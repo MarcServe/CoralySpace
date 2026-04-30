@@ -59,6 +59,7 @@ export const IMAGES = {
   BRAND_EXPLORE_CREATE: '/explore-create-coraly-space.png',
   BRAND_CORALY_UK_SHIRT_MOTION: '/coraly-uk-shirt.gif',
   BRAND_CREATE_CC_MOTION: '/createcc.gif',
+  BRAND_KNOWLEDGE_TEA_MOTION: '/knowledge-and-tea.gif',
   BRAND_GRUFFALO_ART: B2_GRUFFALO_ART,
   BRAND_DANCE_EVENT: B3_DANCE_EVENT,
   BRAND_ADVENTURE: B3_ADVENTURE_GRAPHIC,
