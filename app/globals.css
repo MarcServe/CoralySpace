@@ -79,13 +79,56 @@
 
 /* ─── Reset & base ─── */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
 body {
   background: var(--black);
   font-family: 'DM Sans', sans-serif;
   color: var(--off-white);
   margin: 0;
-  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  position: relative;
+}
+
+@supports not (overflow-x: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+[data-section],
+.site-nav,
+.site-footer {
+  max-width: 100vw;
+}
+
+.pinned-slides {
+  width: 100%;
+  max-width: 100vw;
+  contain: inline-size;
+}
+
+.pinned-slides__sticky {
+  width: 100%;
+  max-width: 100vw;
+}
+
+.pinned-slides__track {
+  max-width: 100%;
 }
 
 /* ─── Scrollbar ─── */
@@ -383,12 +426,14 @@ body {
   }
 
   .community-features-pinned .pinned-slides__track {
-    width: 600vw !important;
+    width: 100% !important;
   }
 
   .community-feature-slide-card {
     height: calc(100svh - 110px);
-    margin: 0 18px;
+    width: calc(100vw - 36px);
+    max-width: 430px;
+    margin: 0 auto;
     padding: 42px 28px;
     border: 1px solid rgba(239,122,108,.2);
     border-radius: 8px;
@@ -435,6 +480,8 @@ body {
     flex-direction: column !important;
     grid-template-columns: 1fr !important;
     gap: 28px !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   [data-section] > div[style*="grid-template-columns"] > div:has(> img),
@@ -485,6 +532,9 @@ body {
 
   .pinned-slides {
     height: 400svh !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: clip !important;
   }
 
   .pinned-slides__sticky {
@@ -492,17 +542,21 @@ body {
     top: 62px !important;
     height: calc(100svh - 62px) !important;
     overflow: hidden !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
   }
 
   .pinned-slides__track {
     display: flex !important;
-    width: 400vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
     height: 100% !important;
     gap: 0 !important;
   }
 
   .pinned-slides__item {
     width: 100vw !important;
+    max-width: 100vw !important;
     height: 100% !important;
     min-height: 0 !important;
   }
@@ -546,6 +600,48 @@ body {
 
   .site-footer {
     padding: 44px 20px 28px !important;
+  }
+
+  [data-section] {
+    overflow-x: clip;
+  }
+
+  [data-section] h1,
+  [data-section] h2,
+  [data-section] h3,
+  [data-section] p,
+  [data-section] a,
+  [data-section] span,
+  .site-footer,
+  .site-footer * {
+    overflow-wrap: anywhere;
+  }
+
+  [data-section] > div,
+  section > div,
+  footer > div {
+    max-width: 100% !important;
+  }
+
+  [data-section] img,
+  [data-section] video {
+    height: auto;
+  }
+
+  #waitlist-section {
+    padding: 72px 20px !important;
+  }
+
+  #waitlist-section form,
+  #waitlist-section [data-reveal],
+  #waitlist-section input,
+  #waitlist-section select,
+  #waitlist-section button {
+    max-width: 100% !important;
+  }
+
+  #waitlist-section [data-reveal] > div[style*="display: flex"] {
+    flex-direction: column !important;
   }
 
   .site-footer__grid {

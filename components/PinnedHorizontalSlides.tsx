@@ -127,7 +127,7 @@ export default function PinnedHorizontalSlides({
             ref={trackRef}
             style={{
               display: 'flex',
-              width: `${slides.length * 100}vw`,
+              width: '100%',
               height: '100%',
               margin: 0,
               padding: 0,
