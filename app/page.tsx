@@ -692,7 +692,7 @@ function PillarsSection() {
           <PinnedHorizontalSlides
             topOffsetPx={68}
             progress={true}
-            heightPerSlideVh={56}
+            heightPerSlideVh={84}
             slides={PILLARS.map((p, i) => ({
               key: p.num,
               content: (

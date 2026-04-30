@@ -39,6 +39,8 @@ export default function PinnedHorizontalSlides({
     const container = containerRef.current;
     const track = trackRef.current;
     if (!container || !track) return;
+    const sticky = track.parentElement;
+    if (!sticky) return;
 
     if (!shouldAnimate) {
       track.style.transform = 'none';
@@ -48,16 +50,29 @@ export default function PinnedHorizontalSlides({
       return;
     }
 
+    let slideWidth = sticky.clientWidth || window.innerWidth;
+    const measure = () => {
+      slideWidth = sticky.clientWidth || window.innerWidth;
+    };
+    measure();
+
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(sticky);
+
     // Keep transform, fade, and progress in one scroll observer to avoid jitter
-    // during sticky horizontal movement.
+    // during sticky horizontal movement. Pixel translation is more stable than
+    // viewport units while browser chrome and sticky positioning are changing.
     const stop = scroll(
       (p: number) => {
         const isMobile = window.matchMedia('(max-width: 1100px)').matches;
-        const hold = isMobile ? 0.34 : 0.14;
+        const hold = isMobile ? 0.34 : 0.28;
         const rawProgress = Math.min(1, Math.max(0, (p - hold) / (1 - hold * 2)));
         const activeProgress = rawProgress * rawProgress * (3 - 2 * rawProgress);
+        const offset = activeProgress * moveCount * slideWidth;
+        const devicePixelRatio = window.devicePixelRatio || 1;
+        const stableOffset = Math.round(offset * devicePixelRatio) / devicePixelRatio;
 
-        track.style.transform = `translate3d(${-activeProgress * moveCount * 100}vw, 0, 0)`;
+        track.style.transform = `translate3d(${-stableOffset}px, 0, 0)`;
         if (progress && progressRef.current) {
           progressRef.current.style.transform = `scaleX(${p})`;
         }
@@ -93,6 +108,7 @@ export default function PinnedHorizontalSlides({
     );
 
     return () => {
+      resizeObserver.disconnect();
       if (typeof stop === 'function') stop();
     };
   }, [shouldAnimate, moveCount, progress]);
@@ -108,6 +124,9 @@ export default function PinnedHorizontalSlides({
             overflow: 'hidden',
             height: stickyHeightStyle,
             background: 'transparent',
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden',
+            contain: 'paint',
           }}
         >
           <ul
@@ -122,6 +141,7 @@ export default function PinnedHorizontalSlides({
               listStyle: 'none',
               transform: 'none',
               willChange: 'transform',
+              backfaceVisibility: 'hidden',
             }}
           >
             {slides.map((s, i) => (
