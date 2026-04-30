@@ -1,26 +1,129 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --coral: #EF7A6C;
+  --coral-dark: #C0392B;
+  --gold: #C9A84C;
+  --black: #0D0D0D;
+  --cream: #F5EFE8;
+  --sand: #EDE0D4;
+  --muted: #8B7E7B;
+  --off-white: #FAF7F4;
+  --char: #1C1C1C;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-coral: var(--coral);
+  --color-gold: var(--gold);
+  --color-brand-black: var(--black);
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
+  --color-muted: var(--muted);
+  --color-off-white: var(--off-white);
+  --color-char: var(--char);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Keyframes ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes wordIn {
+  from { opacity: 0; transform: translateY(18px) skewY(2deg); }
+  to   { opacity: 1; transform: translateY(0) skewY(0); }
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes ken {
+  0%   { transform: scale(1) translateX(0); }
+  100% { transform: scale(1.05) translateX(-1%); }
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239,122,108,.4); }
+  50%       { box-shadow: 0 0 0 12px rgba(239,122,108,0); }
+}
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes scanH {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(3000%); }
+}
+@keyframes shimmer {
+  0%, 100% { opacity: .6; }
+  50%       { opacity: 1; }
+}
+@keyframes pulseRing {
+  0%, 100% { transform: scale(1);   opacity: .6; }
+  50%       { transform: scale(1.5); opacity: 0;  }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+@keyframes petalSway {
+  0%, 100% { transform: rotate(-4deg) scale(1);    }
+  50%       { transform: rotate(4deg)  scale(1.06); }
+}
+@keyframes nodeFloat {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-7px); }
 }
 
+/* ─── Reset & base ─── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--black);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--off-white);
+  margin: 0;
 }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--coral); }
+
+/* ─── Brand buttons ─── */
+.cbtn {
+  background: var(--coral); color: #fff; border: none;
+  padding: 13px 28px; border-radius: 3px;
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+  transition: all .25s ease; display: inline-block; text-decoration: none;
+}
+.cbtn:hover { background: var(--coral-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(239,122,108,.4); }
+
+.gbtn {
+  background: transparent; color: var(--coral); border: 1.5px solid var(--coral);
+  padding: 12px 28px; border-radius: 3px;
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+  transition: all .25s ease; display: inline-block; text-decoration: none;
+}
+.gbtn:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+
+.glbtn {
+  background: transparent; color: rgba(250,247,244,.85);
+  border: 1.5px solid rgba(250,247,244,.35);
+  padding: 12px 28px; border-radius: 3px;
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+  transition: all .25s ease; display: inline-block; text-decoration: none;
+}
+.glbtn:hover { border-color: var(--coral); color: var(--coral); transform: translateY(-2px); }
+
+.goldbtn {
+  background: var(--gold); color: #fff; border: none;
+  padding: 12px 28px; border-radius: 3px;
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+  transition: all .25s ease; display: inline-block; text-decoration: none;
+}
+.goldbtn:hover { background: #a88830; transform: translateY(-2px); }
+
+/* ─── Page hero offset for fixed nav ─── */
+.page-hero { padding-top: 68px; }
