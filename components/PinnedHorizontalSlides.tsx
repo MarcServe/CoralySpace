@@ -50,14 +50,15 @@ export default function PinnedHorizontalSlides({
       return;
     }
 
-    let slideWidth = sticky.clientWidth || window.innerWidth;
+    let slideWidth = slideRefs.current[0]?.getBoundingClientRect().width || sticky.clientWidth || window.innerWidth;
     const measure = () => {
-      slideWidth = sticky.clientWidth || window.innerWidth;
+      slideWidth = slideRefs.current[0]?.getBoundingClientRect().width || sticky.clientWidth || window.innerWidth;
     };
     measure();
 
     const resizeObserver = new ResizeObserver(measure);
     resizeObserver.observe(sticky);
+    if (slideRefs.current[0]) resizeObserver.observe(slideRefs.current[0]);
 
     // Keep transform, fade, and progress in one scroll observer to avoid jitter
     // during sticky horizontal movement. Pixel translation is more stable than
