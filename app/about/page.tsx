@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Ticker from '@/components/Ticker';
+import PinnedHorizontalSlides from '@/components/PinnedHorizontalSlides';
 import { IMAGES, BRAND_CTA_EXPLORE_CREATE } from '@/lib/coraly-images-manifest';
 
 const coral = '#EF7A6C';
@@ -159,30 +160,42 @@ export default function AboutPage() {
       </section>
 
       {/* Four Pillars */}
-      <section data-section style={{ background: char, padding: '80px 48px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <section className="about-pillars-section" data-section style={{ background: char, padding: '80px 0 0', overflowX: 'clip', overflowY: 'visible' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
           <div style={{ textAlign: 'center', marginBottom: '56px' }}>
             <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, marginBottom: '14px' }}>THE FOUR PILLARS</div>
             <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: offW, lineHeight: 1.1 }}>
               One ecosystem.<br /><em style={{ color: coral }}>Four ways in.</em>
             </h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '16px' }}>
-            {PILLARS.map((p, i) => (
-              <div key={i} data-reveal style={{ padding: '32px 24px', border: '1px solid rgba(239,122,108,.12)', borderRadius: '3px', background: 'rgba(239,122,108,.03)', transition: 'all .3s ease' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = coral; e.currentTarget.style.background = 'rgba(239,122,108,.06)'; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(239,122,108,.12)'; e.currentTarget.style.background = 'rgba(239,122,108,.03)'; }}>
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>{p.icon}</div>
-                <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '18px', fontWeight: 600, color: offW, marginBottom: '10px', lineHeight: 1.2 }}>{p.title}</div>
-                <p style={{ fontSize: '13px', lineHeight: 1.75, color: 'rgba(250,247,244,.4)' }}>{p.desc}</p>
-              </div>
-            ))}
-          </div>
         </div>
+
+        <PinnedHorizontalSlides
+          topOffsetPx={68}
+          progress={false}
+          heightPerSlideVh={76}
+          slides={PILLARS.map((p, i) => ({
+            key: p.title,
+            content: (
+              <div className="about-pillar-slide">
+                <div className="about-pillar-card" data-reveal>
+                  <div style={{ fontSize: '42px', marginBottom: '20px' }}>{p.icon}</div>
+                  <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '3px', color: coral, marginBottom: '16px' }}>
+                    PILLAR 0{i + 1}
+                  </div>
+                  <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(34px,5vw,68px)', fontWeight: 700, color: offW, marginBottom: '18px', lineHeight: 1 }}>
+                    {p.title}
+                  </h3>
+                  <p style={{ fontSize: 'clamp(15px,1.5vw,20px)', lineHeight: 1.75, color: 'rgba(250,247,244,.58)', maxWidth: '620px' }}>{p.desc}</p>
+                </div>
+              </div>
+            ),
+          }))}
+        />
       </section>
 
       {/* Yin-yang dual brand */}
-      <section data-section style={{ background: cream, padding: '80px 48px' }}>
+      <section className="about-dual-section" data-section style={{ background: cream, padding: '80px 48px' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div data-reveal style={{ textAlign: 'center', marginBottom: '48px' }}>
             <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, marginBottom: '14px' }}>TWO SIDES, ONE MISSION</div>
@@ -190,14 +203,14 @@ export default function AboutPage() {
               The dual<br /><em style={{ color: coral }}>personality.</em>
             </h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0' }}>
-            <div data-reveal style={{ background: black, padding: '56px 48px', borderRadius: '3px 0 0 3px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+          <div className="about-dual-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0' }}>
+            <div className="about-dual-card about-dual-card--dark" data-reveal style={{ background: black, padding: '56px 48px', borderRadius: '3px 0 0 3px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
               <img src={IMAGES.LOGO_SPACE_DARK} alt="Coraly Space" style={{ width: '80px', height: '80px', borderRadius: '50%', objectFit: 'cover', marginBottom: '20px', border: `2px solid ${coral}` }} />
               <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, marginBottom: '10px' }}>CORALY SPACE</div>
               <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: 'rgba(250,247,244,.3)', marginBottom: '16px' }}>CORALYSPACE.COM</div>
               <p style={{ fontSize: '13px', lineHeight: 1.75, color: 'rgba(250,247,244,.45)' }}>Dark. Techy. Community platform. Where explorers gather, trade, learn, and play.</p>
             </div>
-            <div data-reveal style={{ background: '#F0E8DF', padding: '56px 48px', borderRadius: '0 3px 3px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+            <div className="about-dual-card about-dual-card--light" data-reveal style={{ background: '#F0E8DF', padding: '56px 48px', borderRadius: '0 3px 3px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
               <img src={IMAGES.LOGO_UK_PREMIUM} alt="Coraly UK" style={{ width: '80px', height: '80px', borderRadius: '50%', objectFit: 'cover', marginBottom: '20px', border: `2px solid ${gold}` }} />
               <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: gold, marginBottom: '10px' }}>CORALY UK</div>
               <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: muted, marginBottom: '16px' }}>CORALYSPACE.CO.UK</div>
@@ -215,13 +228,13 @@ export default function AboutPage() {
               <div style={{ width: '24px', height: '1px', background: coral }} />THE HUMAN BEHIND IT
             </div>
             <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: offW, lineHeight: 1.1, marginBottom: '20px' }}>
-              Yes, that's Caroline<br /><em style={{ color: coral }}>with the Gruffalo.</em>
+              Yes, that's a community member<br /><em style={{ color: coral }}>with the Gruffalo.</em>
             </h2>
             <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: 'rgba(250,247,244,.45)', marginBottom: '20px' }}>
-              Coraly Space was built by a human — not a brand agency, not a VC-backed startup. Caroline shows up as herself: in the forest, on the stall, at the workshop.
+              Coraly Space is built around real people — not stock models, not faceless community. Members show up as themselves: in nature, at events, on stalls, and in everyday moments.
             </p>
             <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: 'rgba(250,247,244,.35)', marginBottom: '28px' }}>
-              That authenticity is the product. When you join Coraly Space, you join Caroline's world. And the Gruffalo's.
+              That authenticity is the product. When you join Coraly Space, you join a world of explorers, makers, and joyful characters. And sometimes, the Gruffalo's too.
             </p>
             <div data-reveal>
               <Link href="/events" className="cbtn">Come Meet Her →</Link>
