@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Ticker from '@/components/Ticker';
 import WaitlistForm from '@/components/WaitlistForm';
@@ -19,127 +19,124 @@ const char = '#1C1C1C';
 
 const TICKER_ITEMS = ['BELONG', '·', 'CONNECT', '·', 'THRIVE', '·', 'SUSTAINABILITY', '·', 'COMMUNITY', '·', 'ADVENTURE', '·', 'CORALY SPACE', '·'];
 
-/** Google Drive file id — must be shared “Anyone with the link”. */
-const HERO_DRIVE_FILE_ID = '10-hiFR666GZAHj3SP39joXAzudCxb3C4';
-
-/** Prefer `NEXT_PUBLIC_HERO_VIDEO_URL` (e.g. `/hero.mp4` in `/public`). Fallback: Drive `uc` link (often flaky vs self-hosted mp4). */
-function getHeroVideoSrc() {
-  const u = process.env.NEXT_PUBLIC_HERO_VIDEO_URL;
-  if (u && u.trim().length > 0) return u.trim();
-  return `https://drive.google.com/uc?export=download&id=${HERO_DRIVE_FILE_ID}`;
-}
-
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 function Hero() {
   const words = ['Creative', 'Community', '&', 'Curation.'];
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = true;
-    v.defaultMuted = true;
-    const tryPlay = () => {
-      void v.play().catch(() => {});
-    };
-    tryPlay();
-    v.addEventListener('canplay', tryPlay);
-    return () => v.removeEventListener('canplay', tryPlay);
-  }, []);
 
   return (
     <section
+      className="home-hero"
       style={{
         minHeight: '100vh',
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        alignItems: 'stretch',
+        position: 'relative',
         overflow: 'hidden',
+        background: black,
+        display: 'flex',
+        alignItems: 'stretch',
       }}
     >
-      {/* Left */}
-      <div style={{ background: black, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '120px 64px 80px', position: 'relative' }}>
-        <div style={{ position: 'absolute', left: 0, right: 0, height: '1px', background: `linear-gradient(90deg,transparent,${coral}40,transparent)`, animation: 'scanH 6s linear infinite', pointerEvents: 'none' }} />
+      {/* Full-bleed motion hero background */}
+      <video
+        className="home-hero__media"
+        aria-hidden
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: 'center center',
+        }}
+      >
+        <source src={IMAGES.HERO_MOTION} type="video/mp4" />
+      </video>
+
+      <div
+        className="home-hero__scrim"
+        aria-hidden
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(90deg, rgba(13,13,13,.92) 0%, rgba(13,13,13,.58) 42%, rgba(13,13,13,.18) 100%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      <div
+        className="home-hero__glow"
+        aria-hidden
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'radial-gradient(circle at 18% 24%, rgba(239,122,108,.24), transparent 34%), radial-gradient(circle at 82% 74%, rgba(201,168,76,.18), transparent 32%)',
+          animation: 'pulse 6s ease infinite',
+          pointerEvents: 'none',
+        }}
+      />
+
+      <div
+        className="home-hero__content"
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          width: 'min(640px, 100%)',
+          padding: '130px 64px 80px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        <div style={{ position: 'absolute', left: 0, right: 0, top: '68px', height: '1px', background: `linear-gradient(90deg,transparent,${coral}40,transparent)`, animation: 'scanH 6s linear infinite', pointerEvents: 'none' }} />
         <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '4px', color: coral, marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '12px', animation: 'fadeUp .6s ease .2s both' }}>
           <div style={{ width: '28px', height: '1px', background: coral }} />SUSTAINABILITY ECOSYSTEM
         </div>
-        <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(40px,5vw,72px)', fontWeight: 700, lineHeight: 1.02, color: offW, marginBottom: '12px' }}>
+        <h1 className="home-hero__title" style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(48px,7vw,96px)', fontWeight: 700, lineHeight: .92, color: offW, marginBottom: '20px', letterSpacing: '-1.5px' }}>
           {words.map((w, i) => (
-            <span key={i} style={{ display: 'inline-block', marginRight: '14px', animation: `wordIn .65s cubic-bezier(.16,1,.3,1) ${.3 + i * .1}s both`, fontStyle: i === 0 || w === '&' ? 'italic' : 'normal', color: w === '&' ? coral : offW }}>{w}</span>
+            <span key={i} style={{ display: 'block', animation: `wordIn .65s cubic-bezier(.16,1,.3,1) ${.3 + i * .1}s both`, fontStyle: i === 0 || w === '&' ? 'italic' : 'normal', color: w === '&' || w === 'Community' ? coral : offW }}>{w}</span>
           ))}
         </h1>
-        <p style={{ fontFamily: "'Playfair Display',serif", fontSize: '18px', fontStyle: 'italic', color: 'rgba(250,247,244,.55)', marginBottom: '10px', lineHeight: 1.5, animation: 'fadeUp .6s ease .75s both' }}>
+        <p style={{ maxWidth: '430px', fontSize: '17px', lineHeight: 1.7, color: 'rgba(250,247,244,.72)', marginBottom: '12px', animation: 'fadeUp .6s ease .75s both' }}>
           Creating a sustainability ecosystem together.
         </p>
-        <p style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: `${coral}bb`, marginBottom: '48px', animation: 'fadeUp .6s ease .85s both' }}>
+        <p style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: `${gold}dd`, marginBottom: '42px', animation: 'fadeUp .6s ease .85s both' }}>
           BELONG · CONNECT · THRIVE
         </p>
         <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', animation: 'fadeUp .6s ease .95s both' }}>
           <Link href="/shop" className="cbtn">Explore the Space</Link>
           <Link href="/community" className="glbtn">Join the Waitlist</Link>
         </div>
-        <div style={{ marginTop: '52px', paddingTop: '28px', borderTop: '1px solid rgba(250,247,244,.08)', display: 'flex', gap: '36px', animation: 'fadeUp .6s ease 1.1s both' }}>
-          {[{ n: '25%', l: 'Adults feel lonely' }, { n: '3+', l: 'Communities' }, { n: '∞', l: 'Creativity' }].map(({ n, l }) => (
-            <div key={l}>
-              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '28px', fontWeight: 700, color: coral, lineHeight: 1 }}>{n}</div>
-              <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: 'rgba(250,247,244,.3)', marginTop: '4px' }}>{l.toUpperCase()}</div>
-            </div>
-          ))}
-        </div>
       </div>
-      {/* Right — Hero video (muted autoplay loop; fills column) */}
+
       <div
+        className="home-hero__stats"
         style={{
-          position: 'relative',
-          overflow: 'hidden',
-          background: '#0a0a08',
-          width: '100%',
-          minHeight: '100%',
-          alignSelf: 'stretch',
+          position: 'absolute',
+          right: '56px',
+          bottom: '72px',
+          zIndex: 2,
+          maxWidth: '270px',
+          textAlign: 'right',
+          animation: 'fadeUp .6s ease 1.05s both',
         }}
       >
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          playsInline
-          loop
-          preload="auto"
-          poster={IMAGES.CAROLINE_RIVER}
-          title="Coraly Space hero video"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center center',
-          }}
-        >
-          <source src={getHeroVideoSrc()} type="video/mp4" />
-        </video>
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to left,transparent 50%,rgba(13,13,13,.55))',
-            pointerEvents: 'none',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: '30%',
-            background: 'linear-gradient(to top,rgba(13,13,13,.7),transparent)',
-            pointerEvents: 'none',
-          }}
-        />
-        <div style={{ position: 'absolute', bottom: '32px', left: '32px', background: 'rgba(13,13,13,.75)', backdropFilter: 'blur(12px)', padding: '14px 20px', borderRadius: '3px', border: `1px solid rgba(239,122,108,.2)` }}>
-          <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '3px', color: coral, marginBottom: '4px' }}>CAROLINE McGLONE</div>
-          <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '14px', fontStyle: 'italic', color: offW }}>Founder, Coraly Space</div>
+        <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '46px', fontWeight: 700, color: coral, lineHeight: 1 }}>25%</div>
+        <p style={{ fontSize: '13px', lineHeight: 1.65, color: 'rgba(250,247,244,.68)' }}>
+          of adults feel lonely. Coraly Space is built for belonging, creativity, and connection.
+        </p>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '24px', marginTop: '24px', paddingTop: '18px', borderTop: '1px solid rgba(250,247,244,.18)' }}>
+          {[{ n: '3+', l: 'Communities' }, { n: '∞', l: 'Creativity' }].map(({ n, l }) => (
+            <div key={l}>
+              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '24px', fontWeight: 700, color: gold, lineHeight: 1 }}>{n}</div>
+              <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: 'rgba(250,247,244,.45)', marginTop: '4px' }}>{l.toUpperCase()}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -156,7 +153,7 @@ function ModelsSection() {
   ];
 
   return (
-    <section id="models-section" data-section style={{ background: char, padding: '80px 48px' }}>
+    <section id="models-section" className="home-section home-section--dark" data-section style={{ background: char, padding: '80px 48px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px', flexWrap: 'wrap', gap: '16px' }}>
           <div>
@@ -169,7 +166,7 @@ function ModelsSection() {
           </div>
           <Link href="/shop" className="gbtn" data-reveal>View All Community →</Link>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px' }}>
+        <div className="responsive-grid responsive-grid--3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px' }}>
           {shots.map((s, i) => (
             <div key={i} data-reveal
               onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}
@@ -193,9 +190,9 @@ function ModelsSection() {
 // ─── About Preview ─────────────────────────────────────────────────────────────
 function AboutPreview() {
   return (
-    <section data-section style={{ background: cream, padding: '100px 48px' }}>
+    <section className="home-section home-section--light" data-section style={{ background: cream, padding: '100px 48px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '72px', alignItems: 'start' }}>
+        <div className="responsive-grid responsive-grid--2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '72px', alignItems: 'start' }}>
           <div style={{ position: 'relative' }} data-reveal>
             <div style={{ borderRadius: '3px', overflow: 'hidden', boxShadow: '0 24px 60px rgba(0,0,0,.15)' }}>
               <img src={IMAGES.CAROLINE_AUTUMN} alt="Caroline — Founder"
@@ -253,7 +250,7 @@ function BlogSection() {
   ];
 
   return (
-    <section data-section style={{ background: black, padding: '100px 48px' }}>
+    <section className="home-section home-section--dark" data-section style={{ background: black, padding: '100px 48px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px', flexWrap: 'wrap', gap: '16px' }}>
           <div>
@@ -266,7 +263,7 @@ function BlogSection() {
           </div>
           <Link href="/learn" className="gbtn" data-reveal>All Articles →</Link>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr', gridTemplateRows: 'auto auto', gap: '16px' }}>
+        <div className="responsive-grid responsive-grid--blog" style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr', gridTemplateRows: 'auto auto', gap: '16px' }}>
           {posts.map((p, i) => (
             <Link key={i} href="/learn" style={{ textDecoration: 'none', gridColumn: i === 0 ? '1' : 'auto', gridRow: i === 0 ? '1/3' : 'auto' }}
               data-reveal
@@ -306,9 +303,9 @@ function ShopPreview() {
   ];
 
   return (
-    <section data-section style={{ background: cream, padding: '80px 48px' }}>
+    <section className="home-section home-section--light" data-section style={{ background: cream, padding: '80px 48px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '48px', alignItems: 'center', marginBottom: '48px' }}>
+        <div className="responsive-grid responsive-grid--shop" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '48px', alignItems: 'center', marginBottom: '48px' }}>
           <div data-reveal style={{ position: 'relative', borderRadius: '3px', overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,.1)' }}>
             <img src={IMAGES.MODEL_COAST} alt="Model wearing Coraly Space"
               style={{ width: '100%', display: 'block', objectFit: 'cover' }} />
@@ -325,7 +322,7 @@ function ShopPreview() {
             <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,40px)', fontWeight: 700, color: '#1A1210', marginBottom: '32px', lineHeight: 1.1 }}>
               Wear your<br /><em style={{ color: coral }}>values.</em>
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <div className="responsive-grid responsive-grid--2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               {items.map((p, i) => (
                 <Link key={i} href="/shop" style={{ textDecoration: 'none' }} data-reveal
                   onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}>
@@ -396,6 +393,7 @@ function TechyCard({ num, label, titleTop, titleBot, desc, cta, href, accent, ta
           <>
             {minimal ? (
               <div
+                className="pillar-card-image-bg"
                 aria-hidden
                 style={{
                   width: '100%',
@@ -519,6 +517,7 @@ function SoftCard({ num, label, titleTop, titleBot, desc, cta, href, accent, tag
           <>
             {minimal ? (
               <div
+                className="pillar-card-image-bg"
                 aria-hidden
                 style={{
                   width: '100%',
@@ -631,8 +630,8 @@ function PillarsSection() {
   ];
 
   return (
-    <section data-section style={{ background: black, padding: '100px 0 0' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
+    <section className="home-section home-section--pillars" data-section style={{ background: black, padding: '100px 0 0' }}>
+      <div className="home-section__inner" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
 
         {/* Section header */}
         <div style={{ textAlign: 'center', marginBottom: '64px' }}>
@@ -659,6 +658,7 @@ function PillarsSection() {
               key: p.num,
               content: (
                 <div
+                  className="pillar-slide-card-wrap"
                   style={{
                     height: '100%',
                     width: '100%',

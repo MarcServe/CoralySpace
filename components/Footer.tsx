@@ -37,8 +37,8 @@ const COLS = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#080808', padding: '56px 48px 32px', borderTop: '1px solid rgba(239,122,108,.08)' }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '48px', marginBottom: '44px' }}>
+    <footer className="site-footer" style={{ background: '#080808', padding: '56px 48px 32px', borderTop: '1px solid rgba(239,122,108,.08)' }}>
+      <div className="site-footer__grid" style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '48px', marginBottom: '44px' }}>
         <div>
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px', textDecoration: 'none' }}>
             <img src={IMAGES.LOGO_SPACE_DARK} alt="Coraly Space"

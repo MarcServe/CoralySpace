@@ -36,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <Footer />
           <div
+            className="talkweb-badge"
             style={{
               position: 'fixed', bottom: '28px', right: '28px', zIndex: 300,
               width: '48px', height: '48px', borderRadius: '50%',

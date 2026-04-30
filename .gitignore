@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+public/hero-motion.gif
 
 # debug
 npm-debug.log*

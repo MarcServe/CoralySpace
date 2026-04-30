@@ -36,10 +36,17 @@ export default function PinnedHorizontalSlides({
   }, [topOffsetPx]);
 
   useLayoutEffect(() => {
-    if (!shouldAnimate) return;
     const container = containerRef.current;
     const track = trackRef.current;
     if (!container || !track) return;
+
+    if (!shouldAnimate) {
+      track.style.transform = 'none';
+      slideRefs.current.forEach((el) => {
+        if (el) el.style.opacity = '1';
+      });
+      return;
+    }
 
     const stops: Array<() => void> = [];
 
@@ -55,7 +62,7 @@ export default function PinnedHorizontalSlides({
 
     // Pronounced fade-in/out as each slide passes the "center" of the viewport.
     const stopFade = scroll(
-      (p) => {
+      (p: number) => {
         const step = moveCount === 0 ? 1 : 1 / moveCount;
         // Controls fade overlap. Too small can create scroll ranges where *all*
         // slides evaluate to near-zero opacity (=> "blank" pillars).
@@ -104,8 +111,9 @@ export default function PinnedHorizontalSlides({
 
   return (
     <>
-      <article ref={containerRef} style={{ position: 'relative', height: `${slides.length * heightPerSlideVh}vh` }}>
+      <article className="pinned-slides" ref={containerRef} style={{ position: 'relative', height: `${slides.length * heightPerSlideVh}vh` }}>
         <div
+          className="pinned-slides__sticky"
           style={{
             position: 'sticky',
             top: topOffsetPx,
@@ -115,6 +123,7 @@ export default function PinnedHorizontalSlides({
           }}
         >
           <ul
+            className="pinned-slides__track"
             ref={trackRef}
             style={{
               display: 'flex',
@@ -129,6 +138,7 @@ export default function PinnedHorizontalSlides({
             {slides.map((s, i) => (
               <li
                 key={s.key}
+                className="pinned-slides__item"
                 ref={(node) => {
                   slideRefs.current[i] = node;
                 }}

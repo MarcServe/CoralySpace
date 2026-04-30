@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Ticker from '@/components/Ticker';
 import WaitlistForm from '@/components/WaitlistForm';
+import PinnedHorizontalSlides from '@/components/PinnedHorizontalSlides';
 import { IMAGES, BRAND_HERO_HEART_LEAF, BRAND_VENN_SUSTAINABILITY, MARKETING_SUSTAINABLE_COLLECTION } from '@/lib/coraly-images-manifest';
 
 const coral = '#EF7A6C';
@@ -81,7 +82,7 @@ export default function CommunityPage() {
               Six ways to<br /><em style={{ color: coral }}>explore the space.</em>
             </h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px' }}>
+          <div className="community-features-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px' }}>
             {FEATURES.map((f, i) => (
               <Link key={i} href={f.href} style={{ textDecoration: 'none' }} data-reveal>
                 <div style={{ padding: '32px 28px', border: '1px solid rgba(239,122,108,.12)', borderRadius: '3px', background: 'rgba(239,122,108,.03)', height: '100%', transition: 'all .3s ease', cursor: 'pointer' }}
@@ -94,13 +95,33 @@ export default function CommunityPage() {
               </Link>
             ))}
           </div>
+
+          <div className="community-features-pinned">
+            <PinnedHorizontalSlides
+              topOffsetPx={62}
+              progress={true}
+              heightPerSlideVh={85}
+              slides={FEATURES.map((f) => ({
+                key: f.title,
+                content: (
+                  <Link href={f.href} style={{ textDecoration: 'none' }}>
+                    <div className="community-feature-slide-card">
+                      <div style={{ fontSize: '42px', marginBottom: '18px' }}>{f.icon}</div>
+                      <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,10vw,42px)', fontWeight: 700, color: offW, lineHeight: 1.05, marginBottom: '16px' }}>{f.title}</div>
+                      <p style={{ fontSize: '14px', lineHeight: 1.75, color: 'rgba(250,247,244,.62)', margin: 0 }}>{f.desc}</p>
+                    </div>
+                  </Link>
+                ),
+              }))}
+            />
+          </div>
         </div>
       </section>
 
       {/* Sustainability visual */}
-      <section data-section style={{ background: cream, padding: '80px 48px' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
-          <div>
+      <section data-section className="community-ecosystem-section" style={{ background: cream, padding: '80px 20px' }}>
+        <div className="community-ecosystem-grid" style={{ maxWidth: '760px', margin: '0 auto', display: 'flex', flexDirection: 'column-reverse', gap: '36px', alignItems: 'stretch' }}>
+          <div className="community-ecosystem-copy">
             <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div style={{ width: '24px', height: '1px', background: coral }} />THE ECOSYSTEM
             </div>
@@ -117,8 +138,8 @@ export default function CommunityPage() {
               <Link href="/about" className="cbtn" style={{ marginRight: '12px' }}>Learn Our Mission</Link>
             </div>
           </div>
-          <div data-reveal style={{ borderRadius: '3px', overflow: 'hidden', boxShadow: '0 24px 60px rgba(0,0,0,.15)' }}>
-            <img src={BRAND_VENN_SUSTAINABILITY} alt="Sustainability ecosystem" style={{ width: '100%', display: 'block' }} />
+          <div className="community-ecosystem-visual" data-reveal style={{ width: '100%', maxWidth: '620px', margin: '0 auto', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 24px 60px rgba(0,0,0,.15)', background: '#fff' }}>
+            <img src={BRAND_VENN_SUSTAINABILITY} alt="Sustainability ecosystem" style={{ width: '100%', minHeight: '320px', objectFit: 'contain', display: 'block' }} />
           </div>
         </div>
       </section>

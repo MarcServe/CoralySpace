@@ -111,7 +111,7 @@ export default function ScrollImageGallery() {
         ref={progressRef}
         aria-hidden
         className="pointer-events-none fixed bottom-0 left-0 right-0 z-[200] h-[3px] origin-left rounded-full bg-[#EF7A6C] shadow-[0_0_16px_rgba(239,122,108,.35)]"
-        style={{ scaleX: 0, transformOrigin: 'left center' }}
+        style={{ transform: 'scaleX(0)', transformOrigin: 'left center' }}
       />
     </>
   );
