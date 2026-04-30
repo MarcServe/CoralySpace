@@ -596,7 +596,7 @@ svg {
   }
 
   .pinned-slides {
-    height: 300svh !important;
+    height: 480svh !important;
     width: 100% !important;
     max-width: 100vw !important;
     overflow-x: clip !important;
@@ -632,9 +632,14 @@ svg {
 
   .pillar-slide-card-wrap {
     padding: 0 14px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: stretch !important;
   }
 
   .pillar-slide-card-wrap > div {
+    width: calc(100vw - 28px) !important;
+    max-width: calc(100vw - 28px) !important;
     max-height: 100%;
   }
 
@@ -761,7 +766,7 @@ svg {
   }
 
   .pinned-slides {
-    height: 260svh !important;
+    height: 460svh !important;
   }
 
   .pillar-card-image-bg--blended {

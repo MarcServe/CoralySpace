@@ -7,7 +7,6 @@ const coral = '#EF7A6C';
 
 const NAV_LINKS = [
   { label: 'Shop', href: '/shop' },
-  { label: 'Gallery', href: '/gallery' },
   { label: 'Learn', href: '/learn' },
   { label: 'About', href: '/about' },
   { label: 'Events', href: '/events' },

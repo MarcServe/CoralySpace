@@ -52,7 +52,12 @@ export default function PinnedHorizontalSlides({
     // during sticky horizontal movement.
     const stop = scroll(
       (p: number) => {
-        track.style.transform = `translate3d(${-p * moveCount * 100}vw, 0, 0)`;
+        const isMobile = window.matchMedia('(max-width: 1100px)').matches;
+        const hold = isMobile ? 0.34 : 0.14;
+        const rawProgress = Math.min(1, Math.max(0, (p - hold) / (1 - hold * 2)));
+        const activeProgress = rawProgress * rawProgress * (3 - 2 * rawProgress);
+
+        track.style.transform = `translate3d(${-activeProgress * moveCount * 100}vw, 0, 0)`;
         if (progress && progressRef.current) {
           progressRef.current.style.transform = `scaleX(${p})`;
         }
@@ -69,7 +74,7 @@ export default function PinnedHorizontalSlides({
             return;
           }
           const center = i * step; // 0..1
-          const x = Math.abs(p - center);
+          const x = Math.abs(activeProgress - center);
           const t = Math.max(0, 1 - x / edge);
           // Minimum opacity prevents "overlay-only" flicker and avoids fully
           // invisible slides during the scroll transition.
@@ -83,6 +88,7 @@ export default function PinnedHorizontalSlides({
       },
       {
         target: container,
+        offset: ['start start', 'end end'],
       },
     );
 
