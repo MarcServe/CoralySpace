@@ -2,22 +2,25 @@
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { IMAGES } from '@/lib/coraly-images-manifest';
+import { LanguageSwitcher, ThemeToggle, useCoralyExperience } from '@/components/CoralyExperienceControls';
 
 const coral = '#EF7A6C';
 
 const NAV_LINKS = [
-  { label: 'Shop', href: '/shop' },
-  { label: 'Learn', href: '/learn' },
-  { label: 'About', href: '/about' },
-  { label: 'Events', href: '/events' },
-  { label: 'Community', href: '/community' },
-];
+  { key: 'nav_shop', href: '/shop' },
+  { key: 'nav_learn', href: '/learn' },
+  { key: 'nav_about', href: '/about' },
+  { key: 'nav_events', href: '/events' },
+  { key: 'nav_community', href: '/community' },
+] as const;
 
 export default function Nav() {
   const [sc, setSc] = useState(false);
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const { theme, t } = useCoralyExperience();
+  const isLight = theme === 'light';
 
   useEffect(() => {
     const fn = () => setSc(window.scrollY > 60);
@@ -52,17 +55,17 @@ export default function Nav() {
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, height: '68px',
       padding: '0 48px', display: 'flex', alignItems: 'center',
       justifyContent: 'space-between',
-      background: sc ? 'rgba(13,13,13,.96)' : 'transparent',
-      backdropFilter: sc ? 'blur(20px)' : 'none',
-      borderBottom: sc ? '1px solid rgba(239,122,108,.12)' : 'none',
+      background: sc || isLight ? 'var(--nav)' : 'transparent',
+      backdropFilter: sc || isLight ? 'blur(20px)' : 'none',
+      borderBottom: sc || isLight ? '1px solid var(--theme-border)' : 'none',
       transition: 'all .4s ease',
     }}>
       <Link href="/" className="site-nav__brand" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-        <img src={IMAGES.LOGO_SPACE_DARK} alt="Coraly Space"
+        <img src={isLight ? IMAGES.LOGO_SPACE_LIGHT : IMAGES.LOGO_SPACE_DARK} alt="Coraly Space"
           style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} />
         <div>
           <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 600, letterSpacing: '3px', color: coral }}>CORALY SPACE</div>
-          <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '3px', color: 'rgba(250,247,244,.4)' }}>BELONG · CONNECT · THRIVE</div>
+          <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '3px', color: 'var(--txt3)' }}>BELONG · CONNECT · THRIVE</div>
         </div>
       </Link>
 
@@ -97,19 +100,23 @@ export default function Nav() {
           if (event.target === event.currentTarget) setOpen(false);
         }}
       >
-        {NAV_LINKS.map(({ label, href }) => (
-          <Link key={label} href={href} style={{
+        {NAV_LINKS.map(({ key, href }) => (
+          <Link key={key} href={href} style={{
             fontFamily: "'DM Sans',sans-serif", fontSize: '13px', fontWeight: 500,
-            color: 'rgba(250,247,244,.7)', textDecoration: 'none', transition: 'color .2s',
+            color: 'var(--txt2)', textDecoration: 'none', transition: 'color .2s',
           }}
             onClick={() => setOpen(false)}
             onMouseEnter={e => { e.currentTarget.style.color = coral; }}
-            onMouseLeave={e => { e.currentTarget.style.color = 'rgba(250,247,244,.7)'; }}>
-            {label}
+            onMouseLeave={e => { e.currentTarget.style.color = 'var(--txt2)'; }}>
+            {t(key)}
           </Link>
         ))}
+        <div className="site-nav__controls">
+          <LanguageSwitcher />
+          <ThemeToggle />
+        </div>
         <Link href="/community" className="cbtn" style={{ padding: '10px 20px', fontSize: '11px' }} onClick={() => setOpen(false)}>
-          Join Waitlist
+          {t('nav_cta')}
         </Link>
       </div>
     </nav>

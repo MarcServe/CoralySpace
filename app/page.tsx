@@ -5,6 +5,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Ticker from '@/components/Ticker';
 import WaitlistForm from '@/components/WaitlistForm';
 import PinnedHorizontalSlides from '@/components/PinnedHorizontalSlides';
+import { useCoralyExperience } from '@/components/CoralyExperienceControls';
 import { IMAGES } from '@/lib/coraly-images-manifest';
 
 const coral = '#EF7A6C';
@@ -17,11 +18,55 @@ const muted = '#8B7E7B';
 const offW = '#FAF7F4';
 const char = '#1C1C1C';
 
-const TICKER_ITEMS = ['BELONG', '·', 'CONNECT', '·', 'THRIVE', '·', 'SUSTAINABILITY', '·', 'COMMUNITY', '·', 'ADVENTURE', '·', 'CORALY SPACE', '·'];
+const TICKER_ITEMS = ['BELONG', '·', 'CONNECT', '·', 'THRIVE', '·', 'SUSTAINABILITY', '·', 'COMMUNITY', '·', 'ADVENTURE', '·', 'CORALY SPACE', '·', 'CREATIVITY CULTURE & SUSTAINABILITY', '·'];
+
+const HOLISTIC_FEATURES = [
+  { title: 'Movement & Activity', desc: 'Dance, voice, walks, and body-led creative events.', img: IMAGES.BRAND_DANCE_EVENT, tag: 'MOVE' },
+  { title: 'Care & Recovery', desc: 'Gentle rituals for carers, teachers, nurses, and burnt-out leaders.', img: IMAGES.BLOG_WINTER_COSY, tag: 'REST' },
+  { title: 'Creative Culture', desc: 'Workshops, stories, and collaborations for makers with depth.', img: IMAGES.BRAND_KNOWLEDGE_TEA_MOTION, tag: 'CREATE' },
+  { title: 'Sustainable Living', desc: 'Low-waste style, nature-led habits, and beautiful everyday choices.', img: IMAGES.CAROLINE_FIELD, tag: 'LIVE' },
+];
+
+const COMMUNITY_GROUPS = [
+  { title: 'Dancers & Movers', desc: 'Active explorers who connect through movement and embodied creativity.', img: IMAGES.BRAND_DANCE_EVENT, tags: ['Movement', 'Expression'] },
+  { title: 'Solopreneurs', desc: 'Small business owners building meaningful work on their own terms.', img: IMAGES.MODEL_LISBON_SCULPTURE, tags: ['Business', 'Growth'] },
+  { title: 'Neurodivergent Folks', desc: 'Different ways of thinking, creating, processing, and connecting.', img: IMAGES.BRAND_KNOWLEDGE_TEA_MOTION, tags: ['Inclusion', 'Belonging'] },
+  { title: 'Caring Professions', desc: 'People who give a lot and need a place to restore.', img: IMAGES.CAROLINE_AUTUMN, tags: ['Care', 'Burnout'] },
+  { title: 'Community Leaders', desc: 'Bridge-builders and space-holders finding support too.', img: IMAGES.BRAND_ADVENTURE, tags: ['Leadership', 'Impact'] },
+  { title: 'Virtuoso Creatives', desc: 'High-performing creatives looking for peers who understand the pressure.', img: IMAGES.CAROLINE_SNOW, tags: ['Craft', 'Excellence'] },
+  { title: 'LGBTQIA+ Community', desc: 'A visible, celebratory space for safety and authentic belonging.', img: IMAGES.BRAND_COLLECTION, tags: ['Safety', 'Pride'] },
+  { title: 'Cultural Leaders', desc: 'Diaspora, heritage keepers, and cultural connectors enriching the room.', img: IMAGES.BLOG_AUTUMN_LEAVES, tags: ['Culture', 'Heritage'] },
+];
+
+const FREE_FEATURES = [
+  'Weekly community digest',
+  'Public forums and discussions',
+  'Basic articles and guides',
+  'Monthly virtual events',
+  'Coraly newsletter',
+  'Free sustainability challenges',
+];
+
+const PRO_FEATURES = [
+  'Courses and masterclasses',
+  'Expert-led workshops',
+  'Peer mentoring circles',
+  'Business tools for makers',
+  'Burnout recovery programmes',
+  'Contributor-only content',
+];
+
+const CONTRIBUTORS = [
+  { title: 'Movement & Dance', desc: 'Somatic practice, creative movement, and active wellbeing.', img: IMAGES.BRAND_DANCE_EVENT },
+  { title: 'Sustainability Makers', desc: 'Circular economy, sourcing, and low-waste living guides.', img: IMAGES.BRAND_COLLECTION },
+  { title: 'Neurodivergent Coaches', desc: 'Friendly systems, executive function tools, and inclusive support.', img: IMAGES.BRAND_KNOWLEDGE_TEA_MOTION },
+  { title: 'Solopreneur Mentors', desc: 'Business confidence, client attraction, and burnout prevention.', img: IMAGES.MODEL_LISBON_SCULPTURE },
+];
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 function Hero() {
   const words = ['Creative', 'Community', '&', 'Curation.'];
+  const { t } = useCoralyExperience();
 
   return (
     <section
@@ -122,14 +167,14 @@ function Hero() {
           ))}
         </h1>
         <p style={{ maxWidth: '430px', fontSize: '17px', lineHeight: 1.7, color: 'rgba(250,247,244,.72)', marginBottom: '12px', animation: 'fadeUp .6s ease .75s both' }}>
-          Creating a sustainability ecosystem together.
+          {t('hero_sub')}
         </p>
         <p style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: `${gold}dd`, marginBottom: '42px', animation: 'fadeUp .6s ease .85s both' }}>
           BELONG · CONNECT · THRIVE
         </p>
         <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', animation: 'fadeUp .6s ease .95s both' }}>
-          <Link href="/shop" className="cbtn">Explore the Space</Link>
-          <Link href="/community" className="glbtn">Join the Waitlist</Link>
+          <Link href="/shop" className="cbtn">{t('hero_cta_primary')}</Link>
+          <Link href="/community" className="glbtn">{t('hero_cta_secondary')}</Link>
         </div>
       </div>
 
@@ -255,6 +300,148 @@ function AboutPreview() {
           </div>
         </div>
       </div>
+    </section>
+  );
+}
+
+// ─── Visual Upgrade Features ──────────────────────────────────────────────────
+function DualThemeFeatureSection() {
+  const { theme, setTheme } = useCoralyExperience();
+  const active = theme === 'light' ? 'light' : 'dark';
+
+  return (
+    <section className="home-section dual-theme-feature" data-section>
+      <div className="dual-theme-feature__inner">
+        <div className="dual-theme-feature__copy" data-reveal>
+          <div className="feature-kicker">LIGHT / DARK CORALY MODE</div>
+          <h2>
+            Switch between<br /><em>ecosystem and holistic.</em>
+          </h2>
+          <div className="feature-mode-switch" role="tablist" aria-label="Choose Coraly visual mode">
+            <button type="button" className={active === 'dark' ? 'is-active' : ''} onClick={() => setTheme('dark')}>Dark ecosystem</button>
+            <button type="button" className={active === 'light' ? 'is-active' : ''} onClick={() => setTheme('light')}>Light holistic</button>
+          </div>
+        </div>
+
+        <div className="dual-theme-preview" data-reveal>
+          <div className="dual-theme-preview__panel dual-theme-preview__panel--dark">
+            <img src={IMAGES.LOGO_SPACE_DARK} alt="Coraly Space dark identity" />
+            <span>Coraly Space</span>
+            <strong>Community marketplace, knowledge hub, social games.</strong>
+          </div>
+          <div className="dual-theme-preview__panel dual-theme-preview__panel--light">
+            <img src={IMAGES.LOGO_UK_PREMIUM} alt="Coraly UK holistic identity" />
+            <span>Coraly UK</span>
+            <strong>Movement, care, culture, and sustainable living.</strong>
+          </div>
+        </div>
+      </div>
+
+      <div className="visual-feature-grid">
+        {HOLISTIC_FEATURES.map(item => (
+          <article className="visual-feature-card" key={item.title} data-reveal>
+            <img src={item.img} alt={item.title} />
+            <div>
+              <span>{item.tag}</span>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function CommunityGroupsSection() {
+  const [active, setActive] = useState<number | null>(null);
+
+  return (
+    <section className="home-section community-groups-feature" data-section>
+      <div className="section-feature-header" data-reveal>
+        <span>OUR PEOPLE</span>
+        <h2>You belong here.</h2>
+        <p>Coraly Space is for people who do not fit neatly into one box.</p>
+      </div>
+
+      <div className="community-groups-grid">
+        {COMMUNITY_GROUPS.map((group, index) => (
+          <article
+            key={group.title}
+            className={`community-group-card ${active === index ? 'is-active' : ''}`}
+            onMouseEnter={() => setActive(index)}
+            onMouseLeave={() => setActive(null)}
+            data-reveal
+          >
+            <img src={group.img} alt={group.title} />
+            <div className="community-group-card__body">
+              <h3>{group.title}</h3>
+              <p>{group.desc}</p>
+              <div>
+                {group.tags.map(tag => <span key={tag}>{tag}</span>)}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function InfoHubFeatureSection() {
+  const [tab, setTab] = useState<'tiers' | 'contributors'>('tiers');
+
+  return (
+    <section className="home-section info-hub-feature" data-section>
+      <div className="section-feature-header" data-reveal>
+        <span>KNOWLEDGE HUB</span>
+        <h2>Your information home.</h2>
+        <p>Expert knowledge, community wisdom, and human contributors.</p>
+      </div>
+
+      <div className="info-hub-tabs" role="tablist" aria-label="Info Hub views" data-reveal>
+        <button type="button" className={tab === 'tiers' ? 'is-active' : ''} onClick={() => setTab('tiers')}>Free vs Pro</button>
+        <button type="button" className={tab === 'contributors' ? 'is-active' : ''} onClick={() => setTab('contributors')}>Human Contributors</button>
+      </div>
+
+      {tab === 'tiers' ? (
+        <div className="info-tier-grid">
+          <article className="info-tier-card" data-reveal>
+            <img src={IMAGES.BLOG_AUTUMN_LEAVES} alt="Free community resources" />
+            <div>
+              <span>ALWAYS FREE</span>
+              <h3>£0</h3>
+              <ul>
+                {FREE_FEATURES.map(feature => <li key={feature}>{feature}</li>)}
+              </ul>
+              <Link href="/community" className="glbtn">Get started free</Link>
+            </div>
+          </article>
+          <article className="info-tier-card info-tier-card--pro" data-reveal>
+            <img src={IMAGES.BRAND_KNOWLEDGE_TEA_MOTION} alt="Pro Knowledge Hub" />
+            <div>
+              <span>PRO MEMBER · LAUNCHING SOON</span>
+              <h3>£TBC <small>/month</small></h3>
+              <ul>
+                {PRO_FEATURES.map(feature => <li key={feature}>{feature}</li>)}
+              </ul>
+              <Link href="/community" className="cbtn">Join Pro waitlist</Link>
+            </div>
+          </article>
+        </div>
+      ) : (
+        <div className="contributors-grid">
+          {CONTRIBUTORS.map(item => (
+            <article className="contributor-card" key={item.title} data-reveal>
+              <img src={item.img} alt={item.title} />
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
@@ -746,7 +933,10 @@ export default function HomePage() {
       <PillarsSection />
       <ModelsSection />
       <AboutPreview />
+      <DualThemeFeatureSection />
+      <CommunityGroupsSection />
       <BlogSection />
+      <InfoHubFeatureSection />
       <ShopPreview />
       <WaitlistForm />
     </>
