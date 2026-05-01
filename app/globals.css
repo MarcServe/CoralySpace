@@ -178,8 +178,21 @@ svg {
 }
 
 :root[data-theme="light"] .home-hero__content p,
-:root[data-theme="light"] .home-hero__stats p {
+:root[data-theme="light"] .home-hero__stats p,
+:root[data-theme="light"] .home-hero__stats-body {
   color: var(--txt2) !important;
+}
+
+.home-hero__stats-body {
+  color: var(--txt2);
+}
+
+.home-hero__stats-label {
+  color: var(--txt2);
+}
+
+:root[data-theme="light"] .home-hero__title-accent {
+  color: color-mix(in srgb, var(--coral) 90%, var(--txt) 10%) !important;
 }
 
 .pillar-card-image-bg {
@@ -326,7 +339,7 @@ svg {
 
 .site-nav__toggle {
   display: none;
-  border: 1px solid rgba(239,122,108,.38);
+  border: 1px solid var(--border-a);
   background: rgba(13,13,13,.55);
   color: var(--off-white);
   border-radius: 3px;
@@ -338,11 +351,16 @@ svg {
   gap: 5px;
 }
 
+:root[data-theme="light"] .site-nav__toggle {
+  background: color-mix(in srgb, var(--txt) 9%, var(--nav));
+  color: var(--txt);
+}
+
 .site-nav__toggle span {
   width: 18px;
   height: 2px;
   border-radius: 999px;
-  background: var(--off-white);
+  background: currentColor;
   display: block;
   transition: transform .25s ease, opacity .25s ease;
 }
@@ -1219,7 +1237,11 @@ svg {
     margin-left: auto;
     position: relative;
     z-index: 4;
-    background: var(--card);
+    background: color-mix(in srgb, var(--bg) 58%, transparent);
+  }
+
+  :root[data-theme="light"] .site-nav__toggle {
+    background: color-mix(in srgb, var(--txt) 10%, var(--nav));
   }
 
   .site-nav__links {

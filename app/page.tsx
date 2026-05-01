@@ -65,13 +65,23 @@ const CONTRIBUTORS = [
 ];
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
+const HERO_TITLE_KEYS: { key: 'hero_title_1' | 'hero_title_2' | 'hero_title_amp' | 'hero_title_4'; italic: boolean; accent: boolean }[] = [
+  { key: 'hero_title_1', italic: true, accent: false },
+  { key: 'hero_title_2', italic: false, accent: true },
+  { key: 'hero_title_amp', italic: true, accent: true },
+  { key: 'hero_title_4', italic: false, accent: false },
+];
+
 function Hero() {
-  const words = ['Creative', 'Community', '&', 'Curation.'];
   const { t } = useCoralyExperience();
+  const accent = 'var(--coral)';
+  const titleInk = 'var(--txt)';
+  const goldInk = 'var(--gold)';
 
   return (
     <section
       className="home-hero"
+      data-no-translate="true"
       style={{
         minHeight: '100vh',
         position: 'relative',
@@ -158,20 +168,31 @@ function Hero() {
           justifyContent: 'center',
         }}
       >
-        <div style={{ position: 'absolute', left: 0, right: 0, top: '68px', height: '1px', background: `linear-gradient(90deg,transparent,${coral}40,transparent)`, animation: 'scanH 6s linear infinite', pointerEvents: 'none' }} />
-        <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '4px', color: coral, marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '12px', animation: 'fadeUp .6s ease .2s both' }}>
-          <div style={{ width: '28px', height: '1px', background: coral }} />SUSTAINABILITY ECOSYSTEM
+        <div style={{ position: 'absolute', left: 0, right: 0, top: '68px', height: '1px', background: 'linear-gradient(90deg,transparent,color-mix(in srgb, var(--coral) 25%, transparent),transparent)', animation: 'scanH 6s linear infinite', pointerEvents: 'none' }} />
+        <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '4px', color: accent, marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '12px', animation: 'fadeUp .6s ease .2s both' }}>
+          <div style={{ width: '28px', height: '1px', background: accent }} />{t('hero_kicker')}
         </div>
-        <h1 className="home-hero__title" style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(48px,7vw,96px)', fontWeight: 700, lineHeight: .92, color: offW, marginBottom: '20px', letterSpacing: '-1.5px' }}>
-          {words.map((w, i) => (
-            <span key={i} style={{ display: 'block', animation: `wordIn .65s cubic-bezier(.16,1,.3,1) ${.3 + i * .1}s both`, fontStyle: i === 0 || w === '&' ? 'italic' : 'normal', color: w === '&' || w === 'Community' ? coral : offW }}>{w}</span>
+        <h1 className="home-hero__title" style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(48px,7vw,96px)', fontWeight: 700, lineHeight: .92, color: titleInk, marginBottom: '20px', letterSpacing: '-1.5px' }}>
+          {HERO_TITLE_KEYS.map((line, i) => (
+            <span
+              key={line.key}
+              className={line.accent ? 'home-hero__title-accent' : undefined}
+              style={{
+                display: 'block',
+                animation: `wordIn .65s cubic-bezier(.16,1,.3,1) ${.3 + i * .1}s both`,
+                fontStyle: line.italic ? 'italic' : 'normal',
+                color: line.accent ? accent : titleInk,
+              }}
+            >
+              {t(line.key)}
+            </span>
           ))}
         </h1>
         <p style={{ maxWidth: '430px', fontSize: '17px', lineHeight: 1.7, color: 'var(--txt2)', marginBottom: '12px', animation: 'fadeUp .6s ease .75s both' }}>
           {t('hero_sub')}
         </p>
-        <p style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: `${gold}dd`, marginBottom: '42px', animation: 'fadeUp .6s ease .85s both' }}>
-          BELONG · CONNECT · THRIVE
+        <p style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: 'color-mix(in srgb, var(--gold) 86%, transparent)', marginBottom: '42px', animation: 'fadeUp .6s ease .85s both' }}>
+          {t('hero_belong_line')}
         </p>
         <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', animation: 'fadeUp .6s ease .95s both' }}>
           <Link href="/shop" className="cbtn">{t('hero_cta_primary')}</Link>
@@ -191,15 +212,18 @@ function Hero() {
           animation: 'fadeUp .6s ease 1.05s both',
         }}
       >
-        <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '46px', fontWeight: 700, color: coral, lineHeight: 1 }}>25%</div>
-        <p style={{ fontSize: '13px', lineHeight: 1.65, color: 'var(--txt2)' }}>
-          of adults feel lonely. Coraly Space is built for belonging, creativity, and connection.
+        <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '46px', fontWeight: 700, color: accent, lineHeight: 1 }}>25%</div>
+        <p className="home-hero__stats-body" style={{ fontSize: '13px', lineHeight: 1.65, color: 'var(--txt2)' }}>
+          {t('hero_stat_body')}
         </p>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '24px', marginTop: '24px', paddingTop: '18px', borderTop: '1px solid var(--theme-border)' }}>
-          {[{ n: '3+', l: 'Communities' }, { n: '∞', l: 'Creativity' }].map(({ n, l }) => (
-            <div key={l}>
-              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '24px', fontWeight: 700, color: gold, lineHeight: 1 }}>{n}</div>
-              <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: 'var(--txt2)', marginTop: '4px' }}>{l.toUpperCase()}</div>
+          {[
+            { n: '3+', labelKey: 'hero_stat_communities' as const },
+            { n: '∞', labelKey: 'hero_stat_creativity' as const },
+          ].map(({ n, labelKey }) => (
+            <div key={labelKey}>
+              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '24px', fontWeight: 700, color: goldInk, lineHeight: 1 }}>{n}</div>
+              <div className="home-hero__stats-label" style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: 'var(--txt2)', marginTop: '4px' }}>{t(labelKey).toUpperCase()}</div>
             </div>
           ))}
         </div>
