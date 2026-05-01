@@ -1,8 +1,9 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Ticker from '@/components/Ticker';
+import { CoralyInfoHub } from '@/components/CoralyFeatureSections';
 import {
   IMAGES,
   BG_AUTUMN_LEAVES_SUN,
@@ -14,10 +15,10 @@ import {
 
 const coral = '#EF7A6C';
 const gold = '#C9A84C';
-const black = '#0D0D0D';
-const offW = '#FAF7F4';
-const char = '#1C1C1C';
-const muted = '#8B7E7B';
+const black = 'var(--bg)';
+const offW = 'var(--txt)';
+const char = 'var(--bg2)';
+const muted = 'var(--txt2)';
 
 // ─── Article data ──────────────────────────────────────────────────────────────
 const POSTS = [
@@ -214,7 +215,7 @@ function ArticleModal({ post, onClose }: { post: typeof POSTS[0]; onClose: () =>
                 {post.tag}
               </span>
             )}
-            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '1px', color: 'rgba(250,247,244,.4)' }}>
+            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '1px', color: 'var(--txt2)' }}>
               {post.time} read
             </span>
           </div>
@@ -244,7 +245,7 @@ function ArticleModal({ post, onClose }: { post: typeof POSTS[0]; onClose: () =>
 
           {/* Footer */}
           <div style={{ marginTop: '36px', paddingTop: '24px', borderTop: `1px solid rgba(250,247,244,.07)`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-            <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: 'rgba(250,247,244,.3)' }}>
+            <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: 'var(--txt3)' }}>
               CORALY SPACE · KNOWLEDGE HUB
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
@@ -300,11 +301,11 @@ function PostCard({ post, large = false, onRead }: { post: typeof POSTS[0]; larg
         <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: large ? '22px' : '16px', fontWeight: 600, color: offW, lineHeight: 1.3, marginBottom: '10px' }}>
           {post.title}
         </h3>
-        <p style={{ fontSize: '13px', lineHeight: 1.75, color: 'rgba(250,247,244,.4)', marginBottom: '14px', flex: 1 }}>
+        <p style={{ fontSize: '13px', lineHeight: 1.75, color: 'var(--txt2)', marginBottom: '14px', flex: 1 }}>
           {post.desc}
         </p>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(250,247,244,.07)', paddingTop: '12px' }}>
-          <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', color: 'rgba(250,247,244,.3)', letterSpacing: '1px' }}>
+          <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', color: 'var(--txt3)', letterSpacing: '1px' }}>
             {post.time} read
           </span>
           <button onClick={onRead}
@@ -328,11 +329,19 @@ function PostCard({ post, large = false, onRead }: { post: typeof POSTS[0]; larg
 export default function LearnPage() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [openPost, setOpenPost] = useState<typeof POSTS[0] | null>(null);
+  const articlesRef = useRef<HTMLElement | null>(null);
   useScrollReveal();
 
   const filtered = activeCategory === 'All'
     ? POSTS
     : POSTS.filter(p => p.cat.toLowerCase().includes(activeCategory.toLowerCase()));
+
+  const handleCategorySelect = (category: string) => {
+    setActiveCategory(category);
+    window.requestAnimationFrame(() => {
+      articlesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
 
   return (
     <div style={{ paddingTop: '68px' }}>
@@ -350,13 +359,13 @@ export default function LearnPage() {
           <h1 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(40px,5vw,72px)', fontWeight: 700, lineHeight: 1.05, color: offW, marginBottom: '20px' }}>
             Learn. Share.<br /><em style={{ color: coral }}>Grow Together.</em>
           </h1>
-          <p data-reveal style={{ fontSize: '16px', lineHeight: 1.8, color: 'rgba(250,247,244,.45)', maxWidth: '560px', margin: '0 auto 40px' }}>
+          <p data-reveal style={{ fontSize: '16px', lineHeight: 1.8, color: 'var(--txt2)', maxWidth: '560px', margin: '0 auto 40px' }}>
             Sustainability stories, community wisdom, creative living guides, and reflections from Caroline and the Coraly Space community.
           </p>
           {/* Category filter */}
           <div data-reveal style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
             {CATEGORIES.map(c => (
-              <button key={c} onClick={() => setActiveCategory(c)}
+              <button key={c} onClick={() => handleCategorySelect(c)}
                 style={{
                   fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px',
                   color: activeCategory === c ? 'white' : coral,
@@ -373,6 +382,8 @@ export default function LearnPage() {
 
       <Ticker items={['KNOWLEDGE', '·', 'SUSTAINABILITY', '·', 'COMMUNITY', '·', 'CREATIVITY', '·', 'WELLBEING', '·', 'CIRCULAR ECONOMY', '·']} />
 
+      <CoralyInfoHub />
+
       {/* Featured post (always POSTS[0]) */}
       <section data-section style={{ background: black, padding: '80px 48px 0' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -384,12 +395,12 @@ export default function LearnPage() {
       </section>
 
       {/* Filtered grid */}
-      <section data-section style={{ background: black, padding: '60px 48px 80px' }}>
+      <section ref={articlesRef} data-section style={{ background: black, padding: '60px 48px 80px', scrollMarginTop: '82px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ width: '24px', height: '1px', background: coral }} />
             {activeCategory === 'All' ? 'ALL ARTICLES' : activeCategory.toUpperCase()}
-            <span style={{ marginLeft: 'auto', fontFamily: "'DM Mono',monospace", fontSize: '9px', color: 'rgba(250,247,244,.3)' }}>
+            <span style={{ marginLeft: 'auto', fontFamily: "'DM Mono',monospace", fontSize: '9px', color: 'var(--txt3)' }}>
               {filtered.length} article{filtered.length !== 1 ? 's' : ''}
             </span>
           </div>
@@ -400,7 +411,7 @@ export default function LearnPage() {
               ))}
             </div>
           ) : (
-            <div style={{ textAlign: 'center', padding: '60px 0', color: 'rgba(250,247,244,.3)', fontFamily: "'DM Mono',monospace", fontSize: '11px', letterSpacing: '2px' }}>
+            <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--txt3)', fontFamily: "'DM Mono',monospace", fontSize: '11px', letterSpacing: '2px' }}>
               NO ARTICLES IN THIS CATEGORY YET — CHECK BACK SOON
             </div>
           )}
@@ -420,10 +431,10 @@ export default function LearnPage() {
             <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: offW, lineHeight: 1.1, marginBottom: '20px' }}>
               People. Planet.<br /><em style={{ color: coral }}>Profit.</em>
             </h2>
-            <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: 'rgba(250,247,244,.45)', marginBottom: '20px' }}>
+            <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: 'var(--txt2)', marginBottom: '20px' }}>
               Coraly Space is built on the belief that commerce and community can heal each other. Every article, every product, every event is part of one ecosystem.
             </p>
-            <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: 'rgba(250,247,244,.35)', marginBottom: '28px' }}>
+            <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: 'var(--txt2)', marginBottom: '28px' }}>
               Explore the knowledge hub to understand the principles, the people, and the projects that make it real.
             </p>
             <div data-reveal>
@@ -444,7 +455,7 @@ export default function LearnPage() {
             <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(24px,3vw,36px)', fontWeight: 700, color: offW, marginBottom: '12px' }}>
               Get the newsletter.<br /><em style={{ color: coral }}>Stay inspired.</em>
             </h3>
-            <p style={{ fontSize: '14px', color: 'rgba(250,247,244,.4)', marginBottom: '28px', lineHeight: 1.7 }}>
+            <p style={{ fontSize: '14px', color: 'var(--txt2)', marginBottom: '28px', lineHeight: 1.7 }}>
               Sustainability stories, community highlights, and early access to events — direct to your inbox.
             </p>
             <div style={{ display: 'flex', gap: '8px', maxWidth: '400px', margin: '0 auto' }}>

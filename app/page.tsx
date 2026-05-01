@@ -6,17 +6,18 @@ import Ticker from '@/components/Ticker';
 import WaitlistForm from '@/components/WaitlistForm';
 import PinnedHorizontalSlides from '@/components/PinnedHorizontalSlides';
 import { useCoralyExperience } from '@/components/CoralyExperienceControls';
+import { CoralyCommunityGroups, CoralyInfoHub } from '@/components/CoralyFeatureSections';
 import { IMAGES } from '@/lib/coraly-images-manifest';
 
 const coral = '#EF7A6C';
 const coralD = '#C0392B';
 const gold = '#C9A84C';
-const black = '#0D0D0D';
-const cream = '#F5EFE8';
-const sand = '#EDE0D4';
-const muted = '#8B7E7B';
-const offW = '#FAF7F4';
-const char = '#1C1C1C';
+const black = 'var(--bg)';
+const cream = 'var(--bg)';
+const sand = 'var(--bg3)';
+const muted = 'var(--txt2)';
+const offW = 'var(--txt)';
+const char = 'var(--bg2)';
 
 const TICKER_ITEMS = ['BELONG', '·', 'CONNECT', '·', 'THRIVE', '·', 'SUSTAINABILITY', '·', 'COMMUNITY', '·', 'ADVENTURE', '·', 'CORALY SPACE', '·', 'CREATIVITY CULTURE & SUSTAINABILITY', '·'];
 
@@ -166,7 +167,7 @@ function Hero() {
             <span key={i} style={{ display: 'block', animation: `wordIn .65s cubic-bezier(.16,1,.3,1) ${.3 + i * .1}s both`, fontStyle: i === 0 || w === '&' ? 'italic' : 'normal', color: w === '&' || w === 'Community' ? coral : offW }}>{w}</span>
           ))}
         </h1>
-        <p style={{ maxWidth: '430px', fontSize: '17px', lineHeight: 1.7, color: 'rgba(250,247,244,.72)', marginBottom: '12px', animation: 'fadeUp .6s ease .75s both' }}>
+        <p style={{ maxWidth: '430px', fontSize: '17px', lineHeight: 1.7, color: 'var(--txt2)', marginBottom: '12px', animation: 'fadeUp .6s ease .75s both' }}>
           {t('hero_sub')}
         </p>
         <p style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: `${gold}dd`, marginBottom: '42px', animation: 'fadeUp .6s ease .85s both' }}>
@@ -191,14 +192,14 @@ function Hero() {
         }}
       >
         <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '46px', fontWeight: 700, color: coral, lineHeight: 1 }}>25%</div>
-        <p style={{ fontSize: '13px', lineHeight: 1.65, color: 'rgba(250,247,244,.68)' }}>
+        <p style={{ fontSize: '13px', lineHeight: 1.65, color: 'var(--txt2)' }}>
           of adults feel lonely. Coraly Space is built for belonging, creativity, and connection.
         </p>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '24px', marginTop: '24px', paddingTop: '18px', borderTop: '1px solid rgba(250,247,244,.18)' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '24px', marginTop: '24px', paddingTop: '18px', borderTop: '1px solid var(--theme-border)' }}>
           {[{ n: '3+', l: 'Communities' }, { n: '∞', l: 'Creativity' }].map(({ n, l }) => (
             <div key={l}>
               <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '24px', fontWeight: 700, color: gold, lineHeight: 1 }}>{n}</div>
-              <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: 'rgba(250,247,244,.45)', marginTop: '4px' }}>{l.toUpperCase()}</div>
+              <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: 'var(--txt2)', marginTop: '4px' }}>{l.toUpperCase()}</div>
             </div>
           ))}
         </div>
@@ -275,7 +276,7 @@ function AboutPreview() {
             <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
               <div style={{ width: '24px', height: '1px', background: coral }} />FOUNDER'S STORY
             </div>
-            <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,46px)', fontWeight: 700, color: '#1A1210', lineHeight: 1.1, marginBottom: '28px' }}>
+            <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,46px)', fontWeight: 700, color: 'var(--txt)', lineHeight: 1.1, marginBottom: '28px' }}>
               Building a kinder,<br /><em style={{ color: coral }}>more connected</em><br />world.
             </h2>
             <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: muted, marginBottom: '20px' }}>
@@ -313,13 +314,17 @@ function DualThemeFeatureSection() {
     <section className="home-section dual-theme-feature" data-section>
       <div className="dual-theme-feature__inner">
         <div className="dual-theme-feature__copy" data-reveal>
-          <div className="feature-kicker">LIGHT / DARK CORALY MODE</div>
+          <div className="feature-kicker">ONE CORALY · TWO EXPRESSIONS</div>
           <h2>
-            Switch between<br /><em>ecosystem and holistic.</em>
+            The digital space<br /><em>and the human touch.</em>
           </h2>
+          <p>
+            Coraly Space holds the tech-enabled community ecosystem, while Coraly UK brings the softer world of movement,
+            care, culture, and sustainable living. Together they make the brand feel complete.
+          </p>
           <div className="feature-mode-switch" role="tablist" aria-label="Choose Coraly visual mode">
-            <button type="button" className={active === 'dark' ? 'is-active' : ''} onClick={() => setTheme('dark')}>Dark ecosystem</button>
-            <button type="button" className={active === 'light' ? 'is-active' : ''} onClick={() => setTheme('light')}>Light holistic</button>
+            <button type="button" className={active === 'dark' ? 'is-active' : ''} onClick={() => setTheme('dark')}>Coraly Space</button>
+            <button type="button" className={active === 'light' ? 'is-active' : ''} onClick={() => setTheme('light')}>Coraly UK</button>
           </div>
         </div>
 
@@ -327,12 +332,12 @@ function DualThemeFeatureSection() {
           <div className="dual-theme-preview__panel dual-theme-preview__panel--dark">
             <img src={IMAGES.LOGO_SPACE_DARK} alt="Coraly Space dark identity" />
             <span>Coraly Space</span>
-            <strong>Community marketplace, knowledge hub, social games.</strong>
+            <strong>Marketplace, knowledge, social play, and community belonging.</strong>
           </div>
           <div className="dual-theme-preview__panel dual-theme-preview__panel--light">
             <img src={IMAGES.LOGO_UK_PREMIUM} alt="Coraly UK holistic identity" />
             <span>Coraly UK</span>
-            <strong>Movement, care, culture, and sustainable living.</strong>
+            <strong>Movement, care, culture, and sustainable everyday living.</strong>
           </div>
         </div>
       </div>
@@ -484,9 +489,9 @@ function BlogSection() {
                 </div>
                 <div style={{ padding: i === 0 ? '24px' : '18px 20px', background: char }}>
                   <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: i === 0 ? '22px' : '16px', fontWeight: 600, color: offW, lineHeight: 1.3, marginBottom: '10px' }}>{p.title}</h3>
-                  {i === 0 && <p style={{ fontSize: '13px', lineHeight: 1.75, color: 'rgba(250,247,244,.4)', marginBottom: '16px' }}>{p.desc}</p>}
+                  {i === 0 && <p style={{ fontSize: '13px', lineHeight: 1.75, color: 'var(--txt2)', marginBottom: '16px' }}>{p.desc}</p>}
                   <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid rgba(250,247,244,.07)', paddingTop: '12px' }}>
-                    <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', color: 'rgba(250,247,244,.3)', letterSpacing: '1px' }}>{p.time} read</span>
+                    <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', color: 'var(--txt3)', letterSpacing: '1px' }}>{p.time} read</span>
                     <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', fontWeight: 600, color: p.accent }}>Read →</span>
                   </div>
                 </div>
@@ -526,7 +531,7 @@ function ShopPreview() {
             <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
               <div style={{ width: '24px', height: '1px', background: coral }} />CORALY UK · SHOP
             </div>
-            <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,40px)', fontWeight: 700, color: '#1A1210', marginBottom: '32px', lineHeight: 1.1 }}>
+            <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,40px)', fontWeight: 700, color: 'var(--txt)', marginBottom: '32px', lineHeight: 1.1 }}>
               Wear your<br /><em style={{ color: coral }}>values.</em>
             </h2>
             <div className="responsive-grid responsive-grid--2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
@@ -541,7 +546,7 @@ function ShopPreview() {
                       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: p.accent, padding: '11px', textAlign: 'center', fontFamily: "'DM Sans',sans-serif", fontSize: '10px', fontWeight: 600, letterSpacing: '2px', color: 'white', transform: hov === i ? 'translateY(0)' : 'translateY(100%)', transition: 'transform .25s ease' }}>ADD +</div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 500, color: '#1A1210' }}>{p.name}</div>
+                      <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 500, color: 'var(--txt)' }}>{p.name}</div>
                       <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '14px', fontWeight: 600, color: p.accent }}>{p.price}</div>
                     </div>
                     <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '1px', color: muted }}>{p.tag}</div>
@@ -791,14 +796,14 @@ function SoftCard({ num, label, titleTop, titleBot, desc, cta, href, accent, tag
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '28px 36px 36px', background: cream }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
           <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '3px', color: accent, opacity: .8 }}>{label}</div>
-          <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '32px', fontWeight: 700, color: 'rgba(26,18,16,.06)', lineHeight: 1, userSelect: 'none' }}>{num}</div>
+          <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '32px', fontWeight: 700, color: 'var(--txt3)', opacity: .28, lineHeight: 1, userSelect: 'none' }}>{num}</div>
         </div>
 
         <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: accent, marginBottom: '12px' }}>{tag}</div>
 
         <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(20px,2.2vw,26px)', fontWeight: 700, lineHeight: 1.1, marginBottom: '10px' }}>
           <em style={{ color: accent }}>{titleTop}</em>
-          {titleBot && <><br /><span style={{ color: '#1A1210' }}>{titleBot}</span></>}
+          {titleBot && <><br /><span style={{ color: 'var(--txt)' }}>{titleBot}</span></>}
         </h3>
 
         <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', lineHeight: 1.75, color: muted, flex: 1, marginBottom: '22px' }}>{desc}</p>
@@ -853,6 +858,15 @@ function PillarsSection() {
       blendedImage: true,
       hov: false, onHover: () => {}, onLeave: () => {},
     },
+    {
+      type: 'soft', num: '05', label: 'CORALYSPACE.COM · MOVE',
+      titleTop: 'Movement', titleBot: '& Activity',
+      desc: 'Dance, voice, walks, and body-led creative events for real-world connection.',
+      cta: 'See Events', href: '/events',
+      accent: coral, tag: 'DANCE · VOICE · WALKS',
+      img: IMAGES.BRAND_DANCE_EVENT,
+      hov: false, onHover: () => {}, onLeave: () => {},
+    },
   ];
 
   return (
@@ -869,9 +883,9 @@ function PillarsSection() {
             <div style={{ height: '1px', width: '36px', background: `linear-gradient(90deg, ${gold}, transparent)` }} />
           </div>
           <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(32px,4.5vw,58px)', fontWeight: 700, color: offW, lineHeight: 1.05, marginBottom: '20px' }}>
-            Four Pillars.<br /><em style={{ color: coral }}>One Ecosystem.</em>
+            Five Pillars.<br /><em style={{ color: coral }}>One Ecosystem.</em>
           </h2>
-          <p data-reveal style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '15px', color: 'rgba(250,247,244,.4)', maxWidth: '460px', margin: '0 auto', lineHeight: 1.85 }}>
+          <p data-reveal style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '15px', color: 'var(--txt2)', maxWidth: '460px', margin: '0 auto', lineHeight: 1.85 }}>
             Everything Coraly builds is designed so people and planet thrive together.
           </p>
         </div>
@@ -934,9 +948,9 @@ export default function HomePage() {
       <ModelsSection />
       <AboutPreview />
       <DualThemeFeatureSection />
-      <CommunityGroupsSection />
+      <CoralyCommunityGroups />
       <BlogSection />
-      <InfoHubFeatureSection />
+      <CoralyInfoHub compact />
       <ShopPreview />
       <WaitlistForm />
     </>

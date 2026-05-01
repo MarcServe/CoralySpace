@@ -8,18 +8,19 @@ import { IMAGES, BRAND_CTA_EXPLORE_CREATE } from '@/lib/coraly-images-manifest';
 
 const coral = '#EF7A6C';
 const gold = '#C9A84C';
-const black = '#0D0D0D';
-const cream = '#F5EFE8';
-const sand = '#EDE0D4';
-const muted = '#8B7E7B';
-const offW = '#FAF7F4';
-const char = '#1C1C1C';
+const black = 'var(--bg)';
+const cream = 'var(--bg)';
+const sand = 'var(--bg3)';
+const muted = 'var(--txt2)';
+const offW = 'var(--txt)';
+const char = 'var(--bg2)';
 
 const PILLARS = [
   { icon: '🛍️', title: 'Community Marketplace', desc: 'Peer-to-peer sustainable commerce. Buy and sell with purpose, from makers who care.' },
   { icon: '👕', title: 'Coraly Store', desc: 'Caroline\'s own Teemill merchandise. Organic cotton, on-demand, zero waste.' },
   { icon: '📚', title: 'Knowledge Hub', desc: 'Blog, courses, events, and community wisdom — all in one place.' },
   { icon: '🎮', title: 'Social Games', desc: 'Eco challenges, missions, badges, gamification. Sustainability made playful.' },
+  { icon: '🩰', title: 'Movement & Activity', desc: 'Dance, voice, walks, and body-led creative events.' },
 ];
 
 const TABS = ['Story', 'Mission', 'Values', 'Team'];
@@ -40,7 +41,7 @@ export default function AboutPage() {
           <h1 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(36px,4.5vw,60px)', fontWeight: 700, lineHeight: 1.05, color: offW, marginBottom: '20px' }}>
             Building a kinder,<br /><em style={{ color: coral }}>more connected</em><br />world.
           </h1>
-          <p data-reveal style={{ fontSize: '16px', lineHeight: 1.8, color: 'rgba(250,247,244,.5)', maxWidth: '380px', marginBottom: '32px' }}>
+          <p data-reveal style={{ fontSize: '16px', lineHeight: 1.8, color: 'var(--txt2)', maxWidth: '380px', marginBottom: '32px' }}>
             Coraly Space is Caroline McGlone's answer to the loneliness epidemic — a sustainability ecosystem where every explorer belongs.
           </p>
           <div data-reveal style={{ display: 'flex', gap: '14px' }}>
@@ -116,7 +117,7 @@ export default function AboutPage() {
                   {[{ i: '📅', t: 'Hybrid Events' }, { i: '🌐', t: 'Online Community' }, { i: '🛍️', t: 'Curated Retail' }, { i: '🌿', t: 'Sustainability' }].map(({ i, t }) => (
                     <div key={t} style={{ padding: '16px', background: sand, borderRadius: '3px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <span style={{ fontSize: '20px' }}>{i}</span>
-                      <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 600, color: '#1A1210' }}>{t}</span>
+                      <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 600, color: 'var(--txt)' }}>{t}</span>
                     </div>
                   ))}
                 </div>
@@ -137,7 +138,7 @@ export default function AboutPage() {
                 <div data-reveal style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '28px', padding: '20px', background: sand, borderRadius: '3px' }}>
                   <img src={IMAGES.CAROLINE_MODEL} alt="Caroline" style={{ width: '72px', height: '72px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'center top', border: `2px solid ${coral}` }} />
                   <div>
-                    <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '18px', fontWeight: 600, color: '#1A1210' }}>Caroline McGlone</div>
+                    <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '18px', fontWeight: 600, color: 'var(--txt)' }}>Caroline McGlone</div>
                     <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: coral }}>FOUNDER · CREATOR · EXPLORER</div>
                     <p style={{ fontSize: '13px', color: muted, marginTop: '6px', lineHeight: 1.6 }}>Bristol / Gloucestershire · coralyspace@gmail.com</p>
                   </div>
@@ -163,9 +164,9 @@ export default function AboutPage() {
       <section className="about-pillars-section" data-section style={{ background: char, padding: '80px 0 0', overflowX: 'clip', overflowY: 'visible' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
           <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-            <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, marginBottom: '14px' }}>THE FOUR PILLARS</div>
+            <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, marginBottom: '14px' }}>THE FIVE PILLARS</div>
             <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: offW, lineHeight: 1.1 }}>
-              One ecosystem.<br /><em style={{ color: coral }}>Four ways in.</em>
+              One ecosystem.<br /><em style={{ color: coral }}>Five ways in.</em>
             </h2>
           </div>
         </div>
@@ -186,7 +187,7 @@ export default function AboutPage() {
                   <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(34px,5vw,68px)', fontWeight: 700, color: offW, marginBottom: '18px', lineHeight: 1 }}>
                     {p.title}
                   </h3>
-                  <p style={{ fontSize: 'clamp(15px,1.5vw,20px)', lineHeight: 1.75, color: 'rgba(250,247,244,.58)', maxWidth: '620px' }}>{p.desc}</p>
+                  <p style={{ fontSize: 'clamp(15px,1.5vw,20px)', lineHeight: 1.75, color: 'var(--txt2)', maxWidth: '620px' }}>{p.desc}</p>
                 </div>
               </div>
             ),
@@ -199,7 +200,7 @@ export default function AboutPage() {
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div data-reveal style={{ textAlign: 'center', marginBottom: '48px' }}>
             <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, marginBottom: '14px' }}>TWO SIDES, ONE MISSION</div>
-            <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: '#1A1210', lineHeight: 1.1 }}>
+            <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: 'var(--txt)', lineHeight: 1.1 }}>
               The dual<br /><em style={{ color: coral }}>personality.</em>
             </h2>
           </div>
@@ -230,10 +231,10 @@ export default function AboutPage() {
             <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: offW, lineHeight: 1.1, marginBottom: '20px' }}>
               Yes, that's a community member<br /><em style={{ color: coral }}>with the Gruffalo.</em>
             </h2>
-            <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: 'rgba(250,247,244,.45)', marginBottom: '20px' }}>
+            <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: 'var(--txt2)', marginBottom: '20px' }}>
               Coraly Space is built around real people — not stock models, not faceless community. Members show up as themselves: in nature, at events, on stalls, and in everyday moments.
             </p>
-            <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: 'rgba(250,247,244,.35)', marginBottom: '28px' }}>
+            <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: 'var(--txt2)', marginBottom: '28px' }}>
               That authenticity is the product. When you join Coraly Space, you join a world of explorers, makers, and joyful characters. And sometimes, the Gruffalo's too.
             </p>
             <div data-reveal>

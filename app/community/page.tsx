@@ -4,22 +4,15 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Ticker from '@/components/Ticker';
 import WaitlistForm from '@/components/WaitlistForm';
 import PinnedHorizontalSlides from '@/components/PinnedHorizontalSlides';
-import { IMAGES, BRAND_HERO_HEART_LEAF, BRAND_VENN_SUSTAINABILITY, MARKETING_SUSTAINABLE_COLLECTION } from '@/lib/coraly-images-manifest';
+import { CoralyCommunityGroups } from '@/components/CoralyFeatureSections';
+import { BRAND_HERO_HEART_LEAF, BRAND_VENN_SUSTAINABILITY } from '@/lib/coraly-images-manifest';
 
 const coral = '#EF7A6C';
-const gold = '#C9A84C';
-const black = '#0D0D0D';
-const cream = '#F5EFE8';
-const sand = '#EDE0D4';
-const muted = '#8B7E7B';
-const offW = '#FAF7F4';
-const char = '#1C1C1C';
-
-const AUDIENCE = [
-  'Female Solopreneurs', 'Neurodivergent Creators', 'Parents', 'LGBTQ+ Community',
-  'Diaspora', 'Dancers', 'Creative Technologists', 'Universities', 'Sustainable Makers',
-  'Artists', 'Small Businesses', 'Cultural Partners', 'Eco Activists', 'Community Builders',
-];
+const black = 'var(--bg)';
+const cream = 'var(--bg)';
+const muted = 'var(--txt2)';
+const offW = 'var(--txt)';
+const char = 'var(--bg2)';
 
 const FEATURES = [
   { icon: '🛍️', title: 'Marketplace', desc: 'Buy and sell sustainably with makers who care. Peer-to-peer, values-first commerce.', href: '/shop' },
@@ -52,14 +45,14 @@ export default function CommunityPage() {
           <h1 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(36px,4.5vw,64px)', fontWeight: 700, lineHeight: 1.05, color: offW, marginBottom: '20px' }}>
             Belong.<br />Connect.<br /><em style={{ color: coral }}>Thrive.</em>
           </h1>
-          <p data-reveal style={{ fontSize: '16px', lineHeight: 1.8, color: 'rgba(250,247,244,.5)', maxWidth: '380px', marginBottom: '32px' }}>
+          <p data-reveal style={{ fontSize: '16px', lineHeight: 1.8, color: 'var(--txt2)', maxWidth: '380px', marginBottom: '32px' }}>
             Coraly Space is building the antidote to loneliness — a sustainability ecosystem where explorers, makers, and creators belong.
           </p>
           <div data-reveal style={{ display: 'flex', gap: '36px' }}>
             {STATS.map(({ n, label }) => (
               <div key={label}>
                 <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '28px', fontWeight: 700, color: coral, lineHeight: 1 }}>{n}</div>
-                <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: 'rgba(250,247,244,.3)', marginTop: '4px' }}>{label.toUpperCase()}</div>
+                <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: 'var(--txt3)', marginTop: '4px' }}>{label.toUpperCase()}</div>
               </div>
             ))}
           </div>
@@ -90,7 +83,7 @@ export default function CommunityPage() {
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(239,122,108,.12)'; e.currentTarget.style.background = 'rgba(239,122,108,.03)'; e.currentTarget.style.transform = 'none'; }}>
                   <div style={{ fontSize: '32px', marginBottom: '14px' }}>{f.icon}</div>
                   <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '18px', fontWeight: 600, color: offW, marginBottom: '10px' }}>{f.title}</div>
-                  <p style={{ fontSize: '13px', lineHeight: 1.75, color: 'rgba(250,247,244,.4)' }}>{f.desc}</p>
+                  <p style={{ fontSize: '13px', lineHeight: 1.75, color: 'var(--txt2)' }}>{f.desc}</p>
                 </div>
               </Link>
             ))}
@@ -108,7 +101,7 @@ export default function CommunityPage() {
                     <div className="community-feature-slide-card">
                       <div style={{ fontSize: '42px', marginBottom: '18px' }}>{f.icon}</div>
                       <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,10vw,42px)', fontWeight: 700, color: offW, lineHeight: 1.05, marginBottom: '16px' }}>{f.title}</div>
-                      <p style={{ fontSize: '14px', lineHeight: 1.75, color: 'rgba(250,247,244,.62)', margin: 0 }}>{f.desc}</p>
+                      <p style={{ fontSize: '14px', lineHeight: 1.75, color: 'var(--txt2)', margin: 0 }}>{f.desc}</p>
                     </div>
                   </Link>
                 ),
@@ -125,7 +118,7 @@ export default function CommunityPage() {
             <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div style={{ width: '24px', height: '1px', background: coral }} />THE ECOSYSTEM
             </div>
-            <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: '#1A1210', lineHeight: 1.1, marginBottom: '20px' }}>
+            <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: 'var(--txt)', lineHeight: 1.1, marginBottom: '20px' }}>
               More than a platform.<br /><em style={{ color: coral }}>A movement.</em>
             </h2>
             <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: muted, marginBottom: '20px' }}>
@@ -144,29 +137,13 @@ export default function CommunityPage() {
         </div>
       </section>
 
-      {/* Who is Coraly Space for */}
-      <section data-section style={{ background: black, padding: '80px 48px' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
-          <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, marginBottom: '16px' }}>WHO IS THIS FOR?</div>
-          <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: offW, lineHeight: 1.1, marginBottom: '32px' }}>
-            Every<br /><em style={{ color: coral }}>explorer.</em>
-          </h2>
-          <div data-reveal style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center', marginBottom: '40px' }}>
-            {AUDIENCE.map(t => (
-              <span key={t} style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '1px', color: coral, border: `1px solid rgba(239,122,108,.3)`, background: 'rgba(239,122,108,.05)', padding: '7px 16px', borderRadius: '20px' }}>{t}</span>
-            ))}
-          </div>
-          <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: 'rgba(250,247,244,.4)', maxWidth: '560px', margin: '0 auto' }}>
-            If you've ever felt like you don't quite fit — too creative for corporate, too systems-thinker for the mainstream — Coraly Space was built for you.
-          </p>
-        </div>
-      </section>
+      <CoralyCommunityGroups />
 
       {/* Sustainable collection visual */}
       <section data-section style={{ background: cream, padding: '60px 48px' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div data-reveal style={{ borderRadius: '3px', overflow: 'hidden', boxShadow: '0 24px 60px rgba(0,0,0,.15)' }}>
-            <img src={MARKETING_SUSTAINABLE_COLLECTION} alt="Coraly Space sustainable collection"
+            <img src="/community-coraly-brand-banner.png" alt="Coraly Space brand banner"
               style={{ width: '100%', display: 'block' }} />
           </div>
         </div>
@@ -178,16 +155,16 @@ export default function CommunityPage() {
       {/* Social proof */}
       <section data-section style={{ background: char, padding: '60px 48px' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
-          <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '3px', color: 'rgba(250,247,244,.3)', marginBottom: '24px' }}>FIND US EVERYWHERE</div>
+          <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '3px', color: 'var(--txt3)', marginBottom: '24px' }}>FIND US EVERYWHERE</div>
           <div data-reveal style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
             {[['@coraly.space', 'Instagram'], ['coralyspace.com', 'Web'], ['coralyspace@gmail.com', 'Email'], ['coraly.space', 'Platform']].map(([handle, platform]) => (
               <div key={handle} style={{ padding: '12px 20px', border: '1px solid rgba(239,122,108,.15)', borderRadius: '3px', background: 'rgba(239,122,108,.03)' }}>
                 <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: coral }}>{handle}</div>
-                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', color: 'rgba(250,247,244,.3)', marginTop: '3px' }}>{platform}</div>
+                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', color: 'var(--txt3)', marginTop: '3px' }}>{platform}</div>
               </div>
             ))}
           </div>
-          <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '1px', color: 'rgba(250,247,244,.2)' }}>
+          <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '1px', color: 'var(--txt3)' }}>
             CORALY SPACE · IP CAROLINE McGLONE · BUILT BY BIZ BOOSTERS LTD
           </div>
         </div>

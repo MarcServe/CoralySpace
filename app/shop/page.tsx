@@ -16,12 +16,12 @@ const teemillUrl = (_slug: string) => TEEMILL_ALL;
 const coral = '#EF7A6C';
 const coralD = '#C0392B';
 const gold = '#C9A84C';
-const black = '#0D0D0D';
-const cream = '#F5EFE8';
-const sand = '#EDE0D4';
-const muted = '#8B7E7B';
-const offW = '#FAF7F4';
-const char = '#1C1C1C';
+const black = 'var(--bg)';
+const cream = 'var(--bg)';
+const sand = 'var(--bg3)';
+const muted = 'var(--txt2)';
+const offW = 'var(--txt)';
+const char = 'var(--bg2)';
 
 const KIDS = [
   { img: IMAGES.PRODUCT_MOON_PHASE, name: 'Moon Phase Tee', price: '£22', tag: 'WHITE · KIDS', accent: coral, slug: 'moon-phase-tee' },
@@ -58,7 +58,7 @@ function ProductCard({ img, name, price, tag, accent, badge = null, slug }: { im
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: accent, padding: '11px', textAlign: 'center', fontFamily: "'DM Sans',sans-serif", fontSize: '10px', fontWeight: 600, letterSpacing: '2px', color: 'white', transform: hov ? 'translateY(0)' : 'translateY(100%)', transition: 'transform .25s ease' }}>ADD TO BAG +</div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 500, color: '#1A1210' }}>{name}</div>
+        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 500, color: 'var(--txt)' }}>{name}</div>
         <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '14px', fontWeight: 600, color: accent }}>{price}</div>
       </div>
       <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '1px', color: muted }}>{tag}</div>
@@ -81,7 +81,7 @@ export default function ShopPage() {
           <h1 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(36px,4.5vw,64px)', fontWeight: 700, lineHeight: 1.05, color: offW, marginBottom: '20px' }}>
             Wear your<br /><em style={{ color: coral }}>values.</em>
           </h1>
-          <p data-reveal style={{ fontSize: '15px', lineHeight: 1.8, color: 'rgba(250,247,244,.5)', maxWidth: '360px', marginBottom: '32px' }}>
+          <p data-reveal style={{ fontSize: '15px', lineHeight: 1.8, color: 'var(--txt2)', maxWidth: '360px', marginBottom: '32px' }}>
             Organic cotton. On-demand. Zero waste. Every piece made by Teemill — so nothing is made until you order it.
           </p>
           <div data-reveal style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
@@ -116,12 +116,12 @@ export default function ShopPage() {
             <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(32px,4vw,56px)', fontWeight: 700, color: offW, lineHeight: 1.05, marginBottom: '20px' }}>
               REWILD<br /><em style={{ color: coral }}>REWILD</em><br />REWILD
             </h2>
-            <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: 'rgba(250,247,244,.45)', marginBottom: '28px' }}>
+            <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: 'var(--txt2)', marginBottom: '28px' }}>
               Not just a tee. A manifesto. Rewilding yourself, your community, your relationship with nature. Black, bold, unapologetic.
             </p>
             <div data-reveal style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               <a href={teemillUrl('rewild-tee')} target="_blank" rel="noopener noreferrer" className="cbtn" style={{ background: coralD }}>Add to Bag — £28</a>
-              <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: 'rgba(250,247,244,.3)', display: 'flex', alignItems: 'center' }}>BLACK · STATEMENT · ORGANIC COTTON</span>
+              <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: 'var(--txt3)', display: 'flex', alignItems: 'center' }}>BLACK · STATEMENT · ORGANIC COTTON</span>
             </div>
           </div>
         </div>
@@ -134,7 +134,7 @@ export default function ShopPage() {
             <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
               <div style={{ width: '24px', height: '1px', background: coral }} />KIDS COLLECTION
             </div>
-            <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: '#1A1210', lineHeight: 1.1 }}>
+            <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: 'var(--txt)', lineHeight: 1.1 }}>
               Little explorers,<br /><em style={{ color: coral }}>big hearts.</em>
             </h2>
           </div>
@@ -181,7 +181,7 @@ export default function ShopPage() {
             <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: offW, lineHeight: 1.1, marginBottom: '20px' }}>
               Every piece.<br /><em style={{ color: coral }}>A statement.</em>
             </h2>
-            <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: 'rgba(250,247,244,.4)', marginBottom: '28px' }}>
+            <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: 'var(--txt2)', marginBottom: '28px' }}>
               Coraly Space × Teemill. Organic cotton, print-on-demand, shipped in recycled packaging. Fashion that gives back.
             </p>
             <div data-reveal style={{ display: 'flex', gap: '12px' }}>

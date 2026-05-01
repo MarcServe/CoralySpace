@@ -7,12 +7,12 @@ import { IMAGES, BG_RAINBOW_SKY, BG_SUNSET_SKY_TREE, LIFESTYLE_GUITAR_WALK } fro
 
 const coral = '#EF7A6C';
 const gold = '#C9A84C';
-const black = '#0D0D0D';
-const cream = '#F5EFE8';
-const sand = '#EDE0D4';
-const muted = '#8B7E7B';
-const offW = '#FAF7F4';
-const char = '#1C1C1C';
+const black = 'var(--bg)';
+const cream = 'var(--bg)';
+const sand = 'var(--bg3)';
+const muted = 'var(--txt2)';
+const offW = 'var(--txt)';
+const char = 'var(--bg2)';
 
 const UPCOMING = [
   {
@@ -82,8 +82,8 @@ function EventCard({ event, featured = false }: { event: typeof UPCOMING[0]; fea
       <div style={{ padding: featured ? '28px' : '20px', background: char }}>
         <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: event.accent, marginBottom: '8px' }}>{event.date.toUpperCase()}</div>
         <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: featured ? '22px' : '18px', fontWeight: 600, color: offW, lineHeight: 1.3, marginBottom: '8px' }}>{event.title}</h3>
-        <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '1px', color: 'rgba(250,247,244,.4)', marginBottom: '12px' }}>📍 {event.venue}</div>
-        <p style={{ fontSize: '13px', lineHeight: 1.75, color: 'rgba(250,247,244,.4)', marginBottom: '20px' }}>{event.desc}</p>
+        <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '1px', color: 'var(--txt2)', marginBottom: '12px' }}>📍 {event.venue}</div>
+        <p style={{ fontSize: '13px', lineHeight: 1.75, color: 'var(--txt2)', marginBottom: '20px' }}>{event.desc}</p>
         <a href="mailto:coralyspace@gmail.com" className="cbtn" style={{ background: event.accent, fontSize: '10px', padding: '10px 20px' }}>
           Book Now →
         </a>
@@ -108,7 +108,7 @@ export default function EventsPage() {
           <h1 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(40px,5vw,72px)', fontWeight: 700, lineHeight: 1.05, color: offW, marginBottom: '20px' }}>
             Move. Create.<br /><em style={{ color: coral }}>Connect in person.</em>
           </h1>
-          <p data-reveal style={{ fontSize: '16px', lineHeight: 1.8, color: 'rgba(250,247,244,.45)', marginBottom: '40px', maxWidth: '520px', margin: '0 auto 40px' }}>
+          <p data-reveal style={{ fontSize: '16px', lineHeight: 1.8, color: 'var(--txt2)', marginBottom: '40px', maxWidth: '520px', margin: '0 auto 40px' }}>
             Real community happens in real life. Dance workshops, makers markets, creative circles, and seasonal gatherings across the UK.
           </p>
           <div data-reveal style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -138,15 +138,15 @@ export default function EventsPage() {
               </h2>
               <div data-reveal style={{ display: 'flex', gap: '16px', marginBottom: '20px', flexWrap: 'wrap' }}>
                 {[{ icon: '📍', text: 'Britannia Dance Studio, Cainscross' }, { icon: '💷', text: '£12 per session' }, { icon: '🕐', text: 'Check for current dates' }].map(({ icon, text }) => (
-                  <div key={text} style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '1px', color: 'rgba(250,247,244,.5)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <div key={text} style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '1px', color: 'var(--txt2)', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span>{icon}</span>{text}
                   </div>
                 ))}
               </div>
-              <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: 'rgba(250,247,244,.45)', marginBottom: '16px' }}>
+              <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: 'var(--txt2)', marginBottom: '16px' }}>
                 An immersive workshop combining movement and voice. No experience needed — just a willingness to show up. Created and led by Caroline.
               </p>
-              <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: 'rgba(250,247,244,.35)', marginBottom: '28px' }}>
+              <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: 'var(--txt2)', marginBottom: '28px' }}>
                 Past participants describe it as "transformative", "freeing", and "the highlight of my week." Book by emailing Caroline directly.
               </p>
               <div data-reveal style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -193,7 +193,7 @@ export default function EventsPage() {
       <section data-section style={{ background: cream, padding: '80px 48px' }}>
         <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
           <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, marginBottom: '14px' }}>WANT TO COLLABORATE?</div>
-          <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: '#1A1210', lineHeight: 1.1, marginBottom: '16px' }}>
+          <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: 'var(--txt)', lineHeight: 1.1, marginBottom: '16px' }}>
             Host with<br /><em style={{ color: coral }}>Coraly Space.</em>
           </h2>
           <p data-reveal style={{ fontSize: '15px', lineHeight: 1.8, color: muted, marginBottom: '32px' }}>
