@@ -199,6 +199,29 @@ function Hero() {
         </div>
       </div>
 
+      {/* Community card — floats on the right of the hero */}
+      <div
+        className="home-hero__community-card"
+        style={{
+          position: 'absolute',
+          right: '5%',
+          top: '50%',
+          transform: 'translateY(-50%) rotate(2.5deg)',
+          zIndex: 2,
+          width: 'clamp(160px, 18vw, 240px)',
+          borderRadius: '12px',
+          overflow: 'hidden',
+          boxShadow: '0 24px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(239,122,108,.18)',
+          animation: 'fadeUp .7s ease 1.1s both',
+        }}
+      >
+        <img
+          src={IMAGES.COMMUNITY_HERO_CARD}
+          alt="Song & Dance — Coraly Space community"
+          style={{ width: '100%', display: 'block' }}
+        />
+      </div>
+
       <div
         className="home-hero__stats"
         style={{

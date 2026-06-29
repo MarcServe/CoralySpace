@@ -1465,6 +1465,10 @@ svg {
     gap: 14px !important;
   }
 
+  .home-hero__community-card {
+    display: none !important;
+  }
+
   .home-hero__stats > div:first-child {
     font-size: 30px !important;
   }
