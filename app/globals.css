@@ -533,6 +533,16 @@ svg {
   transition: background var(--theme-transition), color var(--theme-transition);
 }
 
+/* ── Fullscreen pillar card layout ─────────────────────────────────── */
+.pillar-fullscreen-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  width: 100%;
+  max-width: 1080px;
+  height: min(580px, 80svh);
+}
+
 .dual-theme-feature {
   padding: 110px 48px;
   background:
@@ -1912,6 +1922,14 @@ svg {
   /* Pillars grid: 5-col → 2-col at tablet */
   .pillars-grid {
     grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Fullscreen pillar card: stack on tablet */
+  .pillar-fullscreen-card {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 280px auto !important;
+    max-width: 520px !important;
+    height: auto !important;
   }
 }
 

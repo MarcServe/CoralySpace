@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Ticker from '@/components/Ticker';
 import WaitlistForm from '@/components/WaitlistForm';
@@ -837,104 +837,166 @@ function SoftCard({ num, label, titleTop, titleBot, desc, cta, href, accent, tag
   );
 }
 
-function PillarsSection() {
-  const [hov, setHov] = useState<number | null>(null);
+const PILLARS_DATA = [
+  {
+    num: '01', label: 'CORALYSPACE.COM · COMMUNITY',
+    titleTop: 'Community', titleBot: '& Belonging',
+    desc: 'A space to connect, belong, and find your people among conscious creatives worldwide.',
+    cta: 'Join the Community', href: '/community',
+    accent: coral, tag: 'CONNECT · BELONG · THRIVE',
+    img: IMAGES.BRAND_ADVENTURE,
+  },
+  {
+    num: '02', label: 'CORALY.UK · STORE',
+    titleTop: 'Coraly', titleBot: 'Store',
+    desc: "Organic cotton. On-demand. Zero waste. Caroline's own designs — worn with intention.",
+    cta: 'Shop the Collection', href: '/shop',
+    accent: gold, tag: 'ORGANIC · ON-DEMAND · ZERO WASTE',
+    img: IMAGES.MODEL_COAST,
+  },
+  {
+    num: '03', label: 'CORALYSPACE.COM · LEARN',
+    titleTop: 'Knowledge', titleBot: 'Hub',
+    desc: 'Blog, courses, events, and community wisdom. Learn, share, and grow together.',
+    cta: 'Explore the Hub', href: '/learn',
+    accent: coral, tag: 'BLOG · COURSES · EVENTS',
+    img: IMAGES.BLOG_WINTER_COSY,
+  },
+  {
+    num: '04', label: 'CORALYSPACE.COM · PLAY',
+    titleTop: 'Social', titleBot: 'Games',
+    desc: 'Eco challenges, missions, badges, gamification. Make sustainability a collective adventure.',
+    cta: 'Play & Earn', href: '/community',
+    accent: gold, tag: 'CHALLENGES · MISSIONS · BADGES',
+    img: IMAGES.BRAND_ADVENTURE,
+  },
+  {
+    num: '05', label: 'CORALYSPACE.COM · MOVE',
+    titleTop: 'Movement', titleBot: '& Activity',
+    desc: 'Dance, voice, walks, and body-led creative events for real-world connection.',
+    cta: 'See Events', href: '/events',
+    accent: coral, tag: 'DANCE · VOICE · WALKS',
+    img: IMAGES.BRAND_DANCE_EVENT,
+  },
+];
 
-  const PILLARS: (CardProps & { type: 'techy' | 'soft' })[] = [
-    {
-      type: 'techy', num: '01', label: 'CORALYSPACE.COM · COMMUNITY',
-      titleTop: 'Community', titleBot: '& Belonging',
-      desc: 'A space to connect, belong, and find your people among conscious creatives worldwide.',
-      cta: 'Join the Community', href: '/community',
-      accent: coral, tag: 'CONNECT · BELONG · THRIVE',
-      img: IMAGES.BRAND_ADVENTURE,
-      hov: false, onHover: () => {}, onLeave: () => {},
-    },
-    {
-      type: 'soft', num: '02', label: 'CORALY.UK · STORE',
-      titleTop: 'Coraly', titleBot: 'Store',
-      desc: "Organic cotton. On-demand. Zero waste. Caroline's own designs — worn with intention.",
-      cta: 'Shop the Collection', href: '/shop',
-      accent: gold, tag: 'ORGANIC · ON-DEMAND · ZERO WASTE',
-      img: IMAGES.MODEL_COAST,
-      hov: false, onHover: () => {}, onLeave: () => {},
-    },
-    {
-      type: 'soft', num: '03', label: 'CORALYSPACE.COM · LEARN',
-      titleTop: 'Knowledge', titleBot: 'Hub',
-      desc: 'Blog, courses, events, and community wisdom. Learn, share, and grow together.',
-      cta: 'Explore the Hub', href: '/learn',
-      accent: coral, tag: 'BLOG · COURSES · EVENTS',
-      img: IMAGES.BLOG_WINTER_COSY,
-      hov: false, onHover: () => {}, onLeave: () => {},
-    },
-    {
-      type: 'techy', num: '04', label: 'CORALYSPACE.COM · PLAY',
-      titleTop: 'Social', titleBot: 'Games',
-      desc: 'Eco challenges, missions, badges, gamification. Make sustainability a collective adventure.',
-      cta: 'Play & Earn', href: '/community',
-      accent: gold, tag: 'CHALLENGES · MISSIONS · BADGES',
-      img: IMAGES.BRAND_ADVENTURE,
-      blendedImage: true,
-      hov: false, onHover: () => {}, onLeave: () => {},
-    },
-    {
-      type: 'soft', num: '05', label: 'CORALYSPACE.COM · MOVE',
-      titleTop: 'Movement', titleBot: '& Activity',
-      desc: 'Dance, voice, walks, and body-led creative events for real-world connection.',
-      cta: 'See Events', href: '/events',
-      accent: coral, tag: 'DANCE · VOICE · WALKS',
-      img: IMAGES.BRAND_DANCE_EVENT,
-      hov: false, onHover: () => {}, onLeave: () => {},
-    },
-  ];
+function PillarsSection() {
+  const [active, setActive] = useState(-1);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      const scrolled = -rect.top;
+      if (scrolled <= 0) { setActive(-1); return; }
+      const progress = Math.min(1, scrolled / total);
+      // First 12% = intro header, rest divided equally among pillars
+      if (progress < 0.12) { setActive(-1); return; }
+      const cardProgress = (progress - 0.12) / 0.88;
+      setActive(Math.min(PILLARS_DATA.length - 1, Math.floor(cardProgress * PILLARS_DATA.length)));
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <section className="home-section home-section--pillars" data-section style={{ background: black, padding: '100px 0 0' }}>
-      <div className="home-section__inner" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
+    // Outer tall div — scrolling through it drives the sticky inner
+    <div ref={sectionRef} style={{ height: `${(PILLARS_DATA.length + 1) * 100}svh`, position: 'relative' }}>
+      <div style={{ position: 'sticky', top: 0, height: '100svh', overflow: 'hidden', background: black }}>
 
-        {/* Section header */}
-        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-          <div data-reveal style={{ display: 'inline-flex', alignItems: 'center', gap: '14px', marginBottom: '22px' }}>
-            <div style={{ height: '1px', width: '36px', background: `linear-gradient(90deg, transparent, ${coral})` }} />
+        {/* ── Intro header (shown before first card) ── */}
+        <div style={{
+          position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center', padding: '80px 48px',
+          opacity: active === -1 ? 1 : 0,
+          transform: active === -1 ? 'translateY(0)' : 'translateY(-36px)',
+          transition: 'opacity .5s ease, transform .55s cubic-bezier(.16,1,.3,1)',
+          pointerEvents: active === -1 ? 'auto' : 'none',
+          textAlign: 'center',
+        }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '14px', marginBottom: '24px' }}>
+            <div style={{ height: '1px', width: '36px', background: `linear-gradient(90deg,transparent,${coral})` }} />
             <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '4px', color: coral }}>CORALYSPACE.COM · TECH</span>
             <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: gold, animation: 'pulse 2s ease infinite' }} />
             <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '4px', color: gold }}>CORALY.UK · HOLISTIC</span>
-            <div style={{ height: '1px', width: '36px', background: `linear-gradient(90deg, ${gold}, transparent)` }} />
+            <div style={{ height: '1px', width: '36px', background: `linear-gradient(90deg,${gold},transparent)` }} />
           </div>
-          <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(32px,4.5vw,58px)', fontWeight: 700, color: offW, lineHeight: 1.05, marginBottom: '20px' }}>
+          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 700, color: offW, lineHeight: 1.05, marginBottom: '20px' }}>
             Five Pillars.<br /><em style={{ color: coral }}>One Ecosystem.</em>
           </h2>
-          <p data-reveal style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '15px', color: 'var(--txt2)', maxWidth: '460px', margin: '0 auto', lineHeight: 1.85 }}>
+          <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '16px', color: 'var(--txt2)', maxWidth: '460px', lineHeight: 1.85, marginBottom: '48px' }}>
             Everything Coraly builds is designed so people and planet thrive together.
           </p>
+          {/* Scroll hint */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', animation: 'fadeUp .6s ease 1s both' }}>
+            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '3px', color: 'var(--txt3)' }}>SCROLL TO EXPLORE</span>
+            <div style={{ width: '1px', height: '40px', background: `linear-gradient(to bottom, ${coral}, transparent)`, animation: 'pulse 1.8s ease infinite' }} />
+          </div>
         </div>
 
-        <div className="pillars-grid" style={{ marginTop: '16px', display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', paddingBottom: '80px' }}>
-          {PILLARS.map((p, i) => (
-            <div key={p.num} style={{ minHeight: '520px', display: 'flex', flexDirection: 'column' }}>
-              {p.type === 'techy' ? (
-                <TechyCard
-                  {...p}
-                  minimal={true}
-                  hov={hov === i}
-                  onHover={() => setHov(i)}
-                  onLeave={() => setHov(null)}
-                />
-              ) : (
-                <SoftCard
-                  {...p}
-                  minimal={true}
-                  hov={hov === i}
-                  onHover={() => setHov(i)}
-                  onLeave={() => setHov(null)}
-                />
-              )}
+        {/* ── Pillar cards (one at a time) ── */}
+        {PILLARS_DATA.map((p, i) => (
+          <div key={p.num} style={{
+            position: 'absolute', inset: 0, padding: '68px 48px 80px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            opacity: active === i ? 1 : 0,
+            transform: active === i ? 'translateY(0)' : active > i ? 'translateY(-40px)' : 'translateY(50px)',
+            transition: 'opacity .5s cubic-bezier(.4,0,.2,1), transform .55s cubic-bezier(.16,1,.3,1)',
+            pointerEvents: active === i ? 'auto' : 'none',
+          }}>
+            <div className="pillar-fullscreen-card">
+              {/* Left: image */}
+              <div style={{ overflow: 'hidden', borderRadius: '4px', height: '100%' }}>
+                <img src={p.img} alt={`${p.titleTop} ${p.titleBot}`}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center',
+                    transform: active === i ? 'scale(1)' : 'scale(1.06)',
+                    transition: 'transform .8s cubic-bezier(.16,1,.3,1)' }} />
+              </div>
+              {/* Right: text */}
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '8px 0' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '10px' }}>
+                  <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '3px', color: p.accent, opacity: .7 }}>{p.label}</span>
+                  <span style={{ fontFamily: "'Playfair Display',serif", fontSize: '56px', fontWeight: 700, color: 'rgba(250,247,244,.06)', lineHeight: 1, userSelect: 'none' }}>{p.num}</span>
+                </div>
+                <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2.5px', color: p.accent, marginBottom: '18px' }}>{p.tag}</div>
+                <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(32px,4vw,52px)', fontWeight: 700, lineHeight: 1.05, marginBottom: '18px' }}>
+                  <em style={{ color: p.accent }}>{p.titleTop}</em><br />
+                  <span style={{ color: offW }}>{p.titleBot}</span>
+                </h3>
+                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '16px', lineHeight: 1.8, color: 'var(--txt2)', marginBottom: '32px', maxWidth: '400px' }}>{p.desc}</p>
+                <Link href={p.href} className="cbtn" style={{ alignSelf: 'flex-start' }}>{p.cta} →</Link>
+              </div>
             </div>
-          ))}
+          </div>
+        ))}
+
+        {/* ── Progress bar + counter ── */}
+        <div style={{
+          position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)',
+          display: 'flex', alignItems: 'center', gap: '12px',
+          opacity: active >= 0 ? 1 : 0, transition: 'opacity .4s ease',
+        }}>
+          <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: 'var(--txt3)' }}>
+            {String(active + 1).padStart(2, '0')} / {String(PILLARS_DATA.length).padStart(2, '0')}
+          </span>
+          <div style={{ display: 'flex', gap: '6px' }}>
+            {PILLARS_DATA.map((_, i) => (
+              <div key={i} style={{
+                height: '3px', borderRadius: '2px',
+                width: i === active ? '28px' : '6px',
+                background: i === active ? coral : 'rgba(250,247,244,.2)',
+                transition: 'all .35s cubic-bezier(.16,1,.3,1)',
+              }} />
+            ))}
+          </div>
+          <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: 'var(--txt3)' }}>↓ SCROLL</span>
         </div>
+
       </div>
-    </section>
+    </div>
   );
 }
 

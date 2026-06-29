@@ -44,9 +44,25 @@ export default function WaitlistForm() {
         }}>
           {t('waitlist_title_a')}<br /><em style={{ color: coral }}>{t('waitlist_title_b')}</em>
         </h2>
-        <p data-reveal style={{ color: 'var(--txt2)', fontSize: '14px', lineHeight: 1.8, marginBottom: '40px' }}>
+        <p data-reveal style={{ color: 'var(--txt2)', fontSize: '14px', lineHeight: 1.8, marginBottom: '28px' }}>
           {t('waitlist_sub')}
         </p>
+
+        {/* What you get */}
+        <div data-reveal style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '36px', textAlign: 'left' }}>
+          {[
+            { icon: '🌿', text: 'Early access to the community before public launch' },
+            { icon: '🎟', text: 'First invites to events, workshops & live gatherings' },
+            { icon: '📬', text: 'A welcome gift — free resources from the Knowledge Hub' },
+            { icon: '🛍', text: 'Shop drops before they go public' },
+            { icon: '💌', text: 'Warm monthly letters from Caroline — zero spam, always personal' },
+          ].map(item => (
+            <div key={item.icon} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <span style={{ fontSize: '14px', lineHeight: 1, marginTop: '2px' }}>{item.icon}</span>
+              <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'var(--txt2)', lineHeight: 1.6 }}>{item.text}</span>
+            </div>
+          ))}
+        </div>
 
         {!done ? (
           <div data-reveal style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
