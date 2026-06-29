@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Ticker from '@/components/Ticker';
 import WaitlistForm from '@/components/WaitlistForm';
-import PinnedHorizontalSlides from '@/components/PinnedHorizontalSlides';
 import { useCoralyExperience } from '@/components/CoralyExperienceControls';
 import { CoralyCommunityGroups, CoralyInfoHub } from '@/components/CoralyFeatureSections';
 import { IMAGES } from '@/lib/coraly-images-manifest';
@@ -848,8 +847,7 @@ function PillarsSection() {
       desc: 'A space to connect, belong, and find your people among conscious creatives worldwide.',
       cta: 'Join the Community', href: '/community',
       accent: coral, tag: 'CONNECT · BELONG · THRIVE',
-      img: IMAGES.BRAND_CREATE_CC_MOTION,
-      blendedImage: true,
+      img: IMAGES.BRAND_ADVENTURE,
       hov: false, onHover: () => {}, onLeave: () => {},
     },
     {
@@ -858,8 +856,7 @@ function PillarsSection() {
       desc: "Organic cotton. On-demand. Zero waste. Caroline's own designs — worn with intention.",
       cta: 'Shop the Collection', href: '/shop',
       accent: gold, tag: 'ORGANIC · ON-DEMAND · ZERO WASTE',
-      img: IMAGES.BRAND_CORALY_UK_SHIRT_MOTION,
-      blendedImage: true,
+      img: IMAGES.MODEL_COAST,
       hov: false, onHover: () => {}, onLeave: () => {},
     },
     {
@@ -868,8 +865,7 @@ function PillarsSection() {
       desc: 'Blog, courses, events, and community wisdom. Learn, share, and grow together.',
       cta: 'Explore the Hub', href: '/learn',
       accent: coral, tag: 'BLOG · COURSES · EVENTS',
-      img: IMAGES.BRAND_KNOWLEDGE_TEA_MOTION,
-      blendedImage: true,
+      img: IMAGES.BLOG_WINTER_COSY,
       hov: false, onHover: () => {}, onLeave: () => {},
     },
     {
@@ -914,46 +910,28 @@ function PillarsSection() {
           </p>
         </div>
 
-        <div style={{ marginTop: '16px' }}>
-          <PinnedHorizontalSlides
-            topOffsetPx={68}
-            progress={true}
-            heightPerSlideVh={84}
-            slides={PILLARS.map((p, i) => ({
-              key: p.num,
-              content: (
-                <div
-                  className="pillar-slide-card-wrap"
-                  style={{
-                    height: '100%',
-                    width: '100%',
-                    padding: '0 8px',
-                    boxSizing: 'border-box',
-                  }}
-                >
-                  {p.type === 'techy' ? (
-                    <TechyCard
-                      key={i}
-                      {...p}
-                      minimal={true}
-                      hov={hov === i}
-                      onHover={() => setHov(i)}
-                      onLeave={() => setHov(null)}
-                    />
-                  ) : (
-                    <SoftCard
-                      key={i}
-                      {...p}
-                      minimal={true}
-                      hov={hov === i}
-                      onHover={() => setHov(i)}
-                      onLeave={() => setHov(null)}
-                    />
-                  )}
-                </div>
-              ),
-            }))}
-          />
+        <div className="pillars-grid" style={{ marginTop: '16px', display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', paddingBottom: '80px' }}>
+          {PILLARS.map((p, i) => (
+            <div key={p.num} style={{ minHeight: '520px', display: 'flex', flexDirection: 'column' }}>
+              {p.type === 'techy' ? (
+                <TechyCard
+                  {...p}
+                  minimal={true}
+                  hov={hov === i}
+                  onHover={() => setHov(i)}
+                  onLeave={() => setHov(null)}
+                />
+              ) : (
+                <SoftCard
+                  {...p}
+                  minimal={true}
+                  hov={hov === i}
+                  onHover={() => setHov(i)}
+                  onLeave={() => setHov(null)}
+                />
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -972,8 +950,6 @@ export default function HomePage() {
       <ModelsSection />
       <AboutPreview />
       <DualThemeFeatureSection />
-      <BlogSection />
-      <ShopPreview />
       <WaitlistForm />
     </>
   );

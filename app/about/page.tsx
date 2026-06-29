@@ -53,9 +53,22 @@ export default function AboutPage() {
           <img src={IMAGES.CAROLINE_RIVER} alt="Caroline McGlone — Founder"
             style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', animation: 'ken 14s ease-in-out infinite alternate' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to left,transparent 50%,rgba(13,13,13,.6))' }} />
-          <div style={{ position: 'absolute', bottom: '24px', left: '24px', background: 'rgba(13,13,13,.8)', backdropFilter: 'blur(12px)', padding: '14px 20px', borderRadius: '3px', border: `1px solid rgba(239,122,108,.2)` }}>
+          <div style={{ position: 'absolute', bottom: '24px', left: '24px', right: '24px', background: 'rgba(13,13,13,.8)', backdropFilter: 'blur(12px)', padding: '14px 20px', borderRadius: '3px', border: `1px solid rgba(239,122,108,.2)` }}>
             <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '3px', color: coral, marginBottom: '4px' }}>CAROLINE McGLONE</div>
-            <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '14px', fontStyle: 'italic', color: offW }}>Founder, Coraly Space</div>
+            <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '14px', fontStyle: 'italic', color: offW, marginBottom: '10px' }}>Founder, Coraly Space</div>
+            {/* TODO: Caroline to confirm social handles and update these hrefs */}
+            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+              {[
+                { label: '@ Instagram', href: '#caroline-instagram' },
+                { label: '@ TikTok', href: '#caroline-tiktok' },
+                { label: '✉ Newsletter', href: '#caroline-newsletter' },
+              ].map(link => (
+                <a key={link.label} href={link.href}
+                  style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: coral, opacity: .8, textDecoration: 'none', borderBottom: '1px solid rgba(239,122,108,.3)', paddingBottom: '1px' }}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>

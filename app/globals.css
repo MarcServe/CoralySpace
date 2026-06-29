@@ -1207,6 +1207,11 @@ svg {
 
 /* ─── Responsive layout helpers ─── */
 @media (max-width: 1100px) {
+  /* Pillars grid: 5-col → 3-col at medium screens */
+  .pillars-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
   .site-nav {
     height: auto !important;
     min-height: 62px !important;
@@ -1903,9 +1908,18 @@ svg {
   .dual-theme-feature__inner {
     gap: 32px !important;
   }
+
+  /* Pillars grid: 5-col → 2-col at tablet */
+  .pillars-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }
 
 @media (max-width: 520px) {
+  .pillars-grid {
+    grid-template-columns: 1fr !important;
+  }
+
   .site-nav {
     padding: 9px 12px !important;
   }
