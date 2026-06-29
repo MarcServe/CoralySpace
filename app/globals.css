@@ -1495,7 +1495,7 @@ svg {
     border-radius: 0 !important;
     box-shadow: none !important;
     display: block !important;
-    object-fit: cover !important;
+    object-fit: unset !important;
   }
 
   .home-hero__stats {
