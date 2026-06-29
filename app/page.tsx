@@ -182,14 +182,13 @@ function Hero() {
         className="home-hero__image-panel"
         style={{
           position: 'absolute',
-          right: 0,
+          left: '44%',
+          right: '320px',
           top: 0,
           bottom: 0,
-          width: '50%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '80px 48px',
           zIndex: 1,
         }}
       >
@@ -197,12 +196,12 @@ function Hero() {
           src={IMAGES.COMMUNITY_HERO_CARD}
           alt="Song & Dance — Coraly Space community"
           style={{
-            height: '75vh',
+            height: '70vh',
             width: 'auto',
             maxWidth: '100%',
             objectFit: 'contain',
             borderRadius: '12px',
-            boxShadow: '0 32px 80px rgba(0,0,0,.45)',
+            boxShadow: '0 32px 80px rgba(0,0,0,.4)',
             animation: 'fadeUp .7s ease .6s both',
           }}
         />
