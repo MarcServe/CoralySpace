@@ -860,51 +860,57 @@ function SoftCard({ num, label, titleTop, titleBot, desc, cta, href, accent, tag
   );
 }
 
-const PILLARS_DATA = [
+const PILLARS_DATA: (CardProps & { type: 'techy' | 'soft' })[] = [
   {
-    num: '01', label: 'CORALYSPACE.COM · COMMUNITY',
+    type: 'techy', num: '01', label: 'CORALYSPACE.COM · COMMUNITY',
     titleTop: 'Community', titleBot: '& Belonging',
     desc: 'A space to connect, belong, and find your people among conscious creatives worldwide.',
     cta: 'Join the Community', href: '/community',
     accent: coral, tag: 'CONNECT · BELONG · THRIVE',
-    img: IMAGES.BRAND_CREATE_CC_MOTION,
+    img: IMAGES.BRAND_CREATE_CC_MOTION, blendedImage: true,
+    hov: false, onHover: () => {}, onLeave: () => {},
   },
   {
-    num: '02', label: 'CORALY.UK · STORE',
+    type: 'soft', num: '02', label: 'CORALY.UK · STORE',
     titleTop: 'Coraly', titleBot: 'Store',
     desc: "Organic cotton. On-demand. Zero waste. Caroline's own designs — worn with intention.",
     cta: 'Shop the Collection', href: '/shop',
     accent: gold, tag: 'ORGANIC · ON-DEMAND · ZERO WASTE',
-    img: IMAGES.BRAND_CORALY_UK_SHIRT_MOTION,
+    img: IMAGES.BRAND_CORALY_UK_SHIRT_MOTION, blendedImage: true,
+    hov: false, onHover: () => {}, onLeave: () => {},
   },
   {
-    num: '03', label: 'CORALYSPACE.COM · LEARN',
+    type: 'soft', num: '03', label: 'CORALYSPACE.COM · LEARN',
     titleTop: 'Knowledge', titleBot: 'Hub',
     desc: 'Blog, courses, events, and community wisdom. Learn, share, and grow together.',
     cta: 'Explore the Hub', href: '/learn',
     accent: coral, tag: 'BLOG · COURSES · EVENTS',
-    img: IMAGES.BRAND_KNOWLEDGE_TEA_MOTION,
+    img: IMAGES.BRAND_KNOWLEDGE_TEA_MOTION, blendedImage: true,
+    hov: false, onHover: () => {}, onLeave: () => {},
   },
   {
-    num: '04', label: 'CORALYSPACE.COM · PLAY',
+    type: 'techy', num: '04', label: 'CORALYSPACE.COM · PLAY',
     titleTop: 'Social', titleBot: 'Games',
     desc: 'Eco challenges, missions, badges, gamification. Make sustainability a collective adventure.',
     cta: 'Play & Earn', href: '/community',
     accent: gold, tag: 'CHALLENGES · MISSIONS · BADGES',
-    img: IMAGES.BRAND_ADVENTURE,
+    img: IMAGES.BRAND_ADVENTURE, blendedImage: true,
+    hov: false, onHover: () => {}, onLeave: () => {},
   },
   {
-    num: '05', label: 'CORALYSPACE.COM · MOVE',
+    type: 'soft', num: '05', label: 'CORALYSPACE.COM · MOVE',
     titleTop: 'Movement', titleBot: '& Activity',
     desc: 'Dance, voice, walks, and body-led creative events for real-world connection.',
     cta: 'See Events', href: '/events',
     accent: coral, tag: 'DANCE · VOICE · WALKS',
     img: IMAGES.BRAND_DANCE_EVENT,
+    hov: false, onHover: () => {}, onLeave: () => {},
   },
 ];
 
 function PillarsSection() {
   const [active, setActive] = useState(-1);
+  const [hov, setHov] = useState<number | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -960,38 +966,24 @@ function PillarsSection() {
           </div>
         </div>
 
-        {/* ── Pillar cards (one at a time) ── */}
+        {/* ── Pillar cards (one at a time, full TechyCard/SoftCard) ── */}
         {PILLARS_DATA.map((p, i) => (
           <div key={p.num} style={{
-            position: 'absolute', inset: 0, padding: '68px 48px 80px',
+            position: 'absolute', inset: 0, padding: '68px 48px 72px',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             opacity: active === i ? 1 : 0,
             transform: active === i ? 'translateY(0)' : active > i ? 'translateY(-40px)' : 'translateY(50px)',
             transition: 'opacity .5s cubic-bezier(.4,0,.2,1), transform .55s cubic-bezier(.16,1,.3,1)',
             pointerEvents: active === i ? 'auto' : 'none',
           }}>
-            <div className="pillar-fullscreen-card">
-              {/* Left: image */}
-              <div style={{ overflow: 'hidden', borderRadius: '4px', height: '100%' }}>
-                <img src={p.img} alt={`${p.titleTop} ${p.titleBot}`}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center',
-                    transform: active === i ? 'scale(1)' : 'scale(1.06)',
-                    transition: 'transform .8s cubic-bezier(.16,1,.3,1)' }} />
-              </div>
-              {/* Right: text */}
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '8px 0' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '10px' }}>
-                  <span style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '3px', color: p.accent, opacity: .7 }}>{p.label}</span>
-                  <span style={{ fontFamily: "'Playfair Display',serif", fontSize: '56px', fontWeight: 700, color: 'rgba(250,247,244,.06)', lineHeight: 1, userSelect: 'none' }}>{p.num}</span>
-                </div>
-                <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2.5px', color: p.accent, marginBottom: '18px' }}>{p.tag}</div>
-                <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(32px,4vw,52px)', fontWeight: 700, lineHeight: 1.05, marginBottom: '18px' }}>
-                  <em style={{ color: p.accent }}>{p.titleTop}</em><br />
-                  <span style={{ color: offW }}>{p.titleBot}</span>
-                </h3>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '16px', lineHeight: 1.8, color: 'var(--txt2)', marginBottom: '32px', maxWidth: '400px' }}>{p.desc}</p>
-                <Link href={p.href} className="cbtn" style={{ alignSelf: 'flex-start' }}>{p.cta} →</Link>
-              </div>
+            <div style={{ width: '100%', maxWidth: '440px', height: '100%', maxHeight: '640px' }}>
+              {p.type === 'techy' ? (
+                <TechyCard {...p} minimal={true}
+                  hov={hov === i} onHover={() => setHov(i)} onLeave={() => setHov(null)} />
+              ) : (
+                <SoftCard {...p} minimal={true}
+                  hov={hov === i} onHover={() => setHov(i)} onLeave={() => setHov(null)} />
+              )}
             </div>
           </div>
         ))}
