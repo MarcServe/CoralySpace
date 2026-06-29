@@ -22,7 +22,7 @@ const TICKER_ITEMS = ['BELONG', '·', 'CONNECT', '·', 'THRIVE', '·', 'SUSTAINA
 
 const HOLISTIC_FEATURES = [
   { title: 'Movement & Activity', desc: 'Dance, voice, walks, and body-led creative events.', img: IMAGES.BRAND_DANCE_EVENT, tag: 'MOVE' },
-  { title: 'Care & Recovery', desc: 'Gentle rituals for carers, teachers, nurses, and burnt-out leaders.', img: IMAGES.BLOG_WINTER_COSY, tag: 'REST' },
+  { title: 'Care & Recovery', desc: 'Gentle rituals for carers, teachers, nurses, and burnt-out leaders.', img: IMAGES.CAROLINE_6, tag: 'REST' },
   { title: 'Creative Culture', desc: 'Workshops, stories, and collaborations for makers with depth.', img: IMAGES.BRAND_KNOWLEDGE_TEA_MOTION, tag: 'CREATE' },
   { title: 'Sustainable Living', desc: 'Low-waste style, nature-led habits, and beautiful everyday choices.', img: IMAGES.CAROLINE_FIELD, tag: 'LIVE' },
 ];

@@ -1470,8 +1470,29 @@ svg {
     display: none !important;
   }
 
+  .home-hero {
+    flex-direction: column !important;
+    min-height: auto !important;
+  }
+
   .home-hero__image-panel {
-    display: none !important;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    height: 56vw !important;
+    display: flex !important;
+    justify-content: center !important;
+    padding: 0 24px 40px !important;
+  }
+
+  .home-hero__image-panel img {
+    height: 100% !important;
+    width: auto !important;
+    max-width: 100% !important;
+    border-radius: 10px !important;
   }
 
   .home-hero__content {
