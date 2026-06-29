@@ -928,7 +928,7 @@ function PillarsSection() {
             transition: 'opacity .5s cubic-bezier(.4,0,.2,1), transform .55s cubic-bezier(.16,1,.3,1)',
             pointerEvents: active === i ? 'auto' : 'none',
           }}>
-            <div style={{ width: '100%', maxWidth: '440px', height: '100%', maxHeight: '640px' }}>
+            <div style={{ width: '100%', maxWidth: '680px', height: '100%', maxHeight: 'calc(100svh - 140px)' }}>
               {p.type === 'techy' ? (
                 <TechyCard {...p} minimal={true}
                   hov={hov === i} onHover={() => setHov(i)} onLeave={() => setHov(null)} />
