@@ -1476,23 +1476,26 @@ svg {
   }
 
   .home-hero__image-panel {
+    order: -1 !important;
     position: relative !important;
     left: auto !important;
     right: auto !important;
     top: auto !important;
     bottom: auto !important;
     width: 100% !important;
-    height: 56vw !important;
-    display: flex !important;
-    justify-content: center !important;
-    padding: 0 24px 40px !important;
+    height: auto !important;
+    display: block !important;
+    padding: 0 !important;
   }
 
   .home-hero__image-panel img {
-    height: 100% !important;
-    width: auto !important;
+    width: 100% !important;
+    height: auto !important;
     max-width: 100% !important;
-    border-radius: 10px !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    display: block !important;
+    object-fit: cover !important;
   }
 
   .home-hero__stats {

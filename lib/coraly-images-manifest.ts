@@ -46,7 +46,7 @@ export const IMAGES = {
   LOGO_UK_PREMIUM: B3_LOGO_UK_PREMIUM,
   // Caroline shots
   HERO_MOTION: '/hero-motion.mp4',
-  COMMUNITY_HERO_CARD: '/coraly-new-hero.png',
+  COMMUNITY_HERO_CARD: '/songs-and-dance.png',
   CAROLINE_1: '/caroline1.jpg',
   CAROLINE_2: '/caroline2.jpg',
   CAROLINE_3: '/caroline3.jpg',
