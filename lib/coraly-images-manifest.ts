@@ -47,6 +47,10 @@ export const IMAGES = {
   // Caroline shots
   HERO_MOTION: '/hero-motion.mp4',
   COMMUNITY_HERO_CARD: '/coraly-new-hero.png',
+  CAROLINE_1: '/caroline1.jpg',
+  CAROLINE_2: '/caroline2.jpg',
+  CAROLINE_3: '/caroline3.jpg',
+  CAROLINE_4: '/caroline4.jpg',
   CAROLINE_RIVER: B3_CAROLINE_RIVER,
   CAROLINE_FIELD: B3_CAROLINE_FIELD,
   CAROLINE_AUTUMN: B3_CAROLINE_AUTUMN,
