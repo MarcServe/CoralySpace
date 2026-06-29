@@ -90,15 +90,11 @@ function Hero() {
         alignItems: 'stretch',
       }}
     >
-      {/* Desktop uses a blurred fill layer plus a full-frame layer to avoid cropping the portrait video. */}
-      <video
-        className="home-hero__media home-hero__media--fill"
+      {/* Hero image — replaces the previous video */}
+      <img
+        src={IMAGES.COMMUNITY_HERO_CARD}
+        alt=""
         aria-hidden
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
         style={{
           position: 'absolute',
           inset: 0,
@@ -107,28 +103,7 @@ function Hero() {
           objectFit: 'cover',
           objectPosition: 'center center',
         }}
-      >
-        <source src={IMAGES.HERO_MOTION} type="video/mp4" />
-      </video>
-      <video
-        className="home-hero__media home-hero__media--full"
-        aria-hidden
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'contain',
-          objectPosition: 'center center',
-        }}
-      >
-        <source src={IMAGES.HERO_MOTION} type="video/mp4" />
-      </video>
+      />
 
       <div
         className="home-hero__scrim"
@@ -137,7 +112,7 @@ function Hero() {
           position: 'absolute',
           inset: 0,
           background:
-            'linear-gradient(90deg, rgba(13,13,13,.92) 0%, rgba(13,13,13,.58) 42%, rgba(13,13,13,.18) 100%)',
+            'linear-gradient(90deg, rgba(13,13,13,.88) 0%, rgba(13,13,13,.55) 50%, rgba(13,13,13,.15) 100%)',
           pointerEvents: 'none',
         }}
       />
@@ -197,29 +172,6 @@ function Hero() {
           <Link href="/shop" className="cbtn">{t('hero_cta_primary')}</Link>
           <Link href="/community" className="glbtn">{t('hero_cta_secondary')}</Link>
         </div>
-      </div>
-
-      {/* Community card — floats on the right of the hero */}
-      <div
-        className="home-hero__community-card"
-        style={{
-          position: 'absolute',
-          right: '5%',
-          top: '50%',
-          transform: 'translateY(-50%) rotate(2.5deg)',
-          zIndex: 2,
-          width: 'clamp(160px, 18vw, 240px)',
-          borderRadius: '12px',
-          overflow: 'hidden',
-          boxShadow: '0 24px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(239,122,108,.18)',
-          animation: 'fadeUp .7s ease 1.1s both',
-        }}
-      >
-        <img
-          src={IMAGES.COMMUNITY_HERO_CARD}
-          alt="Song & Dance — Coraly Space community"
-          style={{ width: '100%', display: 'block' }}
-        />
       </div>
 
       <div
