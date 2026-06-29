@@ -1495,6 +1495,10 @@ svg {
     border-radius: 10px !important;
   }
 
+  .home-hero__stats {
+    display: none !important;
+  }
+
   .home-hero__content {
     width: 100% !important;
   }
