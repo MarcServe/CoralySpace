@@ -30,7 +30,7 @@ const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     nav_events: 'Events',
     nav_community: 'Community',
     nav_cta: 'Join Waitlist',
-    hero_sub: 'A warm, creative community for people who want to belong, create, and connect — on their own terms.',
+    hero_sub: 'Community. Curation. Culture. A connected creative space where conscious people belong, make, and thrive together.',
     hero_kicker: 'CONNECTED CREATIVE COMMUNITY',
     hero_title_1: 'Creative',
     hero_title_2: 'Community',

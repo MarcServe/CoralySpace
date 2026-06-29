@@ -10,6 +10,11 @@ const black = 'var(--bg)';
 export default function WaitlistForm() {
   const [done, setDone] = useState(false);
   const [foc, setFoc] = useState<string | null>(null);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
   const { theme, t } = useCoralyExperience();
   const isLight = theme === 'light';
 
@@ -20,6 +25,32 @@ export default function WaitlistForm() {
     fontSize: '14px', outline: 'none', transition: 'all .25s ease',
     boxShadow: foc === f ? '0 0 0 4px rgba(239,122,108,.1)' : 'none',
   });
+
+  async function handleSubmit() {
+    setErr(null);
+    if (!email || !email.includes('@')) {
+      setErr('Please enter a valid email address.');
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, role }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setErr(data.error ?? 'Something went wrong. Please try again.');
+      } else {
+        setDone(true);
+      }
+    } catch {
+      setErr('Network error — please try again.');
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <section id="waitlist-section" data-section style={{
@@ -67,10 +98,26 @@ export default function WaitlistForm() {
         {!done ? (
           <div data-reveal style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <div style={{ display: 'flex', gap: '10px' }}>
-              <input placeholder={t('waitlist_first_name')} onFocus={() => setFoc('n')} onBlur={() => setFoc(null)} style={inp('n')} />
-              <input placeholder={t('waitlist_email')} onFocus={() => setFoc('e')} onBlur={() => setFoc(null)} style={{ ...inp('e'), flex: 1.5 }} />
+              <input
+                placeholder={t('waitlist_first_name')}
+                value={name}
+                onChange={e => setName(e.target.value)}
+                onFocus={() => setFoc('n')} onBlur={() => setFoc(null)}
+                style={inp('n')}
+              />
+              <input
+                placeholder={t('waitlist_email')}
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                onFocus={() => setFoc('e')} onBlur={() => setFoc(null)}
+                style={{ ...inp('e'), flex: 1.5 }}
+              />
             </div>
-            <select onFocus={() => setFoc('r')} onBlur={() => setFoc(null)}
+            <select
+              value={role}
+              onChange={e => setRole(e.target.value)}
+              onFocus={() => setFoc('r')} onBlur={() => setFoc(null)}
               style={{ ...inp('r'), color: 'var(--txt2)', cursor: 'pointer' }}>
               <option value="">{t('waitlist_role_empty')}</option>
               <option>{t('waitlist_role_creator')}</option>
@@ -79,9 +126,15 @@ export default function WaitlistForm() {
               <option>{t('waitlist_role_educator')}</option>
               <option>{t('waitlist_role_partner')}</option>
             </select>
-            <button className="cbtn" onClick={() => setDone(true)}
-              style={{ padding: '16px', borderRadius: '3px', fontSize: '12px', letterSpacing: '2px' }}>
-              {t('waitlist_button')}
+            {err && (
+              <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: coral, margin: 0 }}>{err}</p>
+            )}
+            <button
+              className="cbtn"
+              onClick={handleSubmit}
+              disabled={loading}
+              style={{ padding: '16px', borderRadius: '3px', fontSize: '12px', letterSpacing: '2px', opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}>
+              {loading ? 'SENDING…' : t('waitlist_button')}
             </button>
             <div style={{
               fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '1px',
