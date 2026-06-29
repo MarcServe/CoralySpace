@@ -1840,6 +1840,71 @@ svg {
   }
 }
 
+/* ─── Tablet breakpoint (768–900px) ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Nav — show hamburger on tablets */
+  .site-nav__toggle {
+    display: inline-flex !important;
+  }
+  .site-nav__links:not(.is-open) {
+    display: none !important;
+  }
+
+  /* Section padding — pull in the sides */
+  .home-section,
+  section[data-section] {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
+  /* Hero content area */
+  .home-hero__content {
+    padding: 100px 28px 100px !important;
+    width: 100% !important;
+  }
+  .home-hero__stats {
+    right: 20px !important;
+    bottom: 44px !important;
+    max-width: 190px !important;
+  }
+  .home-hero__stats-body {
+    font-size: 11px !important;
+  }
+
+  /* 4-col → 2-col grids */
+  .responsive-grid--3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .community-groups-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .contributors-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .visual-feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* 3-col → 1-col grids */
+  .responsive-grid--blog {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 2-col splits → stacked */
+  .responsive-grid--shop {
+    grid-template-columns: 1fr !important;
+  }
+  .responsive-grid--2 {
+    grid-template-columns: 1fr !important;
+  }
+  .info-tier-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .dual-theme-feature__inner {
+    gap: 32px !important;
+  }
+}
+
 @media (max-width: 520px) {
   .site-nav {
     padding: 9px 12px !important;

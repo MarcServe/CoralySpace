@@ -99,7 +99,7 @@ function Hero() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         style={{
           position: 'absolute',
           inset: 0,
@@ -118,7 +118,7 @@ function Hero() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         style={{
           position: 'absolute',
           inset: 0,
@@ -236,10 +236,10 @@ function Hero() {
 function ModelsSection() {
   const [hov, setHov] = useState<number | null>(null);
   const shots = [
-    { img: IMAGES.MODEL_COAST, caption: 'Butterfly & Moon Tee', sub: 'At the coast · @coraly.space', accent: '#3A5A8A' },
-    { img: IMAGES.MODEL_LISBON_SCULPTURE, caption: 'Coraly Space Hoodie', sub: 'Lisbon explorer · Coraly UK', accent: gold },
-    { img: IMAGES.CAROLINE_FIELD, caption: 'Coraly Space Tank', sub: 'Out in nature · Summer collection', accent: coral },
-    { img: IMAGES.CAROLINE_SNOW, caption: 'Model with Impact', sub: 'Every season. Every explorer.', accent: '#8B2020' },
+    { img: IMAGES.MODEL_COAST, caption: 'Explorer by the coast', sub: 'Coastal wanderer · @coraly.space', accent: '#3A5A8A' },
+    { img: IMAGES.MODEL_LISBON_SCULPTURE, caption: 'Explorer in Lisbon', sub: 'Creative traveller · @coraly.space', accent: gold },
+    { img: IMAGES.CAROLINE_FIELD, caption: 'Explorer in nature', sub: 'Summer maker · @coraly.space', accent: coral },
+    { img: IMAGES.CAROLINE_SNOW, caption: 'Explorer in winter', sub: 'Every season. Every explorer.', accent: '#8B2020' },
   ];
 
   return (
@@ -304,10 +304,10 @@ function AboutPreview() {
               Building a kinder,<br /><em style={{ color: coral }}>more connected</em><br />world.
             </h2>
             <p data-reveal style={{ fontSize: '15px', lineHeight: 1.85, color: muted, marginBottom: '20px' }}>
-              There is a loneliness epidemic — 25% of adults are lonely and looking for a place of belonging. Solopreneurs and creatives feel it most acutely. Caroline built Coraly Space to be that place.
+              Caroline created Coraly Space from a simple belief — that everyone deserves somewhere they truly belong. A place to create, be seen, and connect with people who get it.
             </p>
             <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: muted, marginBottom: '32px' }}>
-              From dance workshops in Gloucestershire to curated sustainable retail, everything Caroline creates is designed so people and planet thrive together.
+              From movement workshops in Gloucestershire to sustainable clothing with meaning, everything here is made with care — for people, and for the planet.
             </p>
             <div data-reveal style={{ display: 'flex', gap: '12px' }}>
               <Link href="/about" className="cbtn">Meet Caroline</Link>
@@ -844,10 +844,10 @@ function PillarsSection() {
   const PILLARS: (CardProps & { type: 'techy' | 'soft' })[] = [
     {
       type: 'techy', num: '01', label: 'CORALYSPACE.COM · COMMUNITY',
-      titleTop: 'Community', titleBot: 'Marketplace',
-      desc: 'Peer-to-peer sustainable commerce. Buy, sell, and connect with conscious creators worldwide.',
+      titleTop: 'Community', titleBot: '& Belonging',
+      desc: 'A space to connect, belong, and find your people among conscious creatives worldwide.',
       cta: 'Join the Community', href: '/community',
-      accent: coral, tag: 'PEER-TO-PEER · SUSTAINABLE',
+      accent: coral, tag: 'CONNECT · BELONG · THRIVE',
       img: IMAGES.BRAND_CREATE_CC_MOTION,
       blendedImage: true,
       hov: false, onHover: () => {}, onLeave: () => {},
@@ -972,9 +972,7 @@ export default function HomePage() {
       <ModelsSection />
       <AboutPreview />
       <DualThemeFeatureSection />
-      <CoralyCommunityGroups />
       <BlogSection />
-      <CoralyInfoHub compact />
       <ShopPreview />
       <WaitlistForm />
     </>
