@@ -1469,6 +1469,14 @@ svg {
     display: none !important;
   }
 
+  .home-hero__image-panel {
+    display: none !important;
+  }
+
+  .home-hero__content {
+    width: 100% !important;
+  }
+
   .home-hero__stats > div:first-child {
     font-size: 30px !important;
   }

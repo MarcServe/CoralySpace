@@ -90,33 +90,7 @@ function Hero() {
         alignItems: 'stretch',
       }}
     >
-      {/* Hero image — replaces the previous video */}
-      <img
-        src={IMAGES.COMMUNITY_HERO_CARD}
-        alt=""
-        aria-hidden
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center center',
-        }}
-      />
-
-      <div
-        className="home-hero__scrim"
-        aria-hidden
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(90deg, rgba(13,13,13,.88) 0%, rgba(13,13,13,.55) 50%, rgba(13,13,13,.15) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
-
+      {/* Subtle coral/gold glow — no image background */}
       <div
         className="home-hero__glow"
         aria-hidden
@@ -124,7 +98,7 @@ function Hero() {
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(circle at 18% 24%, rgba(239,122,108,.24), transparent 34%), radial-gradient(circle at 82% 74%, rgba(201,168,76,.18), transparent 32%)',
+            'radial-gradient(circle at 18% 24%, rgba(239,122,108,.18), transparent 38%), radial-gradient(circle at 78% 60%, rgba(201,168,76,.12), transparent 36%)',
           animation: 'pulse 6s ease infinite',
           pointerEvents: 'none',
         }}
@@ -135,7 +109,7 @@ function Hero() {
         style={{
           position: 'relative',
           zIndex: 1,
-          width: 'min(640px, 100%)',
+          width: 'min(640px, 50%)',
           padding: '130px 64px 80px',
           display: 'flex',
           flexDirection: 'column',
@@ -202,6 +176,38 @@ function Hero() {
           ))}
         </div>
       </div>
+
+      {/* ── Community image — right side, 3/4 hero height, own div ── */}
+      <div
+        className="home-hero__image-panel"
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          bottom: 0,
+          width: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '80px 48px',
+          zIndex: 1,
+        }}
+      >
+        <img
+          src={IMAGES.COMMUNITY_HERO_CARD}
+          alt="Song & Dance — Coraly Space community"
+          style={{
+            height: '75vh',
+            width: 'auto',
+            maxWidth: '100%',
+            objectFit: 'contain',
+            borderRadius: '12px',
+            boxShadow: '0 32px 80px rgba(0,0,0,.45)',
+            animation: 'fadeUp .7s ease .6s both',
+          }}
+        />
+      </div>
+
     </section>
   );
 }
