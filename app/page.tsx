@@ -844,7 +844,7 @@ const PILLARS_DATA = [
     desc: 'A space to connect, belong, and find your people among conscious creatives worldwide.',
     cta: 'Join the Community', href: '/community',
     accent: coral, tag: 'CONNECT · BELONG · THRIVE',
-    img: IMAGES.BRAND_ADVENTURE,
+    img: IMAGES.BRAND_CREATE_CC_MOTION,
   },
   {
     num: '02', label: 'CORALY.UK · STORE',
@@ -852,7 +852,7 @@ const PILLARS_DATA = [
     desc: "Organic cotton. On-demand. Zero waste. Caroline's own designs — worn with intention.",
     cta: 'Shop the Collection', href: '/shop',
     accent: gold, tag: 'ORGANIC · ON-DEMAND · ZERO WASTE',
-    img: IMAGES.MODEL_COAST,
+    img: IMAGES.BRAND_CORALY_UK_SHIRT_MOTION,
   },
   {
     num: '03', label: 'CORALYSPACE.COM · LEARN',
@@ -860,7 +860,7 @@ const PILLARS_DATA = [
     desc: 'Blog, courses, events, and community wisdom. Learn, share, and grow together.',
     cta: 'Explore the Hub', href: '/learn',
     accent: coral, tag: 'BLOG · COURSES · EVENTS',
-    img: IMAGES.BLOG_WINTER_COSY,
+    img: IMAGES.BRAND_KNOWLEDGE_TEA_MOTION,
   },
   {
     num: '04', label: 'CORALYSPACE.COM · PLAY',
