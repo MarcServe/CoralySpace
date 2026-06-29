@@ -16,7 +16,7 @@ const offW = 'var(--txt)';
 const char = 'var(--bg2)';
 
 const PILLARS = [
-  { icon: '🛍️', title: 'Community Marketplace', desc: 'Peer-to-peer sustainable commerce. Buy and sell with purpose, from makers who care.' },
+  { icon: '🤝', title: 'Community & Belonging', desc: 'A space to connect, belong, and find your people among conscious creatives worldwide.' },
   { icon: '👕', title: 'Coraly Store', desc: 'Caroline\'s own Teemill merchandise. Organic cotton, on-demand, zero waste.' },
   { icon: '📚', title: 'Knowledge Hub', desc: 'Blog, courses, events, and community wisdom — all in one place.' },
   { icon: '🎮', title: 'Social Games', desc: 'Eco challenges, missions, badges, gamification. Sustainability made playful.' },
@@ -56,18 +56,9 @@ export default function AboutPage() {
           <div style={{ position: 'absolute', bottom: '24px', left: '24px', right: '24px', background: 'rgba(13,13,13,.8)', backdropFilter: 'blur(12px)', padding: '14px 20px', borderRadius: '3px', border: `1px solid rgba(239,122,108,.2)` }}>
             <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '3px', color: coral, marginBottom: '4px' }}>CAROLINE McGLONE</div>
             <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '14px', fontStyle: 'italic', color: offW, marginBottom: '10px' }}>Founder, Coraly Space</div>
-            {/* TODO: Caroline to confirm social handles and update these hrefs */}
-            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-              {[
-                { label: '@ Instagram', href: '#caroline-instagram' },
-                { label: '@ TikTok', href: '#caroline-tiktok' },
-                { label: '✉ Newsletter', href: '#caroline-newsletter' },
-              ].map(link => (
-                <a key={link.label} href={link.href}
-                  style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: coral, opacity: .8, textDecoration: 'none', borderBottom: '1px solid rgba(239,122,108,.3)', paddingBottom: '1px' }}>
-                  {link.label}
-                </a>
-              ))}
+            {/* Social links — handles to be confirmed by Caroline */}
+            <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: 'rgba(239,122,108,.5)', marginTop: '2px' }}>
+              Follow @coralyspace · links coming soon
             </div>
           </div>
         </div>

@@ -217,8 +217,8 @@ function ModelsSection() {
   const shots = [
     { img: IMAGES.MODEL_COAST, caption: 'Explorer by the coast', sub: 'Coastal wanderer · @coraly.space', accent: '#3A5A8A' },
     { img: IMAGES.MODEL_LISBON_SCULPTURE, caption: 'Explorer in Lisbon', sub: 'Creative traveller · @coraly.space', accent: gold },
-    { img: IMAGES.CAROLINE_FIELD, caption: 'Explorer in nature', sub: 'Summer maker · @coraly.space', accent: coral },
-    { img: IMAGES.CAROLINE_SNOW, caption: 'Explorer in winter', sub: 'Every season. Every explorer.', accent: '#8B2020' },
+    { img: IMAGES.CAROLINE_FIELD, caption: 'Caroline McGlone', sub: 'Founder · @coraly.space', accent: coral },
+    { img: IMAGES.CAROLINE_SNOW, caption: 'Caroline McGlone', sub: 'Founder in the field · @coraly.space', accent: '#8B2020' },
   ];
 
   return (
@@ -227,10 +227,10 @@ function ModelsSection() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px', flexWrap: 'wrap', gap: '16px' }}>
           <div>
             <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-              <div style={{ width: '24px', height: '1px', background: coral }} />COMMUNITY IN MOTION
+              <div style={{ width: '24px', height: '1px', background: coral }} />FOUNDER & COMMUNITY
             </div>
             <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: offW, lineHeight: 1.1 }}>
-              Explorers.<br /><em style={{ color: coral }}>Every one of them.</em>
+              The people<br /><em style={{ color: coral }}>behind the space.</em>
             </h2>
           </div>
           <Link href="/shop" className="gbtn" data-reveal>View All Community →</Link>
@@ -335,7 +335,7 @@ function DualThemeFeatureSection() {
           <div className="dual-theme-preview__panel dual-theme-preview__panel--dark">
             <img src={IMAGES.LOGO_SPACE_DARK} alt="Coraly Space dark identity" />
             <span>Coraly Space</span>
-            <strong>Marketplace, knowledge, social play, and community belonging.</strong>
+            <strong>Community, knowledge, social play, and belonging.</strong>
           </div>
           <div className="dual-theme-preview__panel dual-theme-preview__panel--light">
             <img src={IMAGES.LOGO_UK_PREMIUM} alt="Coraly UK holistic identity" />

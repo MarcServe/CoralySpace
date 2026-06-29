@@ -10,7 +10,7 @@ const COLS = [
   {
     title: 'Explore',
     links: [
-      { label: 'Marketplace', href: '/community' },
+      { label: 'Community', href: '/community' },
       { label: 'Coraly Store', href: '/shop' },
       { label: 'Knowledge Hub', href: '/learn' },
       { label: 'Events', href: '/events' },
