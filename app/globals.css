@@ -1496,7 +1496,17 @@ svg {
   }
 
   .home-hero__stats {
-    display: none !important;
+    position: relative !important;
+    right: auto !important;
+    bottom: auto !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    padding: 24px 24px 8px !important;
+    border-top: 1px solid var(--theme-border);
+  }
+
+  .home-hero__stats > div:last-child {
+    justify-content: flex-start !important;
   }
 
   .home-hero__content {
