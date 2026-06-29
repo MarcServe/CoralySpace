@@ -50,7 +50,7 @@ export default function AboutPage() {
           </div>
         </div>
         <div style={{ position: 'relative', overflow: 'hidden' }}>
-          <img src={IMAGES.CAROLINE_1} alt="Caroline McGlone — Founder"
+          <img src={IMAGES.CAROLINE_7} alt="Caroline McGlone — Founder"
             style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', animation: 'ken 14s ease-in-out infinite alternate' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to left,transparent 50%,rgba(13,13,13,.6))' }} />
           <div style={{ position: 'absolute', bottom: '24px', left: '24px', right: '24px', background: 'rgba(13,13,13,.8)', backdropFilter: 'blur(12px)', padding: '14px 20px', borderRadius: '3px', border: `1px solid rgba(239,122,108,.2)` }}>

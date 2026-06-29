@@ -52,6 +52,7 @@ export const IMAGES = {
   CAROLINE_3: '/caroline3.jpg',
   CAROLINE_4: '/caroline4.jpg',
   CAROLINE_6: '/caroline6.png',
+  CAROLINE_7: '/caroline7.png',
   CAROLINE_RIVER: B3_CAROLINE_RIVER,
   CAROLINE_FIELD: B3_CAROLINE_FIELD,
   CAROLINE_AUTUMN: B3_CAROLINE_AUTUMN,
