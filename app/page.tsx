@@ -193,7 +193,12 @@ function Hero() {
         </div>
       </div>
 
-      {/* ── Community video — full-bleed hero background (all breakpoints) ── */}
+      {/* ── Community video — two-layer hero background ──
+          Desktop: a blurred, zoomed "fill" layer covers the whole hero so
+          there are no empty bars, and a "full" layer (object-fit: contain)
+          shows the entire dancer without cropping.
+          Mobile/tablet: the fill layer is hidden and the full layer becomes
+          a single object-fit: cover full-bleed video (see globals.css). */}
       <div
         className="home-hero__image-panel"
         style={{
@@ -204,6 +209,17 @@ function Hero() {
         }}
       >
         <video
+          className="home-hero__media home-hero__media--fill"
+          src={IMAGES.COMMUNITY_HERO_VIDEO}
+          poster={IMAGES.COMMUNITY_HERO_CARD}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden
+        />
+        <video
+          className="home-hero__media home-hero__media--full"
           src={IMAGES.COMMUNITY_HERO_VIDEO}
           poster={IMAGES.COMMUNITY_HERO_CARD}
           autoPlay
@@ -211,13 +227,7 @@ function Hero() {
           loop
           playsInline
           aria-label="Song & Dance — Coraly Space community"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            display: 'block',
-            animation: 'fadeUp .7s ease .6s both',
-          }}
+          style={{ animation: 'fadeUp .7s ease .6s both' }}
         />
       </div>
 

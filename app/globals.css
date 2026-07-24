@@ -161,16 +161,33 @@ svg {
   max-width: 100%;
 }
 
-.home-hero__media--fill {
-  filter: blur(22px) brightness(.58) saturate(1.1);
-  transform: scale(1.1);
+/* Two-layer hero video (desktop). Both layers fill the panel; object-fit
+   differs so one covers the background and the other shows the whole subject. */
+.home-hero__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-position: center center;
 }
 
+/* Blurred, zoomed copy that fills the whole hero — hides the letterbox bars. */
+.home-hero__media--fill {
+  object-fit: cover;
+  filter: blur(26px) brightness(.6) saturate(1.1);
+  transform: scale(1.12);
+  z-index: 0;
+}
+
+/* Sharp copy that shows the full dancer (no crop), blended into the fill. */
 .home-hero__media--full {
-  filter: brightness(.86) saturate(1.02);
-  opacity: .94;
-  -webkit-mask-image: linear-gradient(90deg, transparent 24%, #000 34%, #000 66%, transparent 76%);
-  mask-image: linear-gradient(90deg, transparent 24%, #000 34%, #000 66%, transparent 76%);
+  object-fit: contain;
+  filter: brightness(.92) saturate(1.02);
+  opacity: .97;
+  z-index: 1;
+  -webkit-mask-image: linear-gradient(90deg, transparent 18%, #000 31%, #000 69%, transparent 82%);
+  mask-image: linear-gradient(90deg, transparent 18%, #000 31%, #000 69%, transparent 82%);
 }
 
 /* Scrim sits above the full-bleed video, below the content — on every
@@ -184,8 +201,8 @@ svg {
   pointer-events: none;
   display: block;
   background:
-    linear-gradient(90deg, rgba(13,13,13,.92) 0%, rgba(13,13,13,.62) 38%, rgba(13,13,13,.20) 72%, rgba(13,13,13,.34) 100%),
-    linear-gradient(0deg, rgba(13,13,13,.78) 0%, rgba(13,13,13,.12) 34%, transparent 60%);
+    linear-gradient(90deg, rgba(13,13,13,.95) 0%, rgba(13,13,13,.70) 40%, rgba(13,13,13,.34) 66%, rgba(13,13,13,.60) 100%),
+    linear-gradient(0deg, rgba(13,13,13,.88) 0%, rgba(13,13,13,.30) 30%, transparent 54%);
 }
 
 /* ── Music & Dance theme overlay ── */
@@ -205,11 +222,11 @@ svg {
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  border: 1px solid color-mix(in srgb, var(--coral) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--coral) 60%, transparent);
   border-radius: 999px;
-  background: rgba(13, 13, 13, 0.42);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(13, 13, 13, 0.62);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   font-family: 'DM Mono', monospace;
   font-size: 10px;
   letter-spacing: 3px;
@@ -217,6 +234,11 @@ svg {
   color: var(--txt);
   white-space: nowrap;
   animation: fadeUp 0.7s ease 0.9s both;
+}
+
+:root[data-theme="light"] .home-hero__theme-badge {
+  background: rgba(241, 232, 221, 0.78);
+  border-color: color-mix(in srgb, var(--coral) 70%, transparent);
 }
 
 .home-hero__theme-note {
@@ -261,13 +283,35 @@ svg {
 
 :root[data-theme="light"] .home-hero__scrim {
   background:
-    linear-gradient(90deg, rgba(241,232,221,.9) 0%, rgba(241,232,221,.52) 42%, rgba(241,232,221,.08) 100%) !important;
+    linear-gradient(90deg, rgba(241,232,221,.96) 0%, rgba(241,232,221,.72) 40%, rgba(241,232,221,.40) 66%, rgba(241,232,221,.66) 100%),
+    linear-gradient(0deg, rgba(241,232,221,.9) 0%, rgba(241,232,221,.32) 30%, transparent 54%) !important;
 }
 
 :root[data-theme="light"] .home-hero__content p,
 :root[data-theme="light"] .home-hero__stats p,
 :root[data-theme="light"] .home-hero__stats-body {
   color: var(--txt2) !important;
+}
+
+/* ── Hero text legibility over the video ──
+   A soft halo in the theme's background colour behind the overlaid text:
+   dark halo under light text (dark mode), cream halo under dark text (light
+   mode). Buttons keep their own solid fills, so no halo there. */
+.home-hero__content,
+.home-hero__stats,
+.home-hero__theme-badge {
+  text-shadow: 0 2px 20px rgba(13,13,13,.62);
+}
+
+.home-hero__content .cbtn,
+.home-hero__content .glbtn {
+  text-shadow: none;
+}
+
+:root[data-theme="light"] .home-hero__content,
+:root[data-theme="light"] .home-hero__stats,
+:root[data-theme="light"] .home-hero__theme-badge {
+  text-shadow: 0 2px 18px rgba(241,232,221,.9);
 }
 
 .home-hero__stats-body {
