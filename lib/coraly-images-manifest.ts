@@ -47,6 +47,7 @@ export const IMAGES = {
   // Caroline shots
   HERO_MOTION: '/hero-motion.mp4',
   COMMUNITY_HERO_CARD: '/songs-and-dance.png',
+  COMMUNITY_HERO_VIDEO: '/caroline-dance-hero.mp4',
   CAROLINE_1: '/caroline1.jpg',
   CAROLINE_2: '/caroline2.jpg',
   CAROLINE_3: '/caroline3.jpg',

@@ -173,6 +173,92 @@ svg {
   mask-image: linear-gradient(90deg, transparent 24%, #000 34%, #000 66%, transparent 76%);
 }
 
+/* Scrim sits above the full-bleed video, below the content — on every
+   breakpoint now that the video is a full-bleed hero background. The
+   left-dark / bottom-dark gradient keeps the headline (left) and stats
+   (bottom-right) legible while the dancer stays visible mid/right. */
+.home-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  display: block;
+  background:
+    linear-gradient(90deg, rgba(13,13,13,.92) 0%, rgba(13,13,13,.62) 38%, rgba(13,13,13,.20) 72%, rgba(13,13,13,.34) 100%),
+    linear-gradient(0deg, rgba(13,13,13,.78) 0%, rgba(13,13,13,.12) 34%, transparent 60%);
+}
+
+/* ── Music & Dance theme overlay ── */
+.home-hero__theme {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.home-hero__theme-badge {
+  position: absolute;
+  top: 118px;
+  right: 56px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid color-mix(in srgb, var(--coral) 55%, transparent);
+  border-radius: 999px;
+  background: rgba(13, 13, 13, 0.42);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--txt);
+  white-space: nowrap;
+  animation: fadeUp 0.7s ease 0.9s both;
+}
+
+.home-hero__theme-note {
+  color: var(--coral);
+  font-size: 14px;
+  line-height: 1;
+  animation: notePulse 1.6s ease-in-out infinite;
+}
+
+.home-hero__note {
+  position: absolute;
+  font-size: 26px;
+  line-height: 1;
+  opacity: 0;
+  color: color-mix(in srgb, var(--gold) 80%, transparent);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+  animation: floatNote 7s ease-in-out infinite;
+}
+
+.home-hero__note--1 { right: 22%; bottom: 32%; animation-delay: 0.8s; color: color-mix(in srgb, var(--coral) 82%, transparent); }
+.home-hero__note--2 { right: 12%; top: 34%; font-size: 20px; animation-delay: 2.6s; }
+.home-hero__note--3 { right: 30%; top: 26%; font-size: 34px; animation-delay: 4.4s; color: color-mix(in srgb, var(--gold) 78%, transparent); }
+.home-hero__note--4 { right: 17%; bottom: 20%; font-size: 22px; animation-delay: 5.8s; color: color-mix(in srgb, var(--coral) 70%, transparent); }
+
+@keyframes floatNote {
+  0%   { transform: translateY(16px) rotate(-6deg); opacity: 0; }
+  20%  { opacity: 0.5; }
+  50%  { transform: translateY(-24px) rotate(6deg); opacity: 0.72; }
+  80%  { opacity: 0.36; }
+  100% { transform: translateY(-56px) rotate(-4deg); opacity: 0; }
+}
+
+@keyframes notePulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50%      { transform: scale(1.18); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__note { animation: none; opacity: 0.4; }
+  .home-hero__theme-note { animation: none; }
+}
+
 :root[data-theme="light"] .home-hero__scrim {
   background:
     linear-gradient(90deg, rgba(241,232,221,.9) 0%, rgba(241,232,221,.52) 42%, rgba(241,232,221,.08) 100%) !important;
@@ -1412,7 +1498,9 @@ svg {
 
   .home-hero__content {
     width: 100% !important;
-    padding: 96px 20px 118px !important;
+    /* Extra bottom padding reserves room for the absolutely-positioned
+       stats overlay so it never collides with the CTAs. */
+    padding: 96px 20px 210px !important;
     justify-content: flex-end !important;
   }
 
@@ -1470,42 +1558,61 @@ svg {
     display: none !important;
   }
 
+  /* Full-bleed video hero on mobile/tablet: the clip fills the whole
+     section and the headline + stats overlay on top of a scrim. */
   .home-hero {
     flex-direction: column !important;
-    min-height: auto !important;
+    min-height: 100svh !important;
+    justify-content: flex-end !important;
   }
 
   .home-hero__image-panel {
-    order: -1 !important;
-    position: relative !important;
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    bottom: auto !important;
+    position: absolute !important;
+    inset: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
     display: block !important;
     padding: 0 !important;
+    z-index: 0 !important;
   }
 
-  .home-hero__image-panel img {
+  .home-hero__image-panel video {
     width: 100% !important;
-    height: auto !important;
-    max-width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: cover !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
     display: block !important;
-    object-fit: unset !important;
+  }
+
+  .home-hero__scrim {
+    display: block !important;
+  }
+
+  /* Lift the content above the scrim */
+  .home-hero__content {
+    position: relative !important;
+    z-index: 2 !important;
   }
 
   .home-hero__stats {
-    position: relative !important;
-    right: auto !important;
-    bottom: auto !important;
+    position: absolute !important;
+    left: 20px !important;
+    right: 20px !important;
+    bottom: 26px !important;
+    top: auto !important;
+    z-index: 3 !important;
     text-align: left !important;
-    max-width: 100% !important;
-    padding: 24px 24px 8px !important;
-    border-top: 1px solid var(--theme-border);
+    max-width: none !important;
+    padding: 0 !important;
+    border-top: none !important;
   }
 
   .home-hero__stats > div:last-child {
@@ -1916,6 +2023,20 @@ svg {
     display: none !important;
   }
 
+  /* Music & Dance theme — tuck the badge under the nav, clear of the hamburger */
+  .home-hero__theme-badge {
+    top: 96px !important;
+    right: 20px !important;
+    font-size: 9px !important;
+    letter-spacing: 2px !important;
+    padding: 7px 13px !important;
+  }
+  /* Thin out the drifting notes so they don't crowd the overlaid headline */
+  .home-hero__note--2,
+  .home-hero__note--4 {
+    display: none !important;
+  }
+
   /* Section padding — pull in the sides */
   .home-section,
   section[data-section] {
@@ -1923,15 +2044,17 @@ svg {
     padding-right: 24px !important;
   }
 
-  /* Hero content area */
+  /* Hero content area — big bottom pad clears the stats overlay
+     that sits over the full-bleed video. */
   .home-hero__content {
-    padding: 100px 28px 100px !important;
+    padding: 100px 28px 200px !important;
     width: 100% !important;
   }
   .home-hero__stats {
+    left: 28px !important;
     right: 20px !important;
-    bottom: 44px !important;
-    max-width: 190px !important;
+    bottom: 32px !important;
+    max-width: 260px !important;
   }
   .home-hero__stats-body {
     font-size: 11px !important;

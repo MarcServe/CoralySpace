@@ -104,11 +104,27 @@ function Hero() {
         }}
       />
 
+      {/* Scrim — sits over the full-bleed video (all breakpoints) so the
+          overlaid headline & stats stay legible. */}
+      <div className="home-hero__scrim" aria-hidden />
+
+      {/* ── Music & Dance theme — badge + drifting notes over the video ── */}
+      <div className="home-hero__theme" aria-hidden>
+        <span className="home-hero__theme-badge">
+          <span className="home-hero__theme-note">♫</span>
+          Music &amp; Dance
+        </span>
+        <span className="home-hero__note home-hero__note--1">♪</span>
+        <span className="home-hero__note home-hero__note--2">♫</span>
+        <span className="home-hero__note home-hero__note--3">♩</span>
+        <span className="home-hero__note home-hero__note--4">♬</span>
+      </div>
+
       <div
         className="home-hero__content"
         style={{
           position: 'relative',
-          zIndex: 1,
+          zIndex: 2,
           width: 'min(640px, 50%)',
           padding: '130px 64px 80px',
           display: 'flex',
@@ -154,7 +170,7 @@ function Hero() {
           position: 'absolute',
           right: '56px',
           bottom: '72px',
-          zIndex: 2,
+          zIndex: 3,
           maxWidth: '270px',
           textAlign: 'right',
           animation: 'fadeUp .6s ease 1.05s both',
@@ -177,31 +193,29 @@ function Hero() {
         </div>
       </div>
 
-      {/* ── Community image — right side, 3/4 hero height, own div ── */}
+      {/* ── Community video — full-bleed hero background (all breakpoints) ── */}
       <div
         className="home-hero__image-panel"
         style={{
           position: 'absolute',
-          left: '44%',
-          right: '320px',
-          top: 0,
-          bottom: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1,
+          inset: 0,
+          display: 'block',
+          zIndex: 0,
         }}
       >
-        <img
-          src={IMAGES.COMMUNITY_HERO_CARD}
-          alt="Song & Dance — Coraly Space community"
+        <video
+          src={IMAGES.COMMUNITY_HERO_VIDEO}
+          poster={IMAGES.COMMUNITY_HERO_CARD}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-label="Song & Dance — Coraly Space community"
           style={{
-            height: '70vh',
-            width: 'auto',
-            maxWidth: '100%',
-            objectFit: 'contain',
-            borderRadius: '12px',
-            boxShadow: '0 32px 80px rgba(0,0,0,.4)',
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
             animation: 'fadeUp .7s ease .6s both',
           }}
         />
