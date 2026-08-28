@@ -3,16 +3,23 @@ import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { IMAGES } from '@/lib/coraly-images-manifest';
 import { LanguageSwitcher, ThemeToggle, useCoralyExperience } from '@/components/CoralyExperienceControls';
+import { isMini } from '@/lib/launch-mode';
 
 const coral = '#EF7A6C';
 
-const NAV_LINKS = [
+const ALL_NAV_LINKS = [
   { key: 'nav_shop', href: '/shop' },
   { key: 'nav_learn', href: '/learn' },
   { key: 'nav_about', href: '/about' },
   { key: 'nav_events', href: '/events' },
   { key: 'nav_community', href: '/community' },
 ] as const;
+
+const NAV_LINKS = isMini
+  ? ALL_NAV_LINKS.filter(link => link.key === 'nav_shop')
+  : ALL_NAV_LINKS;
+
+const NAV_CTA_HREF = isMini ? '/#waitlist-section' : '/community';
 
 export default function Nav() {
   const [sc, setSc] = useState(false);
@@ -115,7 +122,7 @@ export default function Nav() {
           <LanguageSwitcher />
           <ThemeToggle />
         </div>
-        <Link href="/community" className="cbtn" style={{ padding: '10px 20px', fontSize: '11px' }} onClick={() => setOpen(false)}>
+        <Link href={NAV_CTA_HREF} className="cbtn" style={{ padding: '10px 20px', fontSize: '11px' }} onClick={() => setOpen(false)}>
           {t('nav_cta')}
         </Link>
       </div>

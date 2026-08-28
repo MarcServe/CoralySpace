@@ -33,6 +33,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# Launch-mode switch holds no secrets and must ship with the build
+!.env.production
 
 # vercel
 .vercel

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Ticker from '@/components/Ticker';
 import { IMAGES, P_FOX_GLOVE, P_BUTTERFLY_PINK, P_SUNSHINE, P_BUTTERFLY_KIDS, P_BUTTERFLIES_NAVY, P_SCARLETT, P_FOX_ADULT, P_DEER, P_ASYMMETRIC_BF, P_ROSE_HAND, B2_MENS_TEE, B2_BLACK_BUTTERFLY, B2_SPACE_OVAL } from '@/lib/coraly-images-manifest';
+import { isMini } from '@/lib/launch-mode';
 
 // ─── TEEMILL CONFIG ───────────────────────────────────────────────────────────
 // Replace with Caroline's actual Teemill store URL, e.g. "https://coralyspace.teemill.com"
@@ -42,6 +43,15 @@ const ADULTS = [
   { img: B2_MENS_TEE, name: "Coraly Tee Men's", price: '£24', tag: 'WHITE · MINIMAL', accent: char, badge: null, slug: 'coraly-tee-mens' },
   { img: B2_BLACK_BUTTERFLY, name: 'Butterfly Tee Black', price: '£26', tag: 'BLACK · WOMEN\'S', accent: '#555', badge: 'NEW', slug: 'coraly-space-butterfly-tee-black' },
   { img: B2_SPACE_OVAL, name: 'Coraly.Space Oval', price: '£24', tag: 'WHITE · MINIMAL', accent: coral, badge: 'NEW', slug: 'coraly-space-oval-tee' },
+];
+
+// Placeholder early-release line-up for the crowdfunder launch — Caroline
+// confirms the final products and how many to advertise.
+const EARLY_RELEASE = [
+  ADULTS[1],
+  ADULTS[4],
+  KIDS[0],
+  KIDS[4],
 ];
 
 function ProductCard({ img, name, price, tag, accent, badge = null, slug }: { img: string; name: string; price: string; tag: string; accent: string; badge?: string | null; slug: string }) {
@@ -85,8 +95,14 @@ export default function ShopPage() {
             Organic cotton. On-demand. Zero waste. Every piece made by Teemill — so nothing is made until you order it.
           </p>
           <div data-reveal style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-            <a href="#kids" className="cbtn">Kids Collection</a>
-            <a href="#adults" className="glbtn">Adult Collection</a>
+            {isMini ? (
+              <a href="#early-release" className="cbtn">Early Release</a>
+            ) : (
+              <>
+                <a href="#kids" className="cbtn">Kids Collection</a>
+                <a href="#adults" className="glbtn">Adult Collection</a>
+              </>
+            )}
           </div>
         </div>
         <div style={{ position: 'relative', overflow: 'hidden' }}>
@@ -127,7 +143,34 @@ export default function ShopPage() {
         </div>
       </section>
 
+      {/* Early release — crowdfunder placeholder listings */}
+      {isMini && (
+        <section id="early-release" data-section style={{ background: cream, padding: '80px 48px' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <div data-reveal style={{ marginBottom: '48px' }}>
+              <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                <div style={{ width: '24px', height: '1px', background: coral }} />EARLY RELEASE
+              </div>
+              <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 700, color: 'var(--txt)', lineHeight: 1.1, marginBottom: '16px' }}>
+                A first look,<br /><em style={{ color: coral }}>before the full launch.</em>
+              </h2>
+              <p style={{ fontSize: '15px', lineHeight: 1.8, color: muted, maxWidth: '480px' }}>
+                A small selection while the full collection is being prepared. Every piece is organic cotton,
+                printed on demand by Teemill.
+              </p>
+            </div>
+            <div className="responsive-grid responsive-grid--3" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '24px' }}>
+              {EARLY_RELEASE.map((p, i) => (
+                <ProductCard key={i} {...p} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Kids Collection */}
+      {!isMini && (
+      <>
       <section id="kids" data-section style={{ background: cream, padding: '80px 48px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div data-reveal style={{ marginBottom: '48px' }}>
@@ -166,6 +209,8 @@ export default function ShopPage() {
           </div>
         </div>
       </section>
+      </>
+      )}
 
       {/* Brand collection banner */}
       <section data-section style={{ background: black, padding: '80px 48px' }}>
@@ -185,7 +230,7 @@ export default function ShopPage() {
               Coraly Space × Teemill. Organic cotton, print-on-demand, shipped in recycled packaging. Fashion that gives back.
             </p>
             <div data-reveal style={{ display: 'flex', gap: '12px' }}>
-              <Link href="/community" className="cbtn">Join to Shop Early</Link>
+              <Link href={isMini ? '/#waitlist-section' : '/community'} className="cbtn">Join to Shop Early</Link>
               <a href={TEEMILL_ALL} target="_blank" rel="noopener noreferrer" className="gbtn">Visit Teemill Store →</a>
             </div>
           </div>

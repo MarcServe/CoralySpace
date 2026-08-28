@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { IMAGES } from '@/lib/coraly-images-manifest';
 import { useCoralyExperience } from '@/components/CoralyExperienceControls';
+import { isMini } from '@/lib/launch-mode';
 
 const coral = '#EF7A6C';
 
@@ -42,7 +43,7 @@ export default function Footer() {
 
   return (
     <footer className="site-footer" style={{ background: 'var(--bg3)', padding: '56px 48px 32px', borderTop: '1px solid var(--theme-border)' }}>
-      <div className="site-footer__grid" style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '48px', marginBottom: '44px' }}>
+      <div className="site-footer__grid" style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMini ? '2fr 1fr' : '2fr 1fr 1fr 1fr', gap: '48px', marginBottom: '44px' }}>
         <div>
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px', textDecoration: 'none' }}>
             <img src={isLight ? IMAGES.LOGO_SPACE_LIGHT : IMAGES.LOGO_SPACE_DARK} alt="Coraly Space"
@@ -60,7 +61,13 @@ export default function Footer() {
           </div>
         </div>
 
-        {COLS.map(({ title, links }) => (
+        {isMini ? (
+          <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+            <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '11px', letterSpacing: '2px', color: 'var(--txt2)' }}>
+              More coming soon ...
+            </div>
+          </div>
+        ) : COLS.map(({ title, links }) => (
           <div key={title}>
             <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '2px', color: coral, marginBottom: '16px' }}>
               {t(`footer_col_${title.toLowerCase()}`).toUpperCase()}
