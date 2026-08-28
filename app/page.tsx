@@ -75,7 +75,7 @@ const HERO_TITLE_KEYS: { key: 'hero_title_1' | 'hero_title_2' | 'hero_title_amp'
 // Crowdfunder copy — kept separate so the full-site wording is untouched.
 const MINI_HERO_KICKER = 'A PLACE OF BELONGING : CREATIVE, CONNECTED, COMMUNITY';
 const MINI_HERO_SUB = 'A connected creative space where conscious people belong, make, and thrive together.';
-const MINI_HERO_STRAPLINE = 'CONNECTED · CULTURE · CREATIVITY · COMPASSION';
+const MINI_HERO_STRAPLINE = 'CONNECTED - CULTURE - CREATIVITY - COMPASSION';
 
 function Hero() {
   const { t } = useCoralyExperience();
