@@ -4,10 +4,14 @@ Where signups go, and how to configure it.
 
 ## What happens on submit
 
-1. The visitor enters an email address and presses the button.
+1. The visitor fills in the form — first name, email, role, town or city, what they are
+   interested in, how they heard about us, and the consent tick.
 2. The form posts to `/api/waitlist`.
-3. The route forwards the address to whoever is listed in `WAITLIST_TO_EMAIL`,
+3. The route forwards the details to whoever is listed in `WAITLIST_TO_EMAIL`,
    with reply-to set to the signup so Caroline can answer straight from the notification.
+
+Only the email address and the consent tick are required; everything else is optional, so a
+visitor in a hurry can still join in seconds.
 
 **Caroline supplies nothing but an email address.** No account, no password, no app
 password, no confirmation step. The sending account is ours and lives entirely in our
@@ -62,6 +66,6 @@ Option B, expect Gmail to be stricter about mail sent from a personal account.
 
 ## Data protection note
 
-The form carries a line of small print under the button — "By joining you agree to receive
-occasional updates from Coraly Space. Unsubscribe anytime." — which is the basis for emailing
-signups. Include an unsubscribe link in every message you send.
+The consent checkbox must be ticked before the form will submit, and the API rejects any
+submission without it, so every address on the list has explicitly opted in. Include an
+unsubscribe option in every message you send.
