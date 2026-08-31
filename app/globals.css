@@ -2043,6 +2043,13 @@ svg {
     flex-direction: column !important;
   }
 
+  /* Once the name/email row stacks, the inline flex basis would size the
+     inputs vertically and collapse them — reset to natural height. */
+  .waitlist-form__row > input {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+  }
+
   .site-footer__grid {
     grid-template-columns: 1fr !important;
     gap: 28px !important;

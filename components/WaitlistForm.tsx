@@ -129,21 +129,23 @@ export default function WaitlistForm() {
 
         {!done ? (
           <div data-reveal style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div className="waitlist-form__row" style={{ display: 'flex', gap: '10px' }}>
               <input
                 placeholder={t('waitlist_first_name')}
                 value={name}
                 onChange={e => setName(e.target.value)}
                 onFocus={() => setFoc('n')} onBlur={() => setFoc(null)}
-                style={inp('n')}
+                style={{ ...inp('n'), flex: '1 1 0', minWidth: 0 }}
               />
               <input
                 placeholder={t('waitlist_email')}
                 type="email"
+                required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') handleSubmit(); }}
                 onFocus={() => setFoc('e')} onBlur={() => setFoc(null)}
-                style={{ ...inp('e'), flex: 1.5 }}
+                style={{ ...inp('e'), flex: '1.5 1 0', minWidth: 0 }}
               />
             </div>
             <select
