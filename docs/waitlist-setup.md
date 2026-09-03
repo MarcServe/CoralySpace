@@ -28,6 +28,8 @@ local development.
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `WAITLIST_TO_EMAIL` | Yes | Where signups are forwarded. Comma-separate for multiple recipients. Defaults to `coralyspace@gmail.com` |
+| `WAITLIST_FROM_EMAIL` | Recommended | Visible From address. Use a verified domain address when on Resend (e.g. `waitlist@coraly.space`). Falls back to `GMAIL_USER` |
+| `WAITLIST_FROM_NAME` | Optional | From name. Defaults to `Coraly Space` |
 | `NEXT_PUBLIC_LAUNCH_MODE` | Yes | `mini` for the crowdfunder page, `full` for the whole site |
 
 Then configure **one** sending option below. If `SMTP_HOST` is set it wins; otherwise the
@@ -39,8 +41,9 @@ Gmail settings are used.
 | --- | --- |
 | `SMTP_HOST` | e.g. `smtp.resend.com`, `smtp-relay.brevo.com`, your own host |
 | `SMTP_PORT` | `587` for STARTTLS, `465` for SSL. Defaults to 587 |
-| `SMTP_USER` | Username, also used as the from address |
+| `SMTP_USER` | SMTP login username (for Resend this is always `resend`) |
 | `SMTP_PASS` | Password or API key |
+| `WAITLIST_FROM_EMAIL` | **Required with Resend** — must be an address on a domain you verified there, e.g. `waitlist@coraly.space` |
 
 Better deliverability than Gmail, and nothing is tied to a personal mailbox. Worth doing if
 the crowdfunder drives real volume.
@@ -71,8 +74,42 @@ before sending any traffic to the site.
 ## Testing it works
 
 Submit the form on the live site with a real address and confirm the notification arrives at
-the `WAITLIST_TO_EMAIL` inbox. Check junk if it does not appear — and if you are using
-Option B, expect Gmail to be stricter about mail sent from a personal account.
+the `WAITLIST_TO_EMAIL` inbox. Check junk if it does not appear.
+
+## If mail goes to spam
+
+Personal Gmail (Option B) often lands in spam when sent from Vercel because:
+
+- The message is sent from your Gmail via an app password on a server IP Google does not recognise
+- The From address is your personal `@gmail.com`, but Reply-To is the visitor's address — filters treat that like impersonation
+- Gmail-to-Gmail between two different accounts via SMTP is scored more strictly than mail sent in the Gmail web app
+
+**Quick fixes (already in the app):**
+
+- Plain-text + HTML multipart (not HTML-only)
+- No emoji in the subject line
+- Simple subject: `Coraly Space waitlist: [name]`
+- Light, transactional email styling
+
+**Best fix — use Resend on your domain (recommended before the crowdfunder):**
+
+1. Create a free account at [resend.com](https://resend.com)
+2. Add and verify `coraly.space` (DNS records for SPF + DKIM — Resend shows you exactly what to add)
+3. In Vercel, set:
+
+   | Variable | Value |
+   | --- | --- |
+   | `SMTP_HOST` | `smtp.resend.com` |
+   | `SMTP_PORT` | `587` |
+   | `SMTP_USER` | `resend` |
+   | `SMTP_PASS` | your Resend API key |
+   | `WAITLIST_FROM_EMAIL` | `waitlist@coraly.space` (or `hello@coraly.space`) |
+   | `WAITLIST_TO_EMAIL` | `coralyspace@gmail.com` |
+
+4. Remove `GMAIL_USER` and `GMAIL_APP_PASSWORD` from Vercel so SMTP is used
+5. Redeploy, submit a test signup, then in Gmail open the message → **Not spam** → **Move to Primary**
+
+Until DNS is set up, Caroline can mark the first few notifications as "Not spam" so Gmail learns they are wanted.
 
 ## Data protection note
 

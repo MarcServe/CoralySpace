@@ -4,17 +4,12 @@ import nodemailer from 'nodemailer';
 /**
  * Where signups are forwarded. Caroline only ever supplies an email address —
  * the sending account belongs to us, so she needs no credentials or setup.
- * Accepts a comma-separated list to copy in additional recipients.
  */
 const RECIPIENTS = (process.env.WAITLIST_TO_EMAIL ?? 'coralyspace@gmail.com')
   .split(',')
   .map(address => address.trim())
   .filter(Boolean);
 
-/**
- * Generic SMTP first, falling back to Gmail. Either way the credentials are
- * ours, not the client's.
- */
 function createTransport() {
   if (process.env.SMTP_HOST) {
     const port = Number(process.env.SMTP_PORT ?? 587);
@@ -43,8 +38,69 @@ function escapeHtml(value: string) {
     .replace(/"/g, '&quot;');
 }
 
-function row(label: string, value: string) {
-  return `<tr><td style="padding:10px 0;border-bottom:1px solid #222;color:#aaa;width:120px;vertical-align:top;">${label}</td><td style="padding:10px 0;border-bottom:1px solid #222;">${value || '—'}</td></tr>`;
+function fromAddress() {
+  const email =
+    process.env.WAITLIST_FROM_EMAIL?.trim() ||
+    process.env.SMTP_FROM_EMAIL?.trim() ||
+    process.env.GMAIL_USER?.trim() ||
+    process.env.SMTP_USER?.trim();
+
+  if (!email) return null;
+
+  const name = process.env.WAITLIST_FROM_NAME?.trim() || 'Coraly Space';
+  return `"${name}" <${email}>`;
+}
+
+type SignupDetails = {
+  name: string;
+  email: string;
+  role: string;
+  location: string;
+  howHeard: string;
+  interests: string;
+};
+
+function buildPlainText(details: SignupDetails) {
+  const lines = [
+    'New Coraly Space waitlist sign-up',
+    '',
+    `Name: ${details.name || '—'}`,
+    `Email: ${details.email}`,
+    `Role: ${details.role || '—'}`,
+    `Location: ${details.location || '—'}`,
+    `Interests: ${details.interests || '—'}`,
+    `Heard via: ${details.howHeard || '—'}`,
+    'Email consent: Yes — opted in',
+    '',
+    `To reply to this person, email: ${details.email}`,
+    '',
+    `Sent from coraly.space · ${new Date().toUTCString()}`,
+  ];
+
+  return lines.join('\n');
+}
+
+function buildHtml(details: SignupDetails) {
+  const row = (label: string, value: string) =>
+    `<tr><td style="padding:10px 0;border-bottom:1px solid #e8dfd4;color:#6b615c;width:120px;vertical-align:top;">${label}</td><td style="padding:10px 0;border-bottom:1px solid #e8dfd4;color:#1a1210;">${value || '—'}</td></tr>`;
+
+  return `
+    <div style="font-family:'Helvetica Neue',Arial,sans-serif;max-width:520px;margin:0 auto;padding:32px;background:#ffffff;color:#1a1210;border:1px solid #e8dfd4;border-radius:8px;">
+      <p style="margin:0 0 8px;font-size:11px;letter-spacing:2px;color:#EF7A6C;text-transform:uppercase;">Coraly Space · Waitlist</p>
+      <h2 style="font-size:20px;font-weight:600;margin:0 0 20px;line-height:1.3;">New waitlist sign-up</h2>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.5;">
+        ${row('Name', escapeHtml(details.name))}
+        ${row('Email', `<a href="mailto:${escapeHtml(details.email)}" style="color:#EF7A6C;">${escapeHtml(details.email)}</a>`)}
+        ${row('Role', escapeHtml(details.role))}
+        ${row('Location', escapeHtml(details.location))}
+        ${row('Interests', escapeHtml(details.interests))}
+        ${row('Heard via', escapeHtml(details.howHeard))}
+        ${row('Consent', 'Yes — opted in')}
+      </table>
+      <p style="font-size:13px;color:#6b615c;margin:20px 0 0;">Reply to this email to write to them directly.</p>
+      <p style="font-size:12px;color:#9a8e8a;margin:24px 0 0;">Sent from coraly.space · ${new Date().toUTCString()}</p>
+    </div>
+  `;
 }
 
 export async function POST(req: NextRequest) {
@@ -59,42 +115,38 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Consent is required to join the waitlist.' }, { status: 400 });
   }
 
-  const name = escapeHtml(String(body.name ?? ''));
-  const role = escapeHtml(String(body.role ?? ''));
-  const location = escapeHtml(String(body.location ?? ''));
-  const howHeard = escapeHtml(String(body.howHeard ?? ''));
-  const interests = (Array.isArray(body.interests) ? body.interests : [])
-    .map((interest: unknown) => escapeHtml(String(interest)))
-    .join(', ');
-  const safeEmail = escapeHtml(String(email));
+  const from = fromAddress();
+  if (!from) {
+    console.error('Waitlist email misconfigured: no sender address');
+    return NextResponse.json({ error: 'Could not send. Please try again.' }, { status: 500 });
+  }
 
-  const sender = process.env.SMTP_USER ?? process.env.GMAIL_USER;
+  const details: SignupDetails = {
+    name: String(body.name ?? '').trim(),
+    email: String(email).trim(),
+    role: String(body.role ?? '').trim(),
+    location: String(body.location ?? '').trim(),
+    howHeard: String(body.howHeard ?? '').trim(),
+    interests: (Array.isArray(body.interests) ? body.interests : [])
+      .map((interest: unknown) => String(interest).trim())
+      .filter(Boolean)
+      .join(', '),
+  };
+
+  const subjectName = details.name || details.email;
 
   try {
     await createTransport().sendMail({
-      from: `"Coraly Space Waitlist" <${sender}>`,
+      from,
       to: RECIPIENTS,
-      replyTo: email,
-      subject: `🌿 New Waitlist Sign-up — ${name || email}`,
-      html: `
-        <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px;background:#0D0D0D;color:#F5EFE8;border-radius:8px;">
-          <div style="color:#EF7A6C;font-size:11px;letter-spacing:3px;margin-bottom:16px;">CORALY SPACE · NEW WAITLIST SIGN-UP</div>
-          <h2 style="font-size:22px;margin:0 0 24px;">Someone just joined the waitlist 🎉</h2>
-          <table style="width:100%;border-collapse:collapse;">
-            ${row('Name', name)}
-            ${row('Email', `<a href="mailto:${safeEmail}" style="color:#EF7A6C;">${safeEmail}</a>`)}
-            ${row('Role', role)}
-            ${row('Location', location)}
-            ${row('Interests', interests)}
-            ${row('Heard via', howHeard)}
-            ${row('Email consent', 'Yes — opted in')}
-          </table>
-          <p style="font-size:13px;color:#9A8E8A;margin:20px 0 0;">Reply to this email to write to them directly.</p>
-          <div style="margin-top:28px;padding:16px;background:#1a1a1a;border-radius:4px;font-size:12px;color:#666;">
-            Sent from coraly.space · ${new Date().toUTCString()}
-          </div>
-        </div>
-      `,
+      replyTo: details.email,
+      subject: `Coraly Space waitlist: ${subjectName}`,
+      text: buildPlainText(details),
+      html: buildHtml(details),
+      headers: {
+        'Auto-Submitted': 'auto-generated',
+        'X-Auto-Response-Suppress': 'All',
+      },
     });
   } catch (e) {
     console.error('Email send error:', e);
