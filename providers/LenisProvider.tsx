@@ -4,12 +4,14 @@ import Lenis from '@studio-freight/lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cancelFrame, frame } from 'framer-motion';
+import { setLenis } from '@/lib/smooth-scroll';
 
 export function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis();
+    setLenis(lenis);
     lenis.on('scroll', ScrollTrigger.update);
 
     // Drive Lenis from Motion’s frame loop so scroll-linked Motion / Framer APIs
@@ -21,6 +23,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
 
     return () => {
       cancelFrame(onFrame);
+      setLenis(null);
       lenis.destroy();
     };
   }, []);

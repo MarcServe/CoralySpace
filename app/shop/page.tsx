@@ -5,6 +5,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Ticker from '@/components/Ticker';
 import { IMAGES, P_FOX_GLOVE, P_BUTTERFLY_PINK, P_SUNSHINE, P_BUTTERFLY_KIDS, P_BUTTERFLIES_NAVY, P_SCARLETT, P_FOX_ADULT, P_DEER, P_ASYMMETRIC_BF, P_ROSE_HAND, B2_MENS_TEE, B2_BLACK_BUTTERFLY, B2_SPACE_OVAL } from '@/lib/coraly-images-manifest';
 import { isMini } from '@/lib/launch-mode';
+import { scrollToId } from '@/lib/smooth-scroll';
 
 // ─── TEEMILL CONFIG ───────────────────────────────────────────────────────────
 // Replace with Caroline's actual Teemill store URL, e.g. "https://coralyspace.teemill.com"
@@ -82,7 +83,7 @@ export default function ShopPage() {
   return (
     <div style={{ paddingTop: '68px' }}>
       {/* Shop Hero */}
-      <section className="shop-hero" data-section style={{ background: black, minHeight: '55vh', display: 'grid', gridTemplateColumns: '1fr 1fr', overflow: 'hidden' }}>
+      <section className="shop-hero" data-section style={{ background: black, display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
         <div className="shop-hero__copy" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '80px 64px', position: 'relative' }}>
           <div style={{ position: 'absolute', left: 0, right: 0, height: '1px', background: `linear-gradient(90deg,transparent,${coral}40,transparent)`, animation: 'scanH 6s linear infinite', pointerEvents: 'none' }} />
           <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '4px', color: coral, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -96,18 +97,45 @@ export default function ShopPage() {
           </p>
           <div data-reveal style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
             {isMini ? (
-              <a href="#early-release" className="cbtn">Early Release</a>
+              <a
+                href="#early-release"
+                className="cbtn"
+                onClick={(event) => {
+                  event.preventDefault();
+                  scrollToId('early-release');
+                }}
+              >
+                Early Release
+              </a>
             ) : (
               <>
-                <a href="#kids" className="cbtn">Kids Collection</a>
-                <a href="#adults" className="glbtn">Adult Collection</a>
+                <a
+                  href="#kids"
+                  className="cbtn"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    scrollToId('kids');
+                  }}
+                >
+                  Kids Collection
+                </a>
+                <a
+                  href="#adults"
+                  className="glbtn"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    scrollToId('adults');
+                  }}
+                >
+                  Adult Collection
+                </a>
               </>
             )}
           </div>
         </div>
         <div className="shop-hero__media" style={{ position: 'relative', overflow: 'hidden' }}>
           <img src={IMAGES.MODEL_COAST} alt="Model wearing Coraly Space"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', animation: 'ken 14s ease-in-out infinite alternate' }} />
+            style={{ objectFit: 'cover', objectPosition: 'center top' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to left,transparent 60%,rgba(13,13,13,.5))' }} />
           <div style={{ position: 'absolute', bottom: '24px', left: '24px', background: 'rgba(13,13,13,.8)', backdropFilter: 'blur(10px)', padding: '12px 18px', borderRadius: '3px', border: `1px solid rgba(239,122,108,.2)` }}>
             <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '3px', color: coral, marginBottom: '3px' }}>AS WORN</div>
@@ -145,7 +173,7 @@ export default function ShopPage() {
 
       {/* Early release — crowdfunder placeholder listings */}
       {isMini && (
-        <section id="early-release" data-section style={{ background: cream, padding: '80px 48px' }}>
+        <section id="early-release" data-section style={{ background: cream, padding: '80px 48px', scrollMarginTop: '80px' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <div data-reveal style={{ marginBottom: '48px' }}>
               <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>

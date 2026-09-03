@@ -109,7 +109,7 @@
 /* ─── Reset & base ─── */
 *, *::before, *::after { box-sizing: border-box; }
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   width: 100%;
   max-width: 100%;
   overflow-x: clip;
@@ -131,6 +131,16 @@ body {
   body {
     overflow-x: hidden;
   }
+}
+
+/* Lenis owns scrolling — native smooth-scroll fights it and hangs the page,
+   especially on in-page shop anchors like #early-release. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+html.lenis {
+  scroll-behavior: auto !important;
 }
 
 img,
@@ -190,6 +200,28 @@ svg {
 @keyframes heroLogoBounceY {
   from { top: 80px; }
   to   { top: calc(100% - var(--logo-size) - 130px); }
+}
+
+.shop-hero {
+  height: min(72vh, 760px);
+  min-height: 420px;
+  overflow: hidden;
+}
+
+.shop-hero__media {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.shop-hero__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .home-hero__kicker,
@@ -1532,7 +1564,8 @@ svg {
 
   .home-hero {
     min-height: 100svh !important;
-    align-items: flex-end !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
   }
 
   .home-hero__logo {
@@ -1566,10 +1599,8 @@ svg {
 
   .home-hero__content {
     width: 100% !important;
-    /* Extra bottom padding reserves room for the absolutely-positioned
-       stats overlay so it never collides with the CTAs. */
-    padding: 96px 20px 210px !important;
-    justify-content: flex-end !important;
+    padding: 74px 20px 168px !important;
+    justify-content: flex-start !important;
   }
 
   .home-hero__kicker,
@@ -1597,6 +1628,7 @@ svg {
 
   .shop-hero {
     grid-template-columns: 1fr !important;
+    height: auto !important;
     min-height: 0 !important;
   }
 
@@ -1605,14 +1637,15 @@ svg {
   }
 
   .shop-hero__media {
-    min-height: 280px;
-    max-height: 52vh;
+    height: 42vh;
+    min-height: 220px;
+    max-height: 42vh;
   }
 
   .shop-hero__media img {
+    position: absolute !important;
     height: 100% !important;
-    min-height: 280px;
-    object-fit: cover !important;
+    min-height: 0 !important;
   }
 
   .shop-split {
@@ -1672,12 +1705,12 @@ svg {
     display: none !important;
   }
 
-  /* Logo hero on mobile/tablet: the mark sits as a faint watermark
-     behind the overlaid headline, not a cropped full-bleed. */
+  /* Logo watermark behind the headline. Copy sits under the nav;
+     stats stay pinned to the bottom of the first screen. */
   .home-hero {
     flex-direction: column !important;
     min-height: 100svh !important;
-    justify-content: flex-end !important;
+    justify-content: flex-start !important;
   }
 
   .home-hero__image-panel {
@@ -2066,8 +2099,9 @@ svg {
   }
 
   .shop-hero__media img {
+    position: absolute !important;
     height: 100% !important;
-    min-height: 280px;
+    min-height: 0 !important;
   }
 
   .pillar-card-image-bg--blended .pillar-card-motion-fill,
@@ -2102,12 +2136,15 @@ svg {
     max-width: 100% !important;
   }
 
-  #waitlist-section [data-reveal] > div[style*="display: flex"] {
+  /* React writes inline styles with no space after the colon, so matching on
+     `display: flex` never selected the name/email row — it stayed horizontal
+     and pushed the email field off the right edge. Target the class instead. */
+  .waitlist-form__row {
     flex-direction: column !important;
   }
 
-  /* Once the name/email row stacks, the inline flex basis would size the
-     inputs vertically and collapse them — reset to natural height. */
+  /* Stacked, the inline flex basis would size the inputs vertically and
+     collapse them — reset to natural height. */
   .waitlist-form__row > input {
     flex: 0 0 auto !important;
     width: 100% !important;
@@ -2158,10 +2195,9 @@ svg {
     padding-right: 24px !important;
   }
 
-  /* Hero content area — big bottom pad clears the stats overlay
-     that sits over the full-bleed video. */
+  /* Hero sits under the nav; bottom pad still clears the stats. */
   .home-hero__content {
-    padding: 100px 28px 200px !important;
+    padding: 74px 20px 168px !important;
     width: 100% !important;
   }
   .home-hero__stats {
@@ -2258,7 +2294,8 @@ svg {
   .home-hero__content {
     padding-left: 16px !important;
     padding-right: 16px !important;
-    padding-bottom: 200px !important;
+    padding-top: 70px !important;
+    padding-bottom: 156px !important;
   }
 
   .home-hero__title {
@@ -2287,6 +2324,7 @@ svg {
   }
 
   .shop-hero__media {
+    height: 42vh;
     min-height: 220px;
     max-height: 42vh;
   }
