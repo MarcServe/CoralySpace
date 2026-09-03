@@ -126,7 +126,7 @@ function Hero() {
         }}
       >
         <img
-          className="home-hero__logo-inline"
+          className="home-hero__logo home-hero__logo--mobile"
           src={isLight ? IMAGES.LOGO_SPACE_LIGHT : IMAGES.LOGO_SPACE_DARK}
           alt="Coraly Space"
         />
@@ -162,6 +162,14 @@ function Hero() {
             {t('hero_cta_secondary')}
           </Link>
         </div>
+      </div>
+
+      <div className="home-hero__logo-panel" aria-hidden>
+        <img
+          className="home-hero__logo home-hero__logo--desktop"
+          src={isLight ? IMAGES.LOGO_SPACE_LIGHT : IMAGES.LOGO_SPACE_DARK}
+          alt=""
+        />
       </div>
 
     </section>
