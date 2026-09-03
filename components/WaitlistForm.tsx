@@ -87,7 +87,7 @@ export default function WaitlistForm() {
   return (
     <section id="waitlist-section" data-section style={{
       background: black, padding: '100px 48px',
-      borderTop: '1px solid rgba(239,122,108,.1)', position: 'relative', overflow: 'hidden',
+      borderTop: '1px solid rgba(239,122,108,.1)', position: 'relative', overflowX: 'clip',
     }}>
       <div style={{
         position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
@@ -129,15 +129,17 @@ export default function WaitlistForm() {
 
         {!done ? (
           <div data-reveal style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <div className="waitlist-form__row" style={{ display: 'flex', gap: '10px' }}>
+            <div className="waitlist-form__row">
               <input
+                className="waitlist-form__input"
                 placeholder={t('waitlist_first_name')}
                 value={name}
                 onChange={e => setName(e.target.value)}
                 onFocus={() => setFoc('n')} onBlur={() => setFoc(null)}
-                style={{ ...inp('n'), flex: '1 1 0', minWidth: 0 }}
+                style={inp('n')}
               />
               <input
+                className="waitlist-form__input"
                 placeholder={t('waitlist_email')}
                 type="email"
                 required
@@ -145,7 +147,7 @@ export default function WaitlistForm() {
                 onChange={e => setEmail(e.target.value)}
                 onKeyDown={e => { if (e.key === 'Enter') handleSubmit(); }}
                 onFocus={() => setFoc('e')} onBlur={() => setFoc(null)}
-                style={{ ...inp('e'), flex: '1.5 1 0', minWidth: 0 }}
+                style={inp('e')}
               />
             </div>
             <select

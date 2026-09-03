@@ -82,7 +82,6 @@ function Hero() {
   const isLight = theme === 'light';
   const accent = 'var(--coral)';
   const titleInk = 'var(--txt)';
-  const goldInk = 'var(--gold)';
 
   return (
     <section
@@ -126,6 +125,11 @@ function Hero() {
           justifyContent: 'center',
         }}
       >
+        <img
+          className="home-hero__logo-inline"
+          src={isLight ? IMAGES.LOGO_SPACE_LIGHT : IMAGES.LOGO_SPACE_DARK}
+          alt="Coraly Space"
+        />
         <div style={{ position: 'absolute', left: 0, right: 0, top: '68px', height: '1px', background: 'linear-gradient(90deg,transparent,color-mix(in srgb, var(--coral) 25%, transparent),transparent)', animation: 'scanH 6s linear infinite', pointerEvents: 'none' }} />
         <div className="home-hero__kicker" style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '4px', color: accent, marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '12px', animation: 'fadeUp .6s ease .2s both' }}>
           <div style={{ width: '28px', height: '1px', background: accent, flexShrink: 0 }} />{isMini ? MINI_HERO_KICKER : t('hero_kicker')}
@@ -157,35 +161,6 @@ function Hero() {
           <Link href={isMini ? '#waitlist-section' : '/community'} className={isMini ? 'cbtn' : 'glbtn'}>
             {t('hero_cta_secondary')}
           </Link>
-        </div>
-      </div>
-
-      <div
-        className="home-hero__stats"
-        style={{
-          position: 'absolute',
-          right: '56px',
-          bottom: '72px',
-          zIndex: 3,
-          maxWidth: '270px',
-          textAlign: 'right',
-          animation: 'fadeUp .6s ease 1.05s both',
-        }}
-      >
-        <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '46px', fontWeight: 700, color: accent, lineHeight: 1 }}>25%</div>
-        <p className="home-hero__stats-body" style={{ fontSize: '13px', lineHeight: 1.65, color: 'var(--txt2)' }}>
-          {t('hero_stat_body')}
-        </p>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '24px', marginTop: '24px', paddingTop: '18px', borderTop: '1px solid var(--theme-border)' }}>
-          {[
-            { n: '3+', labelKey: 'hero_stat_communities' as const },
-            { n: '∞', labelKey: 'hero_stat_creativity' as const },
-          ].map(({ n, labelKey }) => (
-            <div key={labelKey}>
-              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '24px', fontWeight: 700, color: goldInk, lineHeight: 1 }}>{n}</div>
-              <div className="home-hero__stats-label" style={{ fontFamily: "'DM Mono',monospace", fontSize: '8px', letterSpacing: '2px', color: 'var(--txt2)', marginTop: '4px' }}>{t(labelKey).toUpperCase()}</div>
-            </div>
-          ))}
         </div>
       </div>
 
