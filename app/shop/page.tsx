@@ -82,8 +82,8 @@ export default function ShopPage() {
   return (
     <div style={{ paddingTop: '68px' }}>
       {/* Shop Hero */}
-      <section data-section style={{ background: black, minHeight: '55vh', display: 'grid', gridTemplateColumns: '1fr 1fr', overflow: 'hidden' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '80px 64px', position: 'relative' }}>
+      <section className="shop-hero" data-section style={{ background: black, minHeight: '55vh', display: 'grid', gridTemplateColumns: '1fr 1fr', overflow: 'hidden' }}>
+        <div className="shop-hero__copy" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '80px 64px', position: 'relative' }}>
           <div style={{ position: 'absolute', left: 0, right: 0, height: '1px', background: `linear-gradient(90deg,transparent,${coral}40,transparent)`, animation: 'scanH 6s linear infinite', pointerEvents: 'none' }} />
           <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '4px', color: coral, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ width: '28px', height: '1px', background: coral }} />CORALY UK · ORGANIC COTTON
@@ -105,7 +105,7 @@ export default function ShopPage() {
             )}
           </div>
         </div>
-        <div style={{ position: 'relative', overflow: 'hidden' }}>
+        <div className="shop-hero__media" style={{ position: 'relative', overflow: 'hidden' }}>
           <img src={IMAGES.MODEL_COAST} alt="Model wearing Coraly Space"
             style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', animation: 'ken 14s ease-in-out infinite alternate' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to left,transparent 60%,rgba(13,13,13,.5))' }} />
@@ -120,7 +120,7 @@ export default function ShopPage() {
 
       {/* REWILD Spotlight */}
       <section data-section style={{ background: black, padding: '80px 48px' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+        <div className="shop-split" style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
           <div data-reveal style={{ position: 'relative', borderRadius: '3px', overflow: 'hidden' }}>
             <img src={IMAGES.PRODUCT_REWILD_SHOWCASE} alt="REWILD Tee" style={{ width: '100%', display: 'block' }} />
             <div style={{ position: 'absolute', top: '16px', left: '16px', fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '3px', color: 'white', background: coralD, padding: '5px 12px', borderRadius: '2px' }}>ICON PIECE</div>
@@ -214,7 +214,7 @@ export default function ShopPage() {
 
       {/* Brand collection banner */}
       <section data-section style={{ background: black, padding: '80px 48px' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+        <div className="shop-split" style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
           <div data-reveal style={{ borderRadius: '3px', overflow: 'hidden', boxShadow: '0 24px 60px rgba(0,0,0,.3)' }}>
             <img src={IMAGES.BRAND_COLLECTION} alt="Coraly Space collection flat lay"
               style={{ width: '100%', display: 'block' }} />
@@ -229,7 +229,7 @@ export default function ShopPage() {
             <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: 'var(--txt2)', marginBottom: '28px' }}>
               Coraly Space × Teemill. Organic cotton, print-on-demand, shipped in recycled packaging. Fashion that gives back.
             </p>
-            <div data-reveal style={{ display: 'flex', gap: '12px' }}>
+            <div data-reveal style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               <Link href={isMini ? '/#waitlist-section' : '/community'} className="cbtn">Join to Shop Early</Link>
               <a href={TEEMILL_ALL} target="_blank" rel="noopener noreferrer" className="gbtn">Visit Teemill Store →</a>
             </div>

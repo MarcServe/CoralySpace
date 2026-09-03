@@ -192,6 +192,21 @@ svg {
   to   { top: calc(100% - var(--logo-size) - 130px); }
 }
 
+.home-hero__kicker,
+.home-hero__strap {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.home-hero__kicker {
+  flex-wrap: wrap;
+}
+
+.waitlist-form__contact {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 /* Scrim sits above the logo, below the content. Darker on the left so the
    headline stays legible; lighter on the right so the mark shows through. */
 .home-hero__scrim {
@@ -1557,10 +1572,56 @@ svg {
     justify-content: flex-end !important;
   }
 
+  .home-hero__kicker,
   .home-hero__content > div:nth-child(2) {
     font-size: 8px !important;
-    letter-spacing: 3px !important;
+    letter-spacing: 1.6px !important;
     margin-bottom: 16px !important;
+    line-height: 1.55 !important;
+    max-width: 100%;
+  }
+
+  .home-hero__strap,
+  .home-hero__content > p:nth-of-type(2) {
+    letter-spacing: 1.6px !important;
+    white-space: normal !important;
+  }
+
+  .mini-about {
+    padding: 72px 20px !important;
+  }
+
+  .mini-about__frame > div:not(:first-child) {
+    display: none;
+  }
+
+  .shop-hero {
+    grid-template-columns: 1fr !important;
+    min-height: 0 !important;
+  }
+
+  .shop-hero__copy {
+    padding: 88px 24px 36px !important;
+  }
+
+  .shop-hero__media {
+    min-height: 280px;
+    max-height: 52vh;
+  }
+
+  .shop-hero__media img {
+    height: 100% !important;
+    min-height: 280px;
+    object-fit: cover !important;
+  }
+
+  .shop-split {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .responsive-grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
   .home-hero__content > div:nth-child(2) > div {
@@ -2004,6 +2065,11 @@ svg {
     height: auto;
   }
 
+  .shop-hero__media img {
+    height: 100% !important;
+    min-height: 280px;
+  }
+
   .pillar-card-image-bg--blended .pillar-card-motion-fill,
   .pillar-card-image-bg--blended .pillar-card-motion-main {
     position: absolute !important;
@@ -2102,7 +2168,8 @@ svg {
     left: 28px !important;
     right: 20px !important;
     bottom: 32px !important;
-    max-width: 260px !important;
+    max-width: none !important;
+    flex-wrap: wrap !important;
   }
   .home-hero__stats-body {
     font-size: 11px !important;
@@ -2191,6 +2258,7 @@ svg {
   .home-hero__content {
     padding-left: 16px !important;
     padding-right: 16px !important;
+    padding-bottom: 200px !important;
   }
 
   .home-hero__title {
@@ -2200,5 +2268,35 @@ svg {
   .home-hero__content .cbtn,
   .home-hero__content .glbtn {
     max-width: 220px;
+  }
+
+  .home-hero__logo {
+    --logo-size: 108px;
+  }
+
+  .home-hero__stats {
+    gap: 10px !important;
+  }
+
+  .home-hero__stats > p {
+    flex: 1 1 160px;
+  }
+
+  .responsive-grid--3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .shop-hero__media {
+    min-height: 220px;
+    max-height: 42vh;
+  }
+
+  .waitlist-form__contact {
+    letter-spacing: 0.4px !important;
+    font-size: 8px !important;
+  }
+
+  .mini-about h2 {
+    font-size: clamp(24px, 8vw, 34px) !important;
   }
 }

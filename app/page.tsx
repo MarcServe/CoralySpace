@@ -127,8 +127,8 @@ function Hero() {
         }}
       >
         <div style={{ position: 'absolute', left: 0, right: 0, top: '68px', height: '1px', background: 'linear-gradient(90deg,transparent,color-mix(in srgb, var(--coral) 25%, transparent),transparent)', animation: 'scanH 6s linear infinite', pointerEvents: 'none' }} />
-        <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '4px', color: accent, marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '12px', animation: 'fadeUp .6s ease .2s both' }}>
-          <div style={{ width: '28px', height: '1px', background: accent }} />{isMini ? MINI_HERO_KICKER : t('hero_kicker')}
+        <div className="home-hero__kicker" style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '4px', color: accent, marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '12px', animation: 'fadeUp .6s ease .2s both' }}>
+          <div style={{ width: '28px', height: '1px', background: accent, flexShrink: 0 }} />{isMini ? MINI_HERO_KICKER : t('hero_kicker')}
         </div>
         <h1 className="home-hero__title" style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(48px,7vw,96px)', fontWeight: 700, lineHeight: .92, color: titleInk, marginBottom: '20px', letterSpacing: '-1.5px' }}>
           {HERO_TITLE_KEYS.map((line, i) => (
@@ -149,7 +149,7 @@ function Hero() {
         <p style={{ maxWidth: '430px', fontSize: '17px', lineHeight: 1.7, color: 'var(--txt2)', marginBottom: '12px', animation: 'fadeUp .6s ease .75s both' }}>
           {isMini ? MINI_HERO_SUB : t('hero_sub')}
         </p>
-        <p style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: 'color-mix(in srgb, var(--gold) 86%, transparent)', marginBottom: '42px', animation: 'fadeUp .6s ease .85s both' }}>
+        <p className="home-hero__strap" style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: 'color-mix(in srgb, var(--gold) 86%, transparent)', marginBottom: '42px', animation: 'fadeUp .6s ease .85s both' }}>
           {isMini ? MINI_HERO_STRAPLINE : t('hero_belong_line')}
         </p>
         <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', animation: 'fadeUp .6s ease .95s both' }}>
@@ -313,14 +313,16 @@ function AboutPreview() {
 // Brief brand introduction for the crowdfunder landing page. Body copy is
 // placeholder until Caroline completes the full copy audit.
 function MiniAbout() {
+  const { t } = useCoralyExperience();
+
   return (
-    <section id="about-intro" className="home-section home-section--light mini-about" data-section style={{ background: cream, padding: '100px 48px' }}>
+    <section id="about-intro" className="home-section home-section--light mini-about" data-section data-no-translate="true" style={{ background: cream, padding: '100px 48px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div className="responsive-grid responsive-grid--2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '72px', alignItems: 'center' }}>
-          <div style={{ position: 'relative' }} data-reveal>
+          <div className="mini-about__frame" style={{ position: 'relative' }} data-reveal>
             <div style={{ borderRadius: '3px', overflow: 'hidden', boxShadow: '0 24px 60px rgba(0,0,0,.15)' }}>
-              <img src={IMAGES.CAROLINE_AUTUMN} alt="Caroline McGlone — founder of Coraly Space"
-                style={{ width: '100%', display: 'block', objectFit: 'cover' }} />
+              <img src={IMAGES.CAROLINE_7} alt="Caroline McGlone — founder of Coraly Space"
+                style={{ width: '100%', display: 'block', objectFit: 'cover', objectPosition: 'center top', aspectRatio: '4 / 5' }} />
             </div>
             <div style={{ position: 'absolute', top: '-14px', left: '-14px', width: '52px', height: '52px', borderTop: `2px solid ${gold}`, borderLeft: `2px solid ${gold}`, opacity: .6 }} />
             <div style={{ position: 'absolute', bottom: '-14px', right: '-14px', width: '52px', height: '52px', borderBottom: `2px solid ${gold}`, borderRight: `2px solid ${gold}`, opacity: .6 }} />
@@ -328,21 +330,20 @@ function MiniAbout() {
 
           <div>
             <div data-reveal style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: coral, display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-              <div style={{ width: '24px', height: '1px', background: coral }} />ABOUT CORALY SPACE
+              <div style={{ width: '24px', height: '1px', background: coral }} />{t('about_kicker')}
             </div>
             <h2 data-reveal style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(26px,3.2vw,40px)', fontWeight: 700, color: 'var(--txt)', lineHeight: 1.2, marginBottom: '28px' }}>
-              A community for those who <em style={{ color: coral }}>create, move and shop consciously.</em>
+              {t('about_title_a')}{' '}
+              <em style={{ color: coral, marginLeft: '0.12em' }}>{t('about_title_b')}</em>
             </h2>
             <p data-reveal style={{ fontSize: '16px', lineHeight: 1.85, color: muted, marginBottom: '20px' }}>
-              Here you can find a place of belonging, connection and resilience, as we build a better world.
+              {t('about_body_1')}
             </p>
             <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: muted, marginBottom: '32px' }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-              laboris nisi ut aliquip ex ea commodo consequat.
+              {t('about_body_2')}
             </p>
             <div data-reveal style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <Link href="#waitlist-section" className="cbtn">Join the Waitlist</Link>
+              <Link href="#waitlist-section" className="cbtn">{t('about_cta')}</Link>
             </div>
           </div>
         </div>

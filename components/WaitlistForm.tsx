@@ -231,7 +231,7 @@ export default function WaitlistForm() {
               style={{ padding: '16px', borderRadius: '3px', fontSize: '12px', letterSpacing: '2px', opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}>
               {loading ? 'SENDING…' : t('waitlist_button')}
             </button>
-            <div style={{
+            <div className="waitlist-form__contact" style={{
               fontFamily: "'DM Mono',monospace", fontSize: '9px', letterSpacing: '1px',
               color: 'var(--txt3)', marginTop: '4px',
             }}>
