@@ -187,7 +187,7 @@ svg {
 }
 
 .home-hero__logo--desktop {
-  width: min(520px, 44vw);
+  width: min(560px, 46vw);
   max-width: 100%;
   height: auto;
   aspect-ratio: 1;
@@ -1605,7 +1605,7 @@ svg {
 
   .home-hero__logo--mobile {
     display: block;
-    width: min(280px, 64vw);
+    width: min(300px, 68vw);
     height: auto;
     aspect-ratio: 1;
     object-fit: contain;
