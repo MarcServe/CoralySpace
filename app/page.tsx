@@ -164,25 +164,6 @@ function Hero() {
         </div>
       </div>
 
-      {/* Logo placeholder — bounces across the hero until a campaign
-          video is ready. Theme-aware so light/dark both get the matching mark. */}
-      <div
-        className="home-hero__image-panel"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          display: 'block',
-          zIndex: 0,
-          overflow: 'hidden',
-        }}
-      >
-        <img
-          className="home-hero__logo"
-          src={isLight ? IMAGES.LOGO_SPACE_LIGHT : IMAGES.LOGO_SPACE_DARK}
-          alt="Coraly Space"
-        />
-      </div>
-
     </section>
   );
 }
