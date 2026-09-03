@@ -78,8 +78,7 @@ const MINI_HERO_SUB = 'A connected creative space where conscious people belong,
 const MINI_HERO_STRAPLINE = 'CONNECTED - CULTURE - CREATIVITY - COMPASSION';
 
 function Hero() {
-  const { t, theme } = useCoralyExperience();
-  const isLight = theme === 'light';
+  const { t } = useCoralyExperience();
   const accent = 'var(--coral)';
   const titleInk = 'var(--txt)';
 
