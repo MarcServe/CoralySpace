@@ -52,8 +52,18 @@ the crowdfunder drives real volume.
 | `GMAIL_USER` | Sending Gmail address (ours, not Caroline's) |
 | `GMAIL_APP_PASSWORD` | Google **App Password**, not the account password |
 
-To generate one: Google Account → Security → 2-Step Verification (must be on) →
-App passwords → create one for "Mail". Use the 16-character value, spaces removed.
+To generate one:
+
+1. 2-Step Verification must already be on (yours is).
+2. Skip the Security page — App passwords is no longer listed there.
+   Open this URL while signed into the sending Gmail account:
+   https://myaccount.google.com/apppasswords
+   Or search "App passwords" in the search box at the top of myaccount.google.com.
+3. Create one, name it "Coraly Space", copy the 16-character code, remove the spaces.
+
+If that URL says app passwords aren't available, the account is using security
+keys only, Advanced Protection, or a work/school Workspace policy. In that
+case skip Gmail and use Option A (Resend or any SMTP) instead.
 
 Without valid credentials every submission returns an error to the visitor, so verify this
 before sending any traffic to the site.

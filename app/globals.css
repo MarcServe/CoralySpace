@@ -161,39 +161,39 @@ svg {
   max-width: 100%;
 }
 
-/* Two-layer hero video (desktop). Both layers fill the panel; object-fit
-   differs so one covers the background and the other shows the whole subject. */
-.home-hero__media {
+/* Hero logo — smaller mark that starts centred, then bounces edge-to-edge
+   like a screensaver. Independent X/Y timings so the path never loops. */
+.home-hero__logo {
+  --logo-size: 196px;
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-position: center center;
-}
-
-/* Blurred, zoomed copy that fills the whole hero — hides the letterbox bars. */
-.home-hero__media--fill {
-  object-fit: cover;
-  filter: blur(26px) brightness(.6) saturate(1.1);
-  transform: scale(1.12);
-  z-index: 0;
-}
-
-/* Sharp copy that shows the full dancer (no crop), blended into the fill. */
-.home-hero__media--full {
+  left: 0;
+  top: 0;
+  width: var(--logo-size);
+  height: var(--logo-size);
   object-fit: contain;
-  filter: brightness(.92) saturate(1.02);
-  opacity: .97;
+  object-position: center;
   z-index: 1;
-  -webkit-mask-image: linear-gradient(90deg, transparent 18%, #000 31%, #000 69%, transparent 82%);
-  mask-image: linear-gradient(90deg, transparent 18%, #000 31%, #000 69%, transparent 82%);
+  opacity: .86;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .14));
+  animation:
+    heroLogoBounceX 14s linear infinite alternate,
+    heroLogoBounceY 9.2s linear infinite alternate;
+  animation-delay: -7s, -4.6s;
 }
 
-/* Scrim sits above the full-bleed video, below the content — on every
-   breakpoint now that the video is a full-bleed hero background. The
-   left-dark / bottom-dark gradient keeps the headline (left) and stats
-   (bottom-right) legible while the dancer stays visible mid/right. */
+@keyframes heroLogoBounceX {
+  from { left: 24px; }
+  to   { left: calc(100% - var(--logo-size) - 24px); }
+}
+
+@keyframes heroLogoBounceY {
+  from { top: 80px; }
+  to   { top: calc(100% - var(--logo-size) - 130px); }
+}
+
+/* Scrim sits above the logo, below the content. Darker on the left so the
+   headline stays legible; lighter on the right so the mark shows through. */
 .home-hero__scrim {
   position: absolute;
   inset: 0;
@@ -201,8 +201,8 @@ svg {
   pointer-events: none;
   display: block;
   background:
-    linear-gradient(90deg, rgba(13,13,13,.95) 0%, rgba(13,13,13,.70) 40%, rgba(13,13,13,.34) 66%, rgba(13,13,13,.60) 100%),
-    linear-gradient(0deg, rgba(13,13,13,.88) 0%, rgba(13,13,13,.30) 30%, transparent 54%);
+    linear-gradient(90deg, rgba(13,13,13,.95) 0%, rgba(13,13,13,.62) 42%, rgba(13,13,13,.18) 72%, rgba(13,13,13,.32) 100%),
+    linear-gradient(0deg, rgba(13,13,13,.82) 0%, rgba(13,13,13,.22) 28%, transparent 52%);
 }
 
 /* ── Music & Dance theme overlay ── */
@@ -279,12 +279,18 @@ svg {
 @media (prefers-reduced-motion: reduce) {
   .home-hero__note { animation: none; opacity: 0.4; }
   .home-hero__theme-note { animation: none; }
+  .home-hero__logo {
+    animation: none;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 :root[data-theme="light"] .home-hero__scrim {
   background:
-    linear-gradient(90deg, rgba(241,232,221,.96) 0%, rgba(241,232,221,.72) 40%, rgba(241,232,221,.40) 66%, rgba(241,232,221,.66) 100%),
-    linear-gradient(0deg, rgba(241,232,221,.9) 0%, rgba(241,232,221,.32) 30%, transparent 54%) !important;
+    linear-gradient(90deg, rgba(241,232,221,.96) 0%, rgba(241,232,221,.62) 42%, rgba(241,232,221,.18) 72%, rgba(241,232,221,.32) 100%),
+    linear-gradient(0deg, rgba(241,232,221,.88) 0%, rgba(241,232,221,.28) 28%, transparent 52%) !important;
 }
 
 :root[data-theme="light"] .home-hero__content p,
@@ -1514,26 +1520,29 @@ svg {
     align-items: flex-end !important;
   }
 
-  .home-hero__media {
-    object-position: center center !important;
-  }
-
-  .home-hero__media--fill {
-    display: none;
-  }
-
-  .home-hero__media--full {
-    object-fit: cover !important;
-    filter: none;
-    opacity: 1;
-    -webkit-mask-image: none;
-    mask-image: none;
+  .home-hero__logo {
+    --logo-size: 132px;
+    width: var(--logo-size) !important;
+    height: var(--logo-size) !important;
+    max-height: none !important;
+    opacity: .72 !important;
+    right: auto !important;
+    transform: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .12)) !important;
   }
 
   .home-hero__scrim {
     background:
-      linear-gradient(180deg, rgba(13,13,13,.55) 0%, rgba(13,13,13,.2) 36%, rgba(13,13,13,.92) 100%),
-      linear-gradient(90deg, rgba(13,13,13,.78), rgba(13,13,13,.18)) !important;
+      linear-gradient(180deg, rgba(13,13,13,.42) 0%, rgba(13,13,13,.14) 36%, rgba(13,13,13,.92) 100%),
+      linear-gradient(90deg, rgba(13,13,13,.78), rgba(13,13,13,.12)) !important;
+  }
+
+  :root[data-theme="light"] .home-hero__scrim {
+    background:
+      linear-gradient(180deg, rgba(241,232,221,.4) 0%, rgba(241,232,221,.12) 36%, rgba(241,232,221,.92) 100%),
+      linear-gradient(90deg, rgba(241,232,221,.78), rgba(241,232,221,.12)) !important;
   }
 
   .home-hero__glow {
@@ -1602,8 +1611,8 @@ svg {
     display: none !important;
   }
 
-  /* Full-bleed video hero on mobile/tablet: the clip fills the whole
-     section and the headline + stats overlay on top of a scrim. */
+  /* Logo hero on mobile/tablet: the mark sits as a faint watermark
+     behind the overlaid headline, not a cropped full-bleed. */
   .home-hero {
     flex-direction: column !important;
     min-height: 100svh !important;
@@ -1622,18 +1631,6 @@ svg {
     display: block !important;
     padding: 0 !important;
     z-index: 0 !important;
-  }
-
-  .home-hero__image-panel video {
-    width: 100% !important;
-    height: 100% !important;
-    max-width: none !important;
-    object-fit: cover !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    -webkit-mask-image: none !important;
-    mask-image: none !important;
-    display: block !important;
   }
 
   .home-hero__scrim {

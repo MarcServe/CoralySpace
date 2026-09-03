@@ -78,7 +78,8 @@ const MINI_HERO_SUB = 'A connected creative space where conscious people belong,
 const MINI_HERO_STRAPLINE = 'CONNECTED - CULTURE - CREATIVITY - COMPASSION';
 
 function Hero() {
-  const { t } = useCoralyExperience();
+  const { t, theme } = useCoralyExperience();
+  const isLight = theme === 'light';
   const accent = 'var(--coral)';
   const titleInk = 'var(--txt)';
   const goldInk = 'var(--gold)';
@@ -110,21 +111,8 @@ function Hero() {
         }}
       />
 
-      {/* Scrim — sits over the full-bleed video (all breakpoints) so the
-          overlaid headline & stats stay legible. */}
+      {/* Scrim — keeps the headline and stats readable over the logo. */}
       <div className="home-hero__scrim" aria-hidden />
-
-      {/* ── Music & Dance theme — badge + drifting notes over the video ── */}
-      <div className="home-hero__theme" aria-hidden>
-        <span className="home-hero__theme-badge">
-          <span className="home-hero__theme-note">♫</span>
-          Music &amp; Dance
-        </span>
-        <span className="home-hero__note home-hero__note--1">♪</span>
-        <span className="home-hero__note home-hero__note--2">♫</span>
-        <span className="home-hero__note home-hero__note--3">♩</span>
-        <span className="home-hero__note home-hero__note--4">♬</span>
-      </div>
 
       <div
         className="home-hero__content"
@@ -201,12 +189,8 @@ function Hero() {
         </div>
       </div>
 
-      {/* ── Community video — two-layer hero background ──
-          Desktop: a blurred, zoomed "fill" layer covers the whole hero so
-          there are no empty bars, and a "full" layer (object-fit: contain)
-          shows the entire dancer without cropping.
-          Mobile/tablet: the fill layer is hidden and the full layer becomes
-          a single object-fit: cover full-bleed video (see globals.css). */}
+      {/* Logo placeholder — bounces across the hero until a campaign
+          video is ready. Theme-aware so light/dark both get the matching mark. */}
       <div
         className="home-hero__image-panel"
         style={{
@@ -214,28 +198,13 @@ function Hero() {
           inset: 0,
           display: 'block',
           zIndex: 0,
+          overflow: 'hidden',
         }}
       >
-        <video
-          className="home-hero__media home-hero__media--fill"
-          src={IMAGES.COMMUNITY_HERO_VIDEO}
-          poster={IMAGES.COMMUNITY_HERO_CARD}
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden
-        />
-        <video
-          className="home-hero__media home-hero__media--full"
-          src={IMAGES.COMMUNITY_HERO_VIDEO}
-          poster={IMAGES.COMMUNITY_HERO_CARD}
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-label="Song & Dance — Coraly Space community"
-          style={{ animation: 'fadeUp .7s ease .6s both' }}
+        <img
+          className="home-hero__logo"
+          src={isLight ? IMAGES.LOGO_SPACE_LIGHT : IMAGES.LOGO_SPACE_DARK}
+          alt="Coraly Space"
         />
       </div>
 
