@@ -127,7 +127,7 @@ function Hero() {
       >
         <img
           className="home-hero__logo home-hero__logo--mobile"
-          src={isLight ? IMAGES.LOGO_SPACE_LIGHT : IMAGES.LOGO_SPACE_DARK}
+          src={IMAGES.HERO_LOGO}
           alt="Coraly Space"
         />
         <div style={{ position: 'absolute', left: 0, right: 0, top: '68px', height: '1px', background: 'linear-gradient(90deg,transparent,color-mix(in srgb, var(--coral) 25%, transparent),transparent)', animation: 'scanH 6s linear infinite', pointerEvents: 'none' }} />
@@ -167,7 +167,7 @@ function Hero() {
       <div className="home-hero__logo-panel" aria-hidden>
         <img
           className="home-hero__logo home-hero__logo--desktop"
-          src={isLight ? IMAGES.LOGO_SPACE_LIGHT : IMAGES.LOGO_SPACE_DARK}
+          src={IMAGES.HERO_LOGO}
           alt=""
         />
       </div>

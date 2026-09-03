@@ -41,6 +41,7 @@ import {
 // Canonical IMAGES object — matches CLAUDE.md naming convention
 export const IMAGES = {
   // Logos
+  HERO_LOGO: '/coraly-hero-logo.jpg',
   LOGO_SPACE_DARK: B2_LOGO_DARK,
   LOGO_SPACE_LIGHT: B2_LOGO_LIGHT,
   LOGO_UK_PREMIUM: B3_LOGO_UK_PREMIUM,
