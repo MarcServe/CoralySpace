@@ -194,9 +194,7 @@ svg {
   aspect-ratio: 1;
   object-fit: contain;
   opacity: 0.98;
-  filter:
-    drop-shadow(0 0 1px rgba(245, 239, 232, .55))
-    drop-shadow(0 12px 32px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.2));
   animation: fadeUp 0.6s ease 0.15s both;
   background: transparent;
 }
