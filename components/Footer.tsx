@@ -64,7 +64,7 @@ export default function Footer() {
         {isMini ? (
           <div style={{ display: 'flex', alignItems: 'flex-start' }}>
             <div style={{ fontFamily: "'DM Mono',monospace", fontSize: '11px', letterSpacing: '2px', color: 'var(--txt2)' }}>
-              More coming soon ...
+              {t('footer_coming_soon')}
             </div>
           </div>
         ) : COLS.map(({ title, links }) => (

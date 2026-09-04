@@ -72,10 +72,8 @@ const HERO_TITLE_KEYS: { key: 'hero_title_1' | 'hero_title_2' | 'hero_title_amp'
   { key: 'hero_title_4', italic: false, accent: false },
 ];
 
-// Crowdfunder copy — kept separate so the full-site wording is untouched.
-const MINI_HERO_KICKER = 'A PLACE OF BELONGING : CREATIVE, CONNECTED, COMMUNITY';
-const MINI_HERO_SUB = 'A connected creative space where conscious people belong, make, and thrive together.';
-const MINI_HERO_STRAPLINE = 'CONNECTED - CULTURE - CREATIVITY - COMPASSION';
+// Crowdfunder copy lives in translation keys (mini_hero_*) so language
+// switching still works while the hero stays data-no-translate.
 
 function Hero() {
   const { t } = useCoralyExperience();
@@ -131,7 +129,7 @@ function Hero() {
         />
         <div style={{ position: 'absolute', left: 0, right: 0, top: '68px', height: '1px', background: 'linear-gradient(90deg,transparent,color-mix(in srgb, var(--coral) 25%, transparent),transparent)', animation: 'scanH 6s linear infinite', pointerEvents: 'none' }} />
         <div className="home-hero__kicker" style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '4px', color: accent, marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '12px', animation: 'fadeUp .6s ease .2s both' }}>
-          <div style={{ width: '28px', height: '1px', background: accent, flexShrink: 0 }} />{isMini ? MINI_HERO_KICKER : t('hero_kicker')}
+          <div style={{ width: '28px', height: '1px', background: accent, flexShrink: 0 }} />{isMini ? t('mini_hero_kicker') : t('hero_kicker')}
         </div>
         <h1 className="home-hero__title" style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(48px,7vw,96px)', fontWeight: 700, lineHeight: .92, color: titleInk, marginBottom: '20px', letterSpacing: '-1.5px' }}>
           {HERO_TITLE_KEYS.map((line, i) => (
@@ -150,10 +148,10 @@ function Hero() {
           ))}
         </h1>
         <p style={{ maxWidth: '430px', fontSize: '17px', lineHeight: 1.7, color: 'var(--txt2)', marginBottom: '12px', animation: 'fadeUp .6s ease .75s both' }}>
-          {isMini ? MINI_HERO_SUB : t('hero_sub')}
+          {isMini ? t('mini_hero_sub') : t('hero_sub')}
         </p>
         <p className="home-hero__strap" style={{ fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '3px', color: 'color-mix(in srgb, var(--gold) 86%, transparent)', marginBottom: '42px', animation: 'fadeUp .6s ease .85s both' }}>
-          {isMini ? MINI_HERO_STRAPLINE : t('hero_belong_line')}
+          {isMini ? t('mini_hero_strap') : t('hero_belong_line')}
         </p>
         <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', animation: 'fadeUp .6s ease .95s both' }}>
           {!isMini && <Link href="/shop" className="cbtn">{t('hero_cta_primary')}</Link>}
@@ -982,14 +980,15 @@ function PillarsSection() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function HomePage() {
   useScrollReveal();
+  const { t } = useCoralyExperience();
 
   if (isMini) {
     return (
       <>
         <Hero />
-        <div className="values-band" role="presentation" aria-hidden="true">
-          {['BELONG', 'CONNECT', 'THRIVE', 'COMMUNITY', 'CREATIVITY'].map((word) => (
-            <span key={word}>{word}</span>
+        <div className="values-band" data-no-translate="true">
+          {(['value_belong', 'value_connect', 'value_thrive', 'value_community', 'value_creativity'] as const).map((key) => (
+            <span key={key}>{t(key)}</span>
           ))}
         </div>
         <MiniAbout />
