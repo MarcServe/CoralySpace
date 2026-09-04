@@ -85,7 +85,7 @@ export default function WaitlistForm() {
   }
 
   return (
-    <section id="waitlist-section" data-section style={{
+    <section id="waitlist-section" data-section data-no-translate="true" style={{
       background: black, padding: '100px 48px',
       borderTop: '1px solid rgba(239,122,108,.1)', position: 'relative', overflowX: 'clip',
     }}>
@@ -107,22 +107,22 @@ export default function WaitlistForm() {
         }}>
           {t('waitlist_title_a')}<br /><em style={{ color: coral }}>{t('waitlist_title_b')}</em>
         </h2>
-        <p data-reveal style={{ color: 'var(--txt2)', fontSize: '14px', lineHeight: 1.8, marginBottom: '28px' }}>
+        <p data-reveal style={{ color: 'var(--txt2)', fontSize: '17px', lineHeight: 1.8, marginBottom: '28px' }}>
           {t('waitlist_sub')}
         </p>
 
         {/* What you get */}
-        <div data-reveal style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '36px', textAlign: 'left' }}>
+        <div data-reveal style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '36px', textAlign: 'left' }}>
           {[
-            { icon: '🌿', text: 'Early access to the community before public launch' },
-            { icon: '🎟', text: 'First invites to events, workshops & live gatherings' },
-            { icon: '📬', text: 'A welcome gift — free resources from the Knowledge Hub' },
-            { icon: '🛍', text: 'Shop drops before they go public' },
-            { icon: '💌', text: 'Warm monthly letters from Caroline — zero spam, always personal' },
+            { icon: '🌿', key: 'waitlist_perk_1' as const },
+            { icon: '🎟', key: 'waitlist_perk_2' as const },
+            { icon: '📬', key: 'waitlist_perk_3' as const },
+            { icon: '🛍', key: 'waitlist_perk_4' as const },
+            { icon: '💌', key: 'waitlist_perk_5' as const },
           ].map(item => (
-            <div key={item.icon} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-              <span style={{ fontSize: '14px', lineHeight: 1, marginTop: '2px' }}>{item.icon}</span>
-              <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'var(--txt2)', lineHeight: 1.6 }}>{item.text}</span>
+            <div key={item.key} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <span aria-hidden="true" style={{ fontSize: '16px', lineHeight: 1, marginTop: '2px' }}>{item.icon}</span>
+              <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '16px', color: 'var(--txt2)', lineHeight: 1.65 }}>{t(item.key)}</span>
             </div>
           ))}
         </div>
@@ -218,7 +218,7 @@ export default function WaitlistForm() {
                 onChange={e => setConsent(e.target.checked)}
                 style={{ marginTop: '3px', width: '15px', height: '15px', accentColor: coral, cursor: 'pointer', flexShrink: 0 }}
               />
-              <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', lineHeight: 1.6, color: 'var(--txt2)' }}>
+              <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '15px', lineHeight: 1.65, color: 'var(--txt2)' }}>
                 {t('waitlist_consent')}
               </span>
             </label>

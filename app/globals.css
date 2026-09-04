@@ -7,7 +7,7 @@
   --black: #0D0D0D;
   --cream: #F5EFE8;
   --sand: #EDE0D4;
-  --muted: #8B7E7B;
+  --muted: #C4B6B0;
   --grey-holistic: #E6E6E2; /* cool Scandi/luxe gray for holistic practitioner sections */
   --off-white: #FAF7F4;
   --char: #1C1C1C;
@@ -19,8 +19,8 @@
   --theme-border: rgba(255,255,255,.07);
   --border-a: rgba(239,122,108,.3);
   --txt: #F5EFE8;
-  --txt2: #9A8E8A;
-  --txt3: #5A5250;
+  --txt2: #D2C4BE;
+  --txt3: #B5A8A3;
   --nav: rgba(13,13,13,.88);
   --shadow: 0 20px 60px rgba(0,0,0,.5);
   --theme-transition: .45s cubic-bezier(.4,0,.2,1);
@@ -35,10 +35,11 @@
   --theme-border: rgba(92,68,58,.16);
   --border-a: rgba(217,98,78,.42);
   --txt: #211611;
-  --txt2: #5E4B43;
-  --txt3: #8A766C;
+  --txt2: #4A372F;
+  --txt3: #6B564E;
   --nav: rgba(241,232,221,.94);
   --shadow: 0 18px 58px rgba(92,60,42,.18);
+  --muted: #5C463E;
 }
 
 @theme inline {
@@ -193,9 +194,16 @@ svg {
   aspect-ratio: 1;
   object-fit: contain;
   opacity: 0.98;
-  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.2));
+  filter:
+    drop-shadow(0 0 1px rgba(245, 239, 232, .55))
+    drop-shadow(0 12px 32px rgba(0, 0, 0, 0.2));
   animation: fadeUp 0.6s ease 0.15s both;
   background: transparent;
+}
+
+:root[data-theme="light"] .home-hero__logo--desktop,
+:root[data-theme="light"] .home-hero__logo--mobile {
+  filter: drop-shadow(0 10px 24px rgba(33, 22, 17, .16));
 }
 
 .home-hero__logo--mobile {
@@ -274,6 +282,23 @@ svg {
 .waitlist-form__contact {
   overflow-wrap: anywhere;
   word-break: break-word;
+}
+
+.values-band {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 28px;
+  padding: 16px 24px;
+  background: #EF7A6C;
+}
+
+.values-band span {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #fff;
+  white-space: nowrap;
 }
 
 /* Scrim sits above the logo, below the content. Darker on the left so the
@@ -363,6 +388,7 @@ svg {
 @media (prefers-reduced-motion: reduce) {
   .home-hero__note { animation: none; opacity: 0.4; }
   .home-hero__theme-note { animation: none; }
+  .site-ticker__track { animation: none !important; }
 }
 
 :root[data-theme="light"] .home-hero__scrim {
@@ -1611,7 +1637,9 @@ svg {
     object-fit: contain;
     margin: 0 auto 28px;
     opacity: 0.94;
-    filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.2));
+    filter:
+      drop-shadow(0 0 1px rgba(245, 239, 232, .55))
+      drop-shadow(0 8px 22px rgba(0, 0, 0, 0.2));
     animation: fadeUp 0.6s ease 0.1s both;
     flex-shrink: 0;
   }

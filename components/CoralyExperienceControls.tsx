@@ -94,6 +94,11 @@ const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     waitlist_button: 'CLAIM MY SPOT →',
     waitlist_success_title: 'Welcome to Coraly Space.',
     waitlist_success_body: 'You\'re part of the founding community. Caroline will be in touch personally before we open the doors — check your inbox (and junk, just in case).',
+    waitlist_perk_1: 'Early access to the community before public launch',
+    waitlist_perk_2: 'First invites to events, workshops and live gatherings',
+    waitlist_perk_3: 'A welcome gift — free resources from the Knowledge Hub',
+    waitlist_perk_4: 'Shop drops before they go public',
+    waitlist_perk_5: 'Warm monthly letters from Caroline — zero spam, always personal',
     about_kicker: 'ABOUT CORALY SPACE',
     about_title_a: 'A community for those who',
     about_title_b: 'create, move and shop consciously.',
@@ -172,6 +177,11 @@ const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     waitlist_button: 'RESERVAR O MEU LUGAR',
     waitlist_success_title: 'Voce entrou.',
     waitlist_success_body: 'Bem-vindo ao Coraly Space. Entraremos em contacto antes do lancamento.',
+    waitlist_perk_1: 'Acesso antecipado a comunidade antes do lancamento publico',
+    waitlist_perk_2: 'Primeiros convites para eventos, workshops e encontros ao vivo',
+    waitlist_perk_3: 'Um presente de boas-vindas — recursos do Centro de Conhecimento',
+    waitlist_perk_4: 'Lancamentos da loja antes de ficarem publicos',
+    waitlist_perk_5: 'Cartas mensais da Caroline — sem spam, sempre pessoais',
     about_kicker: 'SOBRE O CORALY SPACE',
     about_title_a: 'Uma comunidade para quem',
     about_title_b: 'cria, se move e compra com consciencia.',
@@ -250,6 +260,11 @@ const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     waitlist_button: 'RESERVER MA PLACE',
     waitlist_success_title: 'Vous etes inscrit.',
     waitlist_success_body: 'Bienvenue chez Coraly Space. Nous vous contacterons avant le lancement.',
+    waitlist_perk_1: 'Acces anticipe a la communaute avant le lancement public',
+    waitlist_perk_2: 'Premieres invitations aux evenements, ateliers et rencontres',
+    waitlist_perk_3: 'Un cadeau de bienvenue — ressources du Centre de Savoir',
+    waitlist_perk_4: 'Sorties boutique avant leur lancement public',
+    waitlist_perk_5: 'Lettres mensuelles de Caroline — zero spam, toujours personnelles',
     about_kicker: 'A PROPOS DE CORALY SPACE',
     about_title_a: 'Une communaute pour celles et ceux qui',
     about_title_b: 'creent, bougent et consomment avec conscience.',
@@ -328,6 +343,11 @@ const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     waitlist_button: 'PLATZ RESERVIEREN',
     waitlist_success_title: 'Du bist dabei.',
     waitlist_success_body: 'Willkommen bei Coraly Space. Wir melden uns vor dem Launch.',
+    waitlist_perk_1: 'Fruher Zugang zur Community vor dem offentlichen Start',
+    waitlist_perk_2: 'Erste Einladungen zu Events, Workshops und Treffen',
+    waitlist_perk_3: 'Ein Willkommensgeschenk — Ressourcen aus dem Wissenszentrum',
+    waitlist_perk_4: 'Shop-Drops bevor sie offentlich erscheinen',
+    waitlist_perk_5: 'Warme monatliche Briefe von Caroline — kein Spam, immer personlich',
     about_kicker: 'UBER CORALY SPACE',
     about_title_a: 'Eine Gemeinschaft fur alle, die',
     about_title_b: 'bewusst schaffen, sich bewegen und einkaufen.',
@@ -1232,6 +1252,12 @@ function translateString(value: string, lang: LanguageCode) {
   for (const phrase of phraseSources) {
     const replacement = phraseMap?.[phrase];
     if (!replacement || !translated.includes(phrase)) continue;
+    // Short single-word nav labels must not rewrite longer English sentences
+    // ("Shop drops" → "Loja drops").
+    if (!phrase.includes(' ') && phrase.length <= 12) {
+      if (trimmed === phrase) translated = replacement;
+      continue;
+    }
     translated = translated.split(phrase).join(replacement);
   }
   return translated;

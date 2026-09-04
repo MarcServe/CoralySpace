@@ -299,10 +299,10 @@ function MiniAbout() {
               {t('about_title_a')}{' '}
               <em style={{ color: coral, marginLeft: '0.12em' }}>{t('about_title_b')}</em>
             </h2>
-            <p data-reveal style={{ fontSize: '16px', lineHeight: 1.85, color: muted, marginBottom: '20px' }}>
+            <p data-reveal style={{ fontSize: '17px', lineHeight: 1.85, color: muted, marginBottom: '20px' }}>
               {t('about_body_1')}
             </p>
-            <p data-reveal style={{ fontSize: '14px', lineHeight: 1.85, color: muted, marginBottom: '32px' }}>
+            <p data-reveal style={{ fontSize: '17px', lineHeight: 1.85, color: muted, marginBottom: '32px' }}>
               {t('about_body_2')}
             </p>
             <div data-reveal style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -987,7 +987,11 @@ export default function HomePage() {
     return (
       <>
         <Hero />
-        <Ticker items={TICKER_ITEMS} />
+        <div className="values-band" role="presentation" aria-hidden="true">
+          {['BELONG', 'CONNECT', 'THRIVE', 'COMMUNITY', 'CREATIVITY'].map((word) => (
+            <span key={word}>{word}</span>
+          ))}
+        </div>
         <MiniAbout />
         <WaitlistForm />
       </>
