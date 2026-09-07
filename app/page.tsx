@@ -273,8 +273,8 @@ function AboutPreview() {
 }
 
 // ─── Mini Launch About ─────────────────────────────────────────────────────────
-// Brief brand introduction for the crowdfunder landing page. Body copy is
-// placeholder until Caroline completes the full copy audit.
+// Caroline's founder intro and values blurb from the WhatsApp copy for the
+// crowdfunder landing page. Portrait stays the face-forward founder shot.
 function MiniAbout() {
   const { t } = useCoralyExperience();
 
@@ -300,10 +300,13 @@ function MiniAbout() {
               <em style={{ color: coral, marginLeft: '0.12em' }}>{t('about_title_b')}</em>
             </h2>
             <p data-reveal style={{ fontSize: '17px', lineHeight: 1.85, color: muted, marginBottom: '20px' }}>
-              {t('about_body_1')}
+              {t('about_intro')}
+            </p>
+            <p data-reveal style={{ fontSize: '17px', lineHeight: 1.85, color: muted, marginBottom: '20px' }}>
+              {t('about_blurb')}
             </p>
             <p data-reveal style={{ fontSize: '17px', lineHeight: 1.85, color: muted, marginBottom: '32px' }}>
-              {t('about_body_2')}
+              {t('about_blurb_2')}
             </p>
             <div data-reveal style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               <Link href="#waitlist-section" className="cbtn">{t('about_cta')}</Link>
