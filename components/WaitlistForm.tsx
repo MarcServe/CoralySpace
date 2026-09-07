@@ -7,22 +7,30 @@ const coral = '#EF7A6C';
 const offW = 'var(--txt)';
 const black = 'var(--bg)';
 
-const INTEREST_KEYS = [
-  'waitlist_interest_shop',
-  'waitlist_interest_events',
-  'waitlist_interest_blog',
-  'waitlist_interest_community',
-  'waitlist_interest_courses',
+const ROLE_OPTIONS = [
+  { value: 'creator', key: 'waitlist_role_creator', en: 'Creator — artist, maker, innovator' },
+  { value: 'maker', key: 'waitlist_role_maker', en: 'Sustainable Maker' },
+  { value: 'consumer', key: 'waitlist_role_consumer', en: 'Conscious Consumer' },
+  { value: 'educator', key: 'waitlist_role_educator', en: 'Educator / Holistic Practitioner' },
+  { value: 'partner', key: 'waitlist_role_partner', en: 'Cultural Partner / Organisation' },
 ] as const;
 
-const HOW_HEARD_KEYS = [
-  'waitlist_how_heard_instagram',
-  'waitlist_how_heard_facebook',
-  'waitlist_how_heard_crowdfunder',
-  'waitlist_how_heard_friend',
-  'waitlist_how_heard_event',
-  'waitlist_how_heard_search',
-  'waitlist_how_heard_other',
+const INTEREST_OPTIONS = [
+  { value: 'shop', key: 'waitlist_interest_shop', en: 'Shop' },
+  { value: 'events', key: 'waitlist_interest_events', en: 'Events' },
+  { value: 'blog', key: 'waitlist_interest_blog', en: 'Blog' },
+  { value: 'community', key: 'waitlist_interest_community', en: 'Community' },
+  { value: 'courses', key: 'waitlist_interest_courses', en: 'Courses' },
+] as const;
+
+const HOW_HEARD_OPTIONS = [
+  { value: 'instagram', key: 'waitlist_how_heard_instagram', en: 'Instagram' },
+  { value: 'facebook', key: 'waitlist_how_heard_facebook', en: 'Facebook' },
+  { value: 'crowdfunder', key: 'waitlist_how_heard_crowdfunder', en: 'Crowdfunder page' },
+  { value: 'friend', key: 'waitlist_how_heard_friend', en: 'Friend or word of mouth' },
+  { value: 'event', key: 'waitlist_how_heard_event', en: 'Event or market stall' },
+  { value: 'search', key: 'waitlist_how_heard_search', en: 'Search engine' },
+  { value: 'other', key: 'waitlist_how_heard_other', en: 'Somewhere else' },
 ] as const;
 
 export default function WaitlistForm() {
@@ -40,9 +48,9 @@ export default function WaitlistForm() {
   const { theme, t } = useCoralyExperience();
   const isLight = theme === 'light';
 
-  const toggleInterest = (label: string) => {
+  const toggleInterest = (value: string) => {
     setInterests(current =>
-      current.includes(label) ? current.filter(i => i !== label) : [...current, label]
+      current.includes(value) ? current.filter(i => i !== value) : [...current, value]
     );
   };
 
@@ -66,10 +74,23 @@ export default function WaitlistForm() {
     }
     setLoading(true);
     try {
+      const roleLabel = ROLE_OPTIONS.find(option => option.value === role)?.en ?? role;
+      const howHeardLabel = HOW_HEARD_OPTIONS.find(option => option.value === howHeard)?.en ?? howHeard;
+      const interestLabels = interests.map(value =>
+        INTEREST_OPTIONS.find(option => option.value === value)?.en ?? value
+      );
       const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, role, location, interests, howHeard, consent }),
+        body: JSON.stringify({
+          name,
+          email,
+          role: roleLabel,
+          location,
+          interests: interestLabels,
+          howHeard: howHeardLabel,
+          consent,
+        }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -151,16 +172,15 @@ export default function WaitlistForm() {
               />
             </div>
             <select
+              aria-label={t('waitlist_role_empty')}
               value={role}
               onChange={e => setRole(e.target.value)}
               onFocus={() => setFoc('r')} onBlur={() => setFoc(null)}
-              style={{ ...inp('r'), color: 'var(--txt2)', cursor: 'pointer' }}>
+              style={{ ...inp('r'), color: role ? offW : 'var(--txt2)', cursor: 'pointer' }}>
               <option value="">{t('waitlist_role_empty')}</option>
-              <option>{t('waitlist_role_creator')}</option>
-              <option>{t('waitlist_role_maker')}</option>
-              <option>{t('waitlist_role_consumer')}</option>
-              <option>{t('waitlist_role_educator')}</option>
-              <option>{t('waitlist_role_partner')}</option>
+              {ROLE_OPTIONS.map(option => (
+                <option key={option.value} value={option.value}>{t(option.key)}</option>
+              ))}
             </select>
 
             <input
@@ -172,13 +192,14 @@ export default function WaitlistForm() {
             />
 
             <select
+              aria-label={t('waitlist_how_heard_empty')}
               value={howHeard}
               onChange={e => setHowHeard(e.target.value)}
               onFocus={() => setFoc('h')} onBlur={() => setFoc(null)}
-              style={{ ...inp('h'), color: 'var(--txt2)', cursor: 'pointer' }}>
+              style={{ ...inp('h'), color: howHeard ? offW : 'var(--txt2)', cursor: 'pointer' }}>
               <option value="">{t('waitlist_how_heard_empty')}</option>
-              {HOW_HEARD_KEYS.map(key => (
-                <option key={key}>{t(key)}</option>
+              {HOW_HEARD_OPTIONS.map(option => (
+                <option key={option.value} value={option.value}>{t(option.key)}</option>
               ))}
             </select>
 
@@ -187,14 +208,13 @@ export default function WaitlistForm() {
                 {t('waitlist_interests_label')}
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {INTEREST_KEYS.map(key => {
-                  const label = t(key);
-                  const on = interests.includes(label);
+                {INTEREST_OPTIONS.map(option => {
+                  const on = interests.includes(option.value);
                   return (
                     <button
-                      key={key}
+                      key={option.value}
                       type="button"
-                      onClick={() => toggleInterest(label)}
+                      onClick={() => toggleInterest(option.value)}
                       aria-pressed={on}
                       style={{
                         fontFamily: "'DM Mono',monospace", fontSize: '10px', letterSpacing: '1px',
@@ -204,7 +224,7 @@ export default function WaitlistForm() {
                         border: `1px solid ${on ? coral : 'rgba(239,122,108,.3)'}`,
                         transition: 'all .2s ease',
                       }}>
-                      {label}
+                      {t(option.key)}
                     </button>
                   );
                 })}
