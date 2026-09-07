@@ -76,7 +76,9 @@ const HERO_TITLE_KEYS: { key: 'hero_title_1' | 'hero_title_2' | 'hero_title_amp'
 // switching still works while the hero stays data-no-translate.
 
 function Hero() {
-  const { t } = useCoralyExperience();
+  const { t, theme } = useCoralyExperience();
+  const isLight = theme === 'light';
+  const logo = isLight ? IMAGES.LOGO_SPACE_LIGHT : IMAGES.LOGO_SPACE_DARK;
   const accent = 'var(--coral)';
   const titleInk = 'var(--txt)';
 
@@ -124,7 +126,7 @@ function Hero() {
       >
         <img
           className="home-hero__logo home-hero__logo--mobile"
-          src={IMAGES.HERO_LOGO}
+          src={logo}
           alt="Coraly Space"
         />
         <div style={{ position: 'absolute', left: 0, right: 0, top: '68px', height: '1px', background: 'linear-gradient(90deg,transparent,color-mix(in srgb, var(--coral) 25%, transparent),transparent)', animation: 'scanH 6s linear infinite', pointerEvents: 'none' }} />
@@ -164,7 +166,7 @@ function Hero() {
       <div className="home-hero__logo-panel" aria-hidden>
         <img
           className="home-hero__logo home-hero__logo--desktop"
-          src={IMAGES.HERO_LOGO}
+          src={logo}
           alt=""
         />
       </div>
