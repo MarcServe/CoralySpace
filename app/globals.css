@@ -188,22 +188,17 @@ svg {
 }
 
 .home-hero__logo--desktop {
-  width: min(280px, 28vw);
+  width: min(400px, 38vw);
   max-width: 100%;
   height: auto;
   aspect-ratio: 1;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
-  border-radius: 50%;
+  border-radius: 0;
   opacity: 1;
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.18));
+  filter: none;
   animation: fadeUp 0.6s ease 0.15s both;
   background: transparent;
-}
-
-:root[data-theme="light"] .home-hero__logo--desktop,
-:root[data-theme="light"] .home-hero__logo--mobile {
-  filter: drop-shadow(0 10px 24px rgba(33, 22, 17, .16));
 }
 
 .home-hero__logo--mobile {
@@ -301,17 +296,10 @@ svg {
   white-space: nowrap;
 }
 
-/* Scrim sits above the logo, below the content. Darker on the left so the
-   headline stays legible; lighter on the right so the mark shows through. */
+/* Scrim was for a full-bleed cut-out logo. Regular logo keeps its own
+   background, so this overlay stays off. */
 .home-hero__scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  display: block;
-  background:
-    linear-gradient(90deg, rgba(13,13,13,.95) 0%, rgba(13,13,13,.62) 42%, rgba(13,13,13,.18) 72%, rgba(13,13,13,.32) 100%),
-    linear-gradient(0deg, rgba(13,13,13,.82) 0%, rgba(13,13,13,.22) 28%, transparent 52%);
+  display: none;
 }
 
 /* ── Music & Dance theme overlay ── */
@@ -1631,30 +1619,21 @@ svg {
 
   .home-hero__logo--mobile {
     display: block;
-    width: min(148px, 38vw);
+    width: min(200px, 56vw);
     height: auto;
     aspect-ratio: 1;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
-    border-radius: 50%;
+    border-radius: 0;
     margin: 0 auto 24px;
     opacity: 1;
-    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.16));
+    filter: none;
     animation: fadeUp 0.6s ease 0.1s both;
     flex-shrink: 0;
   }
 
   .home-hero__scrim {
-    background:
-      linear-gradient(180deg, rgba(13,13,13,.42) 0%, rgba(13,13,13,.14) 36%, rgba(13,13,13,.92) 100%),
-      linear-gradient(90deg, rgba(13,13,13,.78), rgba(13,13,13,.12)) !important;
-    opacity: 0.35;
-  }
-
-  :root[data-theme="light"] .home-hero__scrim {
-    background:
-      linear-gradient(180deg, rgba(241,232,221,.4) 0%, rgba(241,232,221,.12) 36%, rgba(241,232,221,.92) 100%),
-      linear-gradient(90deg, rgba(241,232,221,.78), rgba(241,232,221,.12)) !important;
+    display: none;
   }
 
   .home-hero__glow {
@@ -1774,8 +1753,7 @@ svg {
   }
 
   .home-hero__scrim {
-    display: block !important;
-    opacity: 0.35;
+    display: none !important;
   }
 
   /* Lift the content above the scrim */
@@ -2285,7 +2263,7 @@ svg {
   }
 
   .home-hero__logo--mobile {
-    width: min(132px, 42vw);
+    width: min(168px, 52vw);
     margin-bottom: 20px;
   }
 

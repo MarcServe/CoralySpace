@@ -109,9 +109,6 @@ function Hero() {
         }}
       />
 
-      {/* Scrim — keeps the headline and stats readable over the logo. */}
-      <div className="home-hero__scrim" aria-hidden />
-
       <div
         className="home-hero__content"
         style={{
